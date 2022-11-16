@@ -12,14 +12,14 @@ import java.util.List;
 public class PartClass {
 
     @Id @GeneratedValue
-    @Column(name = "partclass_id")
+    @Column(name = "part_class_id")
     private Long id;
 
-    @OneToMany(mappedBy = "partclass")
-    private List<Register> register;
+    @OneToMany(mappedBy = "partClass")
+    private List<Register> registers;
 
-    @OneToMany(mappedBy = "partclass")
-    private List<Pocket> pocket;
+    @OneToMany(mappedBy = "partClass")
+    private List<Pocket> pockets;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
@@ -35,4 +35,10 @@ public class PartClass {
     private String dayTime;
 
     private String classroom;
+
+    //==연관관계 메서드==//
+    public void setCourse(Course course) {
+        this.course = course;
+        course.getPartClasses().add(this);
+    }
 }

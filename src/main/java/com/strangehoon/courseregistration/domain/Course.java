@@ -20,5 +20,11 @@ public class Course {
     private Major major;
 
     @OneToMany(mappedBy = "course")
-    private List<PartClass> partclass;
+    private List<PartClass> partClasses;
+
+    //==연관관계 메서드==//
+    public void setMajor(Major major) {
+        this.major = major;
+        major.getCourses().add(this);
+    }
 }

@@ -17,10 +17,10 @@ public class Student {
     private Long id;
 
     @OneToMany(mappedBy = "student")
-    private List<Register> register = new ArrayList<>();
+    private List<Register> registers = new ArrayList<>();
 
     @OneToMany(mappedBy = "student")
-    private List<Pocket> pocket = new ArrayList<>();
+    private List<Pocket> pockets = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "major_id")
@@ -33,5 +33,11 @@ public class Student {
     private String phoneNumber;
 
     private double grade;
+
+    //==연관관계 메서드==//
+    public void setMajor(Major major) {
+        this.major = major;
+        major.getStudents().add(this);
+    }
 
 }

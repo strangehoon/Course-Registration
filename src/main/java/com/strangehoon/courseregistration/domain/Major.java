@@ -16,10 +16,10 @@ public class Major {
     private Long id;
 
     @OneToMany(mappedBy = "major")
-    private List<Course> course;
+    private List<Course> courses;
 
     @OneToMany(mappedBy = "major")
-    private List<Student> student;
+    private List<Student> students;
 
     private String name;
 

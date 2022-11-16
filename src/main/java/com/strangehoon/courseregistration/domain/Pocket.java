@@ -19,6 +19,16 @@ public class Pocket {
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "partclass_id")
-    private PartClass partclass;
+    @JoinColumn(name = "part_class_id")
+    private PartClass partClass;
+
+    //==연관관계 메서드==//
+    public void setStudent(Student student) {
+        this.student = student;
+        student.getPockets().add(this);
+    }
+    public void setPartClass(PartClass partClass) {
+        this.partClass = partClass;
+        partClass.getPockets().add(this);
+    }
 }
