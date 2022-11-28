@@ -35,7 +35,10 @@ public class Student {
     private double grade;
 
     //==연관관계 메서드==//
-    public void setMajor(Major major) {
+    public void putMajor(Major major) {
+        if(this.major != null) {
+            this.major.getStudents().remove(this);
+        }
         this.major = major;
         major.getStudents().add(this);
     }

@@ -23,11 +23,17 @@ public class Pocket {
     private PartClass partClass;
 
     //==연관관계 메서드==//
-    public void setStudent(Student student) {
+    public void putStudent(Student student) {
+        if (this.student != null) {
+            this.student.getPockets().remove(this);
+        }
         this.student = student;
         student.getPockets().add(this);
     }
-    public void setPartClass(PartClass partClass) {
+    public void putPartClass(PartClass partClass) {
+        if (this.partClass != null) {
+            this.partClass.getPockets().remove(this);
+        }
         this.partClass = partClass;
         partClass.getPockets().add(this);
     }

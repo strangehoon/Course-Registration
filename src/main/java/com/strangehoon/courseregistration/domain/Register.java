@@ -30,11 +30,17 @@ public class Register {
     private RetakeStatus retakeStatus;
 
     //==연관관계 메서드==//
-    public void setStudent(Student student) {
+    public void putStudent(Student student) {
+        if(this.student != null) {
+            this.student.getRegisters().remove(this);
+        }
         this.student = student;
         student.getRegisters().add(this);
     }
-    public void setPartClass(PartClass partClass) {
+    public void putPartClass(PartClass partClass) {
+        if(this.partClass != null) {
+            this.partClass.getRegisters().remove(this);
+        }
         this.partClass = partClass;
         partClass.getRegisters().add(this);
     }
