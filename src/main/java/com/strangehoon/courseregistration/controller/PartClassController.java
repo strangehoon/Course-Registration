@@ -6,6 +6,9 @@ import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.service.PartClassService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +44,10 @@ public class PartClassController {
 
     //분반 조회
     @GetMapping(value = "/partClasses")
-    public String List(Model model) {
-        List<PartClassDto> partClassDtoAll = partClassService.findPartClasses();
-        List<PartClassForm> partClassForm = new ArrayList<>();
-        for(PartClassDto partClassDto : partClassDtoAll) {
-            partClassForm.add(new PartClassForm(partClassDto));
-        }
+    public String List(@PageableDefault Pageable pageable, Model model) {
+        Page<PartClassDto> partClassDtoAll = partClassService.findPartClasses(pageable);
 
-        model.addAttribute("partClassForm", partClassForm);
+        model.addAttribute("partClassForm", partClassDtoAll);
         return "partClass/partClassList";
     }
 
@@ -66,7 +65,7 @@ public class PartClassController {
 
     //분반 수정
     @PostMapping(value = "/partClasses/{partClassId}/edit")
-    public String updateItem(@ModelAttribute("form") PartClassForm partClassForm, Model model) {
+    public String updatePartClass(@ModelAttribute("form") PartClassForm partClassForm, Model model) {
         PartClassDto partClassDtoWithId = new PartClassDto(partClassForm, partClassForm.getId());
 
         partClassService.updatePartClass(partClassDtoWithId);
@@ -75,6 +74,15 @@ public class PartClassController {
         return "message";
     }
 
+    //분반 삭제
+    @GetMapping(value = "/partClasses/{partClassId}/delete")
+    public String deletePartClass(@PathVariable("partClassId") Long partClassId, Model model) {
+        partClassService.deletePartClass(partClassId);
+
+        model.addAttribute("message", "분반 정보를 삭제했습니다.");
+        model.addAttribute("searchUrl", "/partClasses");
+        return "message";
+    }
 
 
 
@@ -85,6 +93,9 @@ public class PartClassController {
         partClassService.createPartClass(new PartClassDto("기초데이터베이스", 4, "월3수3목3", "T501", "컴퓨터공학부"));
         partClassService.createPartClass(new PartClassDto("반도체공학2", 3, "월7목7금7", "P302", "전자전기공학부"));
         partClassService.createPartClass(new PartClassDto("신호와시스템", 3, "화2수2금2", "P201", "전자전기공학부"));
+        for (int i = 0; i < 60; i++) {
+            partClassService.createPartClass(new PartClassDto("신호와시스템", 3, "화2수2금2", "P201", "전자전기공학부"));
+        }
     }
 
 }

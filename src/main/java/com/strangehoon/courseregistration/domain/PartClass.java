@@ -14,8 +14,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PartClass {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "part_class_id")
     private Long id;
 
@@ -37,6 +36,7 @@ public class PartClass {
 
     private String classroom;
 
+
     //==연관관계 메서드==//
     public void putMajor(Major major) {
         if (this.major != null) {
@@ -54,6 +54,7 @@ public class PartClass {
                 .dayTime(dayTime)
                 .classroom(classroom)
                 .build();
+        
         partClass.putMajor(major);
         return partClass;
     }
@@ -72,6 +73,9 @@ public class PartClass {
         this.dayTime = dayTime;
         this.classroom = classroom;
         this.major.updateMajorName(majorName);
+    }
 
+    public void updateId() {
+        this.id -=1;
     }
 }

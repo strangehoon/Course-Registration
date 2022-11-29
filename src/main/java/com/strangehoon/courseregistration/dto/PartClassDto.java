@@ -4,7 +4,7 @@ import com.strangehoon.courseregistration.controller.PartClassForm;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+@Getter @Setter
 public class PartClassDto {
     private Long id;
     private String name;
@@ -47,8 +47,5 @@ public class PartClassDto {
         this.classroom = classroom;
         this.majorName = majorName;
     }
-
-
-
 
 }
