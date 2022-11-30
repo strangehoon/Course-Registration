@@ -13,9 +13,27 @@
 <body>
     <h1>강좌 등록</h1>
     <form th:action="@{/partClasses/new}" th:object="${partClassForm}" method="post">
+
+<!--            <label for="member">주문회원</label>-->
+<!--            <select name="memberId" id="member" class="form-control">-->
+<!--                <option value="">회원선택</option>-->
+<!--                <option th:each="member : ${members}"-->
+<!--                        th:value="${member.id}"-->
+<!--                        th:text="${member.name}" />-->
+<!--            </select>-->
+
+
         <div class="mb-3">
             <label th:for="exampleFormControlInput1" class="form-label">주관학과</label>
-            <input type="text" th:field="*{majorName}" class="form-control" id="exampleFormControlInput1" >
+            <select name="majorId" id="major" class = "form-control">
+                <option value="">학과선택</option>
+                <option th:each="major : ${majors}"
+                        th:value="${major.id}"
+                        th:text="${major.name}" />
+            </select>
+
+
+<!--            <input type="text" th:field="*{majorName}" class="form-control" id="exampleFormControlInput1" >-->
         </div>
         <div class="mb-3">
             <label th:for="exampleFormControlInput2" class="form-label">대상학년</label>
