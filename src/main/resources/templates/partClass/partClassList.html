@@ -8,7 +8,7 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-  <title>강의 등록</title>
+  <title>강의 현황</title>
 </head>
 <body>
 <h1>강의 현황</h1>
@@ -16,21 +16,33 @@
   <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">강좌이름</th>
-    <th scope="col">전공</th>
+    <th scope="col">주관학과</th>
+    <th scope="col">대상학년</th>
+    <th scope="col">학수번호</th>
+    <th scope="col">과목명</th>
     <th scope="col">학점</th>
+    <th scope="col">정원</th>
+    <th scope="col">잔여인원</th>
+    <th scope="col">교수명</th>
     <th scope="col">수업시간</th>
     <th scope="col">강의실</th>
   </tr>
   </thead>
   <tbody>
   <tr>
-  <tr th:each="partClassForm : ${partClassForm}">
-<!--  <td><input type="hidden" th:value="*{id}" /></td>-->
-    <td th:text="${partClassForm.id}"></td>
-    <td th:text="${partClassForm.name}"></td>
+  <th:block th:object="${pageNumber}"></th:block>
+  <tr th:each="partClassForm, iterState : ${partClassForm}">
+  <td><input type="hidden" th:value="*{id}" /></td>
+<!--    <td th:text="${partClassForm.id}"></td>-->
+    <td th:text="${iterState.count + (pageNumber)*10}"></td>
     <td th:text="${partClassForm.majorName}"></td>
+    <td th:text="${partClassForm.grade}"></td>
+    <td th:text="${partClassForm.classNum}"></td>
+    <td th:text="${partClassForm.name}"></td>
     <td th:text="${partClassForm.credit}"></td>
+    <td th:text="${partClassForm.capacity}"></td>
+    <td th:text="${partClassForm.remainNum}"></td>
+    <td th:text="${partClassForm.professorName}"></td>
     <td th:text="${partClassForm.dayTime}"></td>
     <td th:text="${partClassForm.classroom}"></td>
     <td>

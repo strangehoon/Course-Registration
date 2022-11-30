@@ -16,24 +16,44 @@
 
     <input type="hidden" th:field="*{id}" />
     <div class="mb-3">
-        <label th:for="exampleFormControlInput1" class="form-label">강좌이름</label>
-        <input type="text" th:field="*{name}" class="form-control" id="exampleFormControlInput1" >
+        <label th:for="exampleFormControlInput1" class="form-label">주관학과</label>
+        <input type="text" th:field="*{majorName}" class="form-control" id="exampleFormControlInput1" >
     </div>
     <div class="mb-3">
-        <label th:for="exampleFormControlInput5" class="form-label">전공</label>
-        <input type="text" th:field="*{majorName}" class="form-control" id="exampleFormControlInput5" >
+        <label th:for="exampleFormControlInput2" class="form-label">대상학년</label>
+        <input type="text" th:field="*{grade}" class="form-control" id="exampleFormControlInput2" >
     </div>
     <div class="mb-3">
-        <label th:for="exampleFormControlInput2" class="form-label">학점</label>
-        <input type="text" th:field="*{credit}" class="form-control" id="exampleFormControlInput2" >
+        <label th:for="exampleFormControlInput3" class="form-label">학수번호</label>
+        <input type="text" th:field="*{classNum}" class="form-control" id="exampleFormControlInput3" >
     </div>
     <div class="mb-3">
-        <label th:for="exampleFormControlInput3" class="form-label">수업시간</label>
-        <input type="text" th:field="*{dayTime}" class="form-control" id="exampleFormControlInput3" placeholder="ex) 월1화1화2">
+        <label th:for="exampleFormControlInput4" class="form-label">과목명</label>
+        <input type="text" th:field="*{name}" class="form-control" id="exampleFormControlInput4" >
     </div>
     <div class="mb-3">
-        <label th:for="exampleFormControlInput4" class="form-label">강의실</label>
-        <input type="text" th:field="*{classroom}" class="form-control" id="exampleFormControlInput4" >
+        <label th:for="exampleFormControlInput5" class="form-label">학점</label>
+        <input type="text" th:field="*{credit}" class="form-control" id="exampleFormControlInput5" >
+    </div>
+    <div class="mb-3">
+        <label th:for="exampleFormControlInput6" class="form-label">정원</label>
+        <input type="text" th:field="*{capacity}" class="form-control" id="exampleFormControlInput6" >
+    </div>
+    <div class="mb-3">
+        <label th:for="exampleFormControlInput7" class="form-label">잔여인원</label>
+        <input type="text" th:field="*{remainNum}" class="form-control" id="exampleFormControlInput7" >
+    </div>
+    <div class="mb-3">
+        <label th:for="exampleFormControlInput8" class="form-label">교수명</label>
+        <input type="text" th:field="*{professorName}" class="form-control" id="exampleFormControlInput8" >
+    </div>
+    <div class="mb-3">
+        <label th:for="exampleFormControlInput9" class="form-label">수업시간</label>
+        <input type="text" th:field="*{dayTime}" class="form-control" id="exampleFormControlInput9" placeholder="ex) 월1화1화2">
+    </div>
+    <div class="mb-3">
+        <label th:for="exampleFormControlInput10" class="form-label">강의실</label>
+        <input type="text" th:field="*{classroom}" class="form-control" id="exampleFormControlInput10" >
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

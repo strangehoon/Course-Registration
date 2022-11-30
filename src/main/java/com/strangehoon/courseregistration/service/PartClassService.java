@@ -37,8 +37,8 @@ public class PartClassService {
         Major major = Major.createMajor(partClassDto.getMajorName());
         Major savedMajor = majorRepository.save(major);
 
-        PartClass partClass = PartClass.createPartClass(savedMajor, partClassDto.getName(), partClassDto.getCredit(),
-                                                        partClassDto.getDayTime(), partClassDto.getClassroom());
+        PartClass partClass = PartClass.createPartClass(savedMajor, partClassDto.getClassNum(), partClassDto.getName(), partClassDto.getGrade(), partClassDto.getCredit(), partClassDto.getCapacity(),
+                                                        partClassDto.getRemainNum(), partClassDto.getProfessorName(), partClassDto.getDayTime(), partClassDto.getClassroom());
         PartClass savedPartClass = partClassRepository.save(partClass);
 
         return savedPartClass.getId();
@@ -48,7 +48,8 @@ public class PartClassService {
     @Transactional
     public void updatePartClass(PartClassDto partClassDto) {
         PartClass partClass = partClassRepository.findById(partClassDto.getId()).get();
-        partClass.updatePartClass(partClassDto.getMajorName() ,partClassDto.getName(), partClassDto.getCredit(), partClassDto.getDayTime(), partClassDto.getClassroom());
+        partClass.updatePartClass(partClassDto.getMajorName(), partClassDto.getClassNum(), partClassDto.getName(), partClassDto.getGrade(), partClassDto.getCredit(), partClassDto.getCapacity(),
+                partClassDto.getRemainNum(), partClassDto.getProfessorName(), partClassDto.getDayTime(), partClassDto.getClassroom());
 
     }
     //분반 삭제
@@ -62,17 +63,19 @@ public class PartClassService {
 //
 //            if (partClass.getId() > partClassId) {
 //                partClass.updateId();
-//                System.out.println(partClass.getId());
 //            }
 //        }
     }
 
     // 분반 전체 조회
     public Page<PartClassDto> findPartClasses(Pageable pageable) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.ASC,"id")); // <- Sort 추가
+        int initpage = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); //스프링 데이터 jpa에서는 페이지가 0부터 시작 따라서 이행을 넣음
+        pageable = PageRequest.of(initpage, 10, Sort.by(Sort.Direction.ASC,"id")); // <- Sort 추가
 
-        return partClassRepository.findPartClassAll(pageable);
+        Page<PartClassDto> page = partClassRepository.findPartClassAll(pageable);
+        log.info("page.getTotalElements() = " + page.getTotalElements());
+        log.info("page.getNumber() = " + page.getNumber());
+        return page;
     }
 
     // 특정 분반 조회

@@ -12,10 +12,10 @@ import java.util.List;
 
 public interface PartClassRepository extends JpaRepository<PartClass, Long> {
 
-    @Query("select new com.strangehoon.courseregistration.dto.PartClassDto(p.id, p.name, p.credit, p.dayTime, p.classroom, m.name) " + "from PartClass p join p.major m")
+    @Query("select new com.strangehoon.courseregistration.dto.PartClassDto(p.id, p.classNum, p.name, p.grade, p.credit, p.capacity, p.remainNum, p.professorName, p.dayTime, p.classroom, m.name) " + "from PartClass p join p.major m")
     Page<PartClassDto> findPartClassAll(Pageable pageable);
 
-    @Query("select new com.strangehoon.courseregistration.dto.PartClassDto(p.id, p.name, p.credit, p.dayTime, p.classroom, m.name) " + "from PartClass p join p.major m " + "where p.id = :partClassId")
+    @Query("select new com.strangehoon.courseregistration.dto.PartClassDto(p.id, p.classNum, p.name, p.grade, p.credit, p.capacity, p.remainNum, p.professorName, p.dayTime, p.classroom, m.name) " + "from PartClass p join p.major m " + "where p.id = :partClassId")
     PartClassDto findPartClassOne(@Param("partClassId") Long partClassId);
 
 }
