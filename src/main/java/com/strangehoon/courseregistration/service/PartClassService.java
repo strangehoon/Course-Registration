@@ -34,10 +34,9 @@ public class PartClassService {
     @Transactional
     public Long createPartClass(PartClassDto partClassDto) {
 
-        Major major = Major.createMajor(partClassDto.getMajorName());
-        Major savedMajor = majorRepository.save(major);
+        Major foundMajor = majorRepository.findByName(partClassDto.getMajorName());
 
-        PartClass partClass = PartClass.createPartClass(savedMajor, partClassDto.getClassNum(), partClassDto.getName(), partClassDto.getGrade(), partClassDto.getCredit(), partClassDto.getCapacity(),
+        PartClass partClass = PartClass.createPartClass(foundMajor, partClassDto.getClassNum(), partClassDto.getName(), partClassDto.getGrade(), partClassDto.getCredit(), partClassDto.getCapacity(),
                                                         partClassDto.getRemainNum(), partClassDto.getProfessorName(), partClassDto.getDayTime(), partClassDto.getClassroom());
         PartClass savedPartClass = partClassRepository.save(partClass);
 
@@ -53,6 +52,7 @@ public class PartClassService {
 
     }
     //분반 삭제
+
     @Transactional
     public void deletePartClass(Long partClassId) {
         PartClass foundPartClass = partClassRepository.findById(partClassId).get();
