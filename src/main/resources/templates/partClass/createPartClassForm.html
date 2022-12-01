@@ -12,24 +12,17 @@
 </head>
 <body>
     <h1>강좌 등록</h1>
-    <form th:action="@{/partClasses/new}" th:object="${partClassForm}" method="post">
 
-<!--            <label for="member">주문회원</label>-->
-<!--            <select name="memberId" id="member" class="form-control">-->
-<!--                <option value="">회원선택</option>-->
-<!--                <option th:each="member : ${members}"-->
-<!--                        th:value="${member.id}"-->
-<!--                        th:text="${member.name}" />-->
-<!--            </select>-->
+    <form th:action="@{/partClasses/new}" th:object="${partClassForm}" method="post">
 
 
         <div class="mb-3">
             <label th:for="exampleFormControlInput1" class="form-label">주관학과</label>
-            <select name="majorId" id="major" class = "form-control">
+            <select name="majorName" id="major" class = "form-control">
                 <option value="">학과선택</option>
                 <option th:each="major : ${majors}"
-                        th:value="${major.id}"
-                        th:text="${major.name}" />
+                        th:value="${major.name}"
+                        th:text="${major.name}"/>
             </select>
 
 
