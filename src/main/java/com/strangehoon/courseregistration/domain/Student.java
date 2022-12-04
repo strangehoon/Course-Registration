@@ -1,6 +1,7 @@
 package com.strangehoon.courseregistration.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,10 @@ public class Student {
     @Id @GeneratedValue
     @Column(name = "student_id")
     private Long id;
+
+    private String loginId;
+
+    private String password;
 
     @OneToMany(mappedBy = "student")
     private List<Register> registers = new ArrayList<>();
@@ -43,4 +48,27 @@ public class Student {
         major.getStudents().add(this);
     }
 
+    //==생성 메서드==//
+    public static Student createStudent(Major major, String loginId, String password, int schoolYear, String name, String phoneNumber, double grade) {
+        Student student = Student.builder()
+                .loginId(loginId)
+                .password(password)
+                .schoolYear(schoolYear)
+                .name(name)
+                .phoneNumber(phoneNumber)
+                .grade(grade)
+                .build();
+        student.putMajor(major);
+        return student;
+    }
+
+    @Builder
+    private Student(String loginId, String password, int schoolYear, String name, String phoneNumber, double grade) {
+        this.loginId = loginId;
+        this.password = password;
+        this.schoolYear = schoolYear;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.grade = grade;
+    }
 }

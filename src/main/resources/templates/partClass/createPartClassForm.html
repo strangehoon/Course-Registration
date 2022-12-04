@@ -13,7 +13,7 @@
 <body>
     <h1>강좌 등록</h1>
 
-    <form th:action="@{/partClasses/new}" th:object="${partClassForm}" method="post">
+    <form th:action="@{/managerPartClasses/new}" th:object="${partClassForm}" method="post">
 
 
         <div class="mb-3">
@@ -65,7 +65,9 @@
             <input type="text" th:field="*{classroom}" class="form-control" id="exampleFormControlInput10" >
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a href="#" th:href="@{/managerHome}"
+           class="btn btn-primary" role="button">뒤로</a>
     </form>
 
 <!-- Optional JavaScript; choose one of the two! -->
