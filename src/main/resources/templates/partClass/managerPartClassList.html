@@ -10,95 +10,125 @@
 
   <title>강의 현황</title>
 </head>
+
 <body>
-<h1>강의 현황</h1>
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">주관학과</th>
-    <th scope="col">대상학년</th>
-    <th scope="col">학수번호</th>
-    <th scope="col">과목명</th>
-    <th scope="col">학점</th>
-    <th scope="col">정원</th>
-    <th scope="col">잔여인원</th>
-    <th scope="col">교수명</th>
-    <th scope="col">수업시간</th>
-    <th scope="col">강의실</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <th:block th:object="${pageNumber}"></th:block>
-  <tr th:each="partClassForm, iterState : ${partClassForm}">
-<!--    <td><input type="hidden" th:value="*{id}" /></td>-->
-<!--    <td th:text="${partClassForm.id}"></td>-->
-    <td th:text="${iterState.count + (pageNumber)*10}"></td>
-    <td th:text="${partClassForm.majorName}"></td>
-    <td th:text="${partClassForm.grade}"></td>
-    <td th:text="${partClassForm.classNum}"></td>
-    <td th:text="${partClassForm.name}"></td>
-    <td th:text="${partClassForm.credit}"></td>
-    <td th:text="${partClassForm.capacity}"></td>
-    <td th:text="${partClassForm.remainNum}"></td>
-    <td th:text="${partClassForm.professorName}"></td>
-    <td th:text="${partClassForm.dayTime}"></td>
-    <td th:text="${partClassForm.classroom}"></td>
-    <td>
-      <a href="#" th:href="@{/managerPartClasses/{id}/edit (id=${partClassForm.id})}"
-         class="btn btn-primary" role="button">수정</a>
-      <a href="#" th:href="@{/managerPartClasses/{id}/delete (id=${partClassForm.id})}"
-         class="btn btn-primary" role="button">삭제</a>
-    </td>
+<div class = "container">
+    <div>
+    <h1>강의 현황</h1>
+        <div>
+            <form th:object="${partClassSearch}" class="form-inline">
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{majorName}" class="form-control">
+                        <option value="">학과</option>
+                        <option th:each="major : ${majorForm}"
+                                th:value="${major.name}"
+                                th:text="${major.name}"/>
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{schoolYear}" class="form-control" >
+                        <option value="">학년</option>
+                        <option th:value=1 th:text = 1></option>
+                        <option th:value=2 th:text = 2></option>
+                        <option th:value=3 th:text = 3></option>
+                        <option th:value=4 th:text = 4></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input type="text" th:field="*{partClassName}" class="form-control" id="exampleFormControlInput4" placeholder="ex) 과목명" >
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+            </form>
+        </div>
 
-  </tr>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">주관학과</th>
+            <th scope="col">대상학년</th>
+            <th scope="col">학수번호</th>
+            <th scope="col">과목명</th>
+            <th scope="col">학점</th>
+            <th scope="col">정원</th>
+            <th scope="col">잔여인원</th>
+            <th scope="col">교수명</th>
+            <th scope="col">수업시간</th>
+            <th scope="col">강의실</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th:block th:object="${pageNumber}"></th:block>
+          <tr th:each="partClassForm, iterState : ${partClassForm}">
+        <!--    <td><input type="hidden" th:value="*{id}" /></td>-->
+        <!--    <td th:text="${partClassForm.id}"></td>-->
+            <td th:text="${iterState.count + (pageNumber)*10}"></td>
+            <td th:text="${partClassForm.majorName}"></td>
+            <td th:text="${partClassForm.grade}"></td>
+            <td th:text="${partClassForm.classNum}"></td>
+            <td th:text="${partClassForm.name}"></td>
+            <td th:text="${partClassForm.credit}"></td>
+            <td th:text="${partClassForm.capacity}"></td>
+            <td th:text="${partClassForm.remainNum}"></td>
+            <td th:text="${partClassForm.professorName}"></td>
+            <td th:text="${partClassForm.dayTime}"></td>
+            <td th:text="${partClassForm.classroom}"></td>
+            <td>
+              <a href="#" th:href="@{/managerPartClasses/{id}/edit (id=${partClassForm.id})}"
+                 class="btn btn-primary" role="button">수정</a>
+              <a href="#" th:href="@{/managerPartClasses/{id}/delete (id=${partClassForm.id})}"
+                 class="btn btn-primary" role="button">삭제</a>
+            </td>
 
-  </tbody>
-</table>
+          </tr>
 
-<nav style="text-align: center;" aria-label="Page navigation example">
-    <ul class="pagination"
-        th:with="start=${T(java.lang.Math).floor(partClassForm.number/10)*10 + 1},
-                    last=(${start + 9 < partClassForm.totalPages ? start + 9 : partClassForm.totalPages})">
-        <li class="page-item">
-            <a th:href="@{/managerPartClasses(page=1)}" class="page-link" href="#" aria-label="First">
-                <span aria-hidden="true">First</span>
-            </a>
-        </li>
-        <li class="page-item" th:class="${partClassForm.first} ? 'disabled'">
-            <a th:href="${partClassForm.first} ? '#' :@{/managerPartClasses(page=${partClassForm.number})}" class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&lt;</span>
-            </a>
-        </li>
-<!--        <li class="page-item active" aria-current="page">-->
-<!--            <a class="page-link" href="#">2</a>-->
-<!--        </li>-->
-        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
-            <a class="page-link"  th:text="${page}" th:href="@{/managerPartClasses(page=${page})}"></a>
-        </li>
-        <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/managerPartClasses(page=${partClassForm.number + 2})}" aria-label="Next">
-            <span aria-hidden="true">&gt;</span>
-        </a>
-        </li>
-
-
-        <li class="page-item">
-            <a class="page-link" href="#" th:href="@{/managerPartClasses(page=${partClassForm.totalPages})}" aria-label="Last">
-                <span aria-hidden="true">Last</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+          </tbody>
+        </table>
+    </div>
+    <div>
+        <nav style="text-align: center;" aria-label="Page navigation example">
+            <ul class="pagination"
+                th:with="start=${T(java.lang.Math).floor(partClassForm.number/10)*10 + 1},
+                            last=(${start + 9 < partClassForm.totalPages ? start + 9 : partClassForm.totalPages})">
+                <li class="page-item">
+                    <a th:href="@{/managerPartClasses(page=1)}" class="page-link" href="#" aria-label="First">
+                        <span aria-hidden="true">First</span>
+                    </a>
+                </li>
+                <li class="page-item" th:class="${partClassForm.first} ? 'disabled'">
+                    <a th:href="${partClassForm.first} ? '#' :@{/managerPartClasses(page=${partClassForm.number})}" class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+        <!--        <li class="page-item active" aria-current="page">-->
+        <!--            <a class="page-link" href="#">2</a>-->
+        <!--        </li>-->
+                <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
+                    <a class="page-link"  th:text="${page}" th:href="@{/managerPartClasses(page=${page})}"></a>
+                </li>
+                <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/managerPartClasses(page=${partClassForm.number + 2})}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+                </li>
 
 
+                <li class="page-item">
+                    <a class="page-link" href="#" th:href="@{/managerPartClasses(page=${partClassForm.totalPages})}" aria-label="Last">
+                        <span aria-hidden="true">Last</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-<a href="#" th:href="@{/managerHome}"
-   class="btn btn-primary" role="button">뒤로</a>
-<a href="#" th:href="@{/managerPartClasses/new}"
-   class="btn btn-primary" role="button">등록</a>
-<!-- Optional JavaScript; choose one of the two! -->
-
+        <a href="#" th:href="@{/managerHome}"
+           class="btn btn-primary" role="button">뒤로</a>
+        <a href="#" th:href="@{/managerPartClasses/new}"
+           class="btn btn-primary" role="button">등록</a>
+        <!-- Optional JavaScript; choose one of the two! -->
+    </div>
+</div>
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 

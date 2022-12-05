@@ -1,5 +1,6 @@
 package com.strangehoon.courseregistration.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.strangehoon.courseregistration.controller.PartClassForm;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +47,7 @@ public class PartClassDto {
         this.majorName = partClassForm.getMajorName();
     }
 
+    @QueryProjection
     public PartClassDto(Long id, String classNum, String name, int grade, int credit, int capacity, int remainNum,String professorName, String dayTime, String classroom, String majorName) {
         this.id = id;
         this.classNum = classNum;

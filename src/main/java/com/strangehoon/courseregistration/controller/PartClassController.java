@@ -3,8 +3,11 @@ package com.strangehoon.courseregistration.controller;
 
 
 import com.strangehoon.courseregistration.domain.Major;
+import com.strangehoon.courseregistration.dto.MajorDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.repository.MajorRepository;
+import com.strangehoon.courseregistration.repository.PartClassSearch;
+import com.strangehoon.courseregistration.service.MajorService;
 import com.strangehoon.courseregistration.service.PartClassService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,15 +28,14 @@ import java.util.List;
 public class PartClassController {
 
     private final PartClassService partClassService;
-    private final MajorRepository majorRepository;
+    private final MajorService majorService;
 
     //------------------------------------------------관리자 영역-----------------------------------------------
     //분반 등록 폼
     @GetMapping(value = "/managerPartClasses/new")
     public String createForm(Model model) {
-        List<Major> majors = majorRepository.findAll();
-
-        model.addAttribute("majors", majors);
+        List<Major> majors = majorService.findAllMajor();
+        model.addAttribute("majorForm", majors);
         model.addAttribute("partClassForm", new PartClassForm());
         return "partClass/createPartClassForm";
     }
@@ -50,9 +52,11 @@ public class PartClassController {
 
     //분반 조회
     @GetMapping(value = "/managerPartClasses")
-    public String Manage(@PageableDefault Pageable pageable, Model model) {
-        Page<PartClassDto> partClassDtoAll = partClassService.findPartClasses(pageable);
+    public String Manage(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, Model model) {
+        Page<PartClassDto> partClassDtoAll = partClassService.findPartClasses(partClassSearch, pageable);
+        List<Major> majors = majorService.findAllMajor();
 
+        model.addAttribute("majorForm", majors);
         model.addAttribute("pageNumber", partClassDtoAll.getNumber());
         model.addAttribute("partClassForm", partClassDtoAll);
         return "partClass/managerPartClassList";
@@ -93,9 +97,11 @@ public class PartClassController {
     //------------------------------------------------학생 영역-----------------------------------------------
     //분반 조회
     @GetMapping(value = "/partClasses")
-    public String List(@PageableDefault Pageable pageable, Model model) {
-        Page<PartClassDto> partClassDtoAll = partClassService.findPartClasses(pageable);
+    public String List(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, Model model) {
+        Page<PartClassDto> partClassDtoAll = partClassService.findPartClasses(partClassSearch, pageable);
+        List<Major> majors = majorService.findAllMajor();
 
+        model.addAttribute("majorForm", majors);
         model.addAttribute("pageNumber", partClassDtoAll.getNumber());
         model.addAttribute("partClassForm", partClassDtoAll);
         return "partClass/partClassList";

@@ -8,6 +8,7 @@ import com.strangehoon.courseregistration.domain.PartClass;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.repository.MajorRepository;
 import com.strangehoon.courseregistration.repository.PartClassRepository;
+import com.strangehoon.courseregistration.repository.PartClassSearch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -68,11 +69,11 @@ public class PartClassService {
     }
 
     // 분반 전체 조회
-    public Page<PartClassDto> findPartClasses(Pageable pageable) {
+    public Page<PartClassDto> findPartClasses(PartClassSearch partClassSearch, Pageable pageable) {
         int initpage = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); //스프링 데이터 jpa에서는 페이지가 0부터 시작 따라서 이행을 넣음
         pageable = PageRequest.of(initpage, 10, Sort.by(Sort.Direction.ASC,"id")); // <- Sort 추가
 
-        Page<PartClassDto> page = partClassRepository.findPartClassAll(pageable);
+        Page<PartClassDto> page = partClassRepository.findPartClassDtoAll(partClassSearch, pageable);
         log.info("page.getTotalElements() = " + page.getTotalElements());
         log.info("page.getNumber() = " + page.getNumber());
         return page;

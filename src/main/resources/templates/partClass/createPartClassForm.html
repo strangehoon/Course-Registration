@@ -11,21 +11,18 @@
 
 </head>
 <body>
+<div>
     <h1>강좌 등록</h1>
-
     <form th:action="@{/managerPartClasses/new}" th:object="${partClassForm}" method="post">
-
 
         <div class="mb-3">
             <label th:for="exampleFormControlInput1" class="form-label">주관학과</label>
             <select name="majorName" id="major" class = "form-control">
                 <option value="">학과선택</option>
-                <option th:each="major : ${majors}"
+                <option th:each="major : ${majorForm}"
                         th:value="${major.name}"
                         th:text="${major.name}"/>
             </select>
-
-
 <!--            <input type="text" th:field="*{majorName}" class="form-control" id="exampleFormControlInput1" >-->
         </div>
         <div class="mb-3">
@@ -69,7 +66,7 @@
         <a href="#" th:href="@{/managerHome}"
            class="btn btn-primary" role="button">뒤로</a>
     </form>
-
+</div>
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
