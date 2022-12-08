@@ -14,11 +14,11 @@
 <body>
 <div class="container">
   <div>
-  <h1>강의 현황</h1>
-    <div>
-      <form th:object="${partClassSearch}" class="form-inline">
-        <div class="form-group mx-sm-1 mb-2">
-          <select th:field="*{majorName}" class="form-control">
+  <h1 class="my-5">강의 현황</h1>
+    <form th:object="${partClassSearch}" class="form-inline">
+      <div class = "row">
+        <div class="col-md-3">
+          <select th:field="*{majorName}" class="form-select">
             <option value="">학과</option>
             <option th:each="major : ${majorForm}"
                     th:value="${major.name}"
@@ -26,8 +26,8 @@
             </option>
           </select>
         </div>
-        <div class="form-group mx-sm-1 mb-2">
-          <select th:field="*{schoolYear}" class="form-control" >
+        <div class ="col-md-1">
+          <select th:field="*{schoolYear}" class="form-select" >
             <option value="">학년</option>
             <option th:value=1 th:text = 1></option>
             <option th:value=2 th:text = 2></option>
@@ -35,12 +35,14 @@
             <option th:value=4 th:text = 4></option>
           </select>
         </div>
-        <div class="mb-3">
+        <div class = "col-md-2">
           <input type="text" th:field="*{partClassName}" class="form-control" id="exampleFormControlInput4" placeholder="ex) 과목명" >
         </div>
+        <div class = "col">
         <button type="submit" class="btn btn-primary mb-2">검색</button>
-      </form>
-    </div>
+        </div>
+      </div>
+    </form>
 
 
     <table class="table">
@@ -60,11 +62,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
         <th:block th:object="${pageNumber}"></th:block>
       <tr th:each="partClassForm, iterState : ${partClassForm}">
-    <!--    <td><input type="hidden" th:value="*{id}" /></td>-->
-        <!--    <td th:text="${partClassForm.id}"></td>-->
         <td th:text="${iterState.count + (pageNumber)*10}"></td>
         <td th:text="${partClassForm.majorName}"></td>
         <td th:text="${partClassForm.grade}"></td>
@@ -76,12 +75,6 @@
         <td th:text="${partClassForm.professorName}"></td>
         <td th:text="${partClassForm.dayTime}"></td>
         <td th:text="${partClassForm.classroom}"></td>
-    <!--    <td>-->
-    <!--      <a href="#" th:href="@{/managerPartClasses/{id}/edit (id=${partClassForm.id})}"-->
-    <!--         class="btn btn-primary" role="button">수정</a>-->
-    <!--      <a href="#" th:href="@{/managerPartClasses/{id}/delete (id=${partClassForm.id})}"-->
-    <!--         class="btn btn-primary" role="button">삭제</a>-->
-    <!--    </td>-->
       </tr>
 
       </tbody>
@@ -93,12 +86,12 @@
           th:with="start=${T(java.lang.Math).floor(partClassForm.number/10)*10 + 1},
                         last=(${start + 9 < partClassForm.totalPages ? start + 9 : partClassForm.totalPages})">
         <li class="page-item">
-          <a th:href="@{/partClasses(page=1)}" class="page-link" href="#" aria-label="First">
+          <a th:href="@{/partClasses(page=1, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="First">
             <span aria-hidden="true">First</span>
           </a>
         </li>
         <li class="page-item" th:class="${partClassForm.first} ? 'disabled'">
-          <a th:href="${partClassForm.first} ? '#' :@{/partClasses(page=${partClassForm.number})}" class="page-link" href="#" aria-label="Previous">
+          <a th:href="${partClassForm.first} ? '#' :@{/partClasses(page=${partClassForm.number}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&lt;</span>
           </a>
         </li>
@@ -106,16 +99,16 @@
         <!--            <a class="page-link" href="#">2</a>-->
         <!--        </li>-->
         <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
-          <a class="page-link"  th:text="${page}" th:href="@{/partClasses(page=${page})}"></a>
+          <a class="page-link"  th:text="${page}" th:href="@{/partClasses(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
         </li>
-        <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/partClasses(page=${partClassForm.number + 2})}" aria-label="Next">
+        <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/partClasses(page=${partClassForm.number + 2}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Next">
           <span aria-hidden="true">&gt;</span>
         </a>
         </li>
 
 
         <li class="page-item">
-          <a class="page-link" href="#" th:href="@{/partClasses(page=${partClassForm.totalPages})}" aria-label="Last">
+          <a class="page-link" href="#" th:href="@{/partClasses(page=${partClassForm.totalPages}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Last">
             <span aria-hidden="true">Last</span>
           </a>
         </li>
@@ -127,7 +120,7 @@
     <!--<a href="#" th:href="@{/managerPartClasses/new}"-->
     <!--   class="btn btn-primary" role="button">등록</a>-->
     <!-- Optional JavaScript; choose one of the two! -->
-  </div>
+
 </div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

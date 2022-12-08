@@ -3,6 +3,7 @@ package com.strangehoon.courseregistration.controller;
 
 
 import com.strangehoon.courseregistration.domain.Major;
+import com.strangehoon.courseregistration.domain.PartClass;
 import com.strangehoon.courseregistration.dto.MajorDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.repository.MajorRepository;
@@ -16,9 +17,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Part;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,10 +55,25 @@ public class PartClassController {
 
     //분반 조회
     @GetMapping(value = "/managerPartClasses")
-    public String Manage(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, Model model) {
-        Page<PartClassDto> partClassDtoAll = partClassService.findPartClasses(partClassSearch, pageable);
+    public String ListUsedByManager(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, Model model) {
+        Page<PartClassDto> partClassDtoAll = partClassService.partClassSearchList(partClassSearch, pageable);
         List<Major> majors = majorService.findAllMajor();
 
+
+//        //검색하지 않았을 때
+//        if((partClassSearch.getPartClassName() == null) && (partClassSearch.getMajorName() == null) && (partClassSearch.getSchoolYear() ==null)) {
+//            partClassDtoAll = partClassService.partClassList(pageable);
+//            log.info("ewgwefwef =", "1111111111111111111111");
+//        }
+//        //검색했을 때
+//        else {
+//            partClassDtoAll = partClassService.partClassSearchList(partClassSearch, pageable);
+//        }
+
+        log.info("ClassName = {}", partClassSearch.getPartClassName());
+        log.info("MajorName = {}", partClassSearch.getMajorName());
+        log.info("SchoolYear = {}", partClassSearch.getSchoolYear());
+        model.addAttribute("partClassSearch", partClassSearch);
         model.addAttribute("majorForm", majors);
         model.addAttribute("pageNumber", partClassDtoAll.getNumber());
         model.addAttribute("partClassForm", partClassDtoAll);
@@ -97,10 +115,25 @@ public class PartClassController {
     //------------------------------------------------학생 영역-----------------------------------------------
     //분반 조회
     @GetMapping(value = "/partClasses")
-    public String List(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, Model model) {
-        Page<PartClassDto> partClassDtoAll = partClassService.findPartClasses(partClassSearch, pageable);
+    public String ListByUsedStudent(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, Model model) {
+        Page<PartClassDto> partClassDtoAll = partClassService.partClassSearchList(partClassSearch, pageable);
         List<Major> majors = majorService.findAllMajor();
 
+
+//        //검색하지 않았을 때
+//        if((partClassSearch.getPartClassName() == null) && (partClassSearch.getMajorName() == null) && (partClassSearch.getSchoolYear() ==null)) {
+//            partClassDtoAll = partClassService.partClassList(pageable);
+//            log.info("ewgwefwef =", "1111111111111111111111");
+//        }
+//        //검색했을 때
+//        else {
+//            partClassDtoAll = partClassService.partClassSearchList(partClassSearch, pageable);
+//        }
+
+        log.info("ClassName = {}", partClassSearch.getPartClassName());
+        log.info("MajorName = {}", partClassSearch.getMajorName());
+        log.info("SchoolYear = {}", partClassSearch.getSchoolYear());
+        model.addAttribute("partClassSearch", partClassSearch);
         model.addAttribute("majorForm", majors);
         model.addAttribute("pageNumber", partClassDtoAll.getNumber());
         model.addAttribute("partClassForm", partClassDtoAll);

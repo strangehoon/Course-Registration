@@ -79,7 +79,7 @@ public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
     }
 
     private BooleanExpression majorNameEq(String majorName) {
-        if(majorName == null) {
+        if(!StringUtils.hasText(majorName)) {
             return null;
         }
         return major.name.eq(majorName);
