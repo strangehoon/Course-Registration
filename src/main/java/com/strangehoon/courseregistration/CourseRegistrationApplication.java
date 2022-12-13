@@ -45,7 +45,7 @@ public class CourseRegistrationApplication {
 		//회원(관리자)
 		managerService.createManager("manager", "0000");
 
-		//분반
+		//분반(전자전기공학)
 		partClassService.createPartClass(new PartClassDto("106827-1", "창직 IOT 종합설계입문", 1, 3, 18, 18, "신형식", "화2화3화4", "P211", "전자전기공학부"));
 		partClassService.createPartClass(new PartClassDto("106827-2", "창직 IOT 종합설계입문", 1, 3, 18, 18, "신형식", "화6화7화8", "P211", "전자전기공학부"));
 		partClassService.createPartClass(new PartClassDto("106827-3", "창직 IOT 종합설계입문", 1, 3, 18, 18, "노승문", "수1수2수3", "P211", "전자전기공학부"));
@@ -82,19 +82,163 @@ public class CourseRegistrationApplication {
 		partClassService.createPartClass(new PartClassDto("106825-4", "IT종합설계프로젝트", 4, 3, 18, 18, "이기성", "월1화1수1", "P102", "전자전기공학부"));
 		partClassService.createPartClass(new PartClassDto("106825-5", "IT종합설계프로젝트", 4, 3, 18, 18, "신형식", "월6목6금6", "P103", "전자전기공학부"));
 
+		//분반(컴퓨터공학)
 		partClassService.createPartClass(new PartClassDto("013312-1", "자료구조및프로그래밍", 2, 4, 40, 40, "송하윤", "월2월3목2목3", "T501", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("013312-2", "자료구조및프로그래밍", 2, 4, 40, 40, "송하윤", "월6월7목6목7", "T501", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("013312-3", "자료구조및프로그래밍", 2, 4, 40, 40, "배성일", "화2화3금2금3", "T502", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("013312-4", "자료구조및프로그래밍", 2, 4, 40, 40, "배성일", "월7월8수1수2", "T502", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("013312-5", "자료구조및프로그래밍", 2, 4, 40, 40, "배성일", "월5월6목1목2", "T502", "컴퓨터공학부"));
-
-
-
+		partClassService.createPartClass(new PartClassDto("101410-1", "데이터통신", 2, 3, 50, 50, "박준상", "화7화8화8", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101410-2", "데이터통신", 2, 3, 50, 50, "박준상", "월2화2수2", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101410-3", "데이터통신", 2, 3, 50, 50, "박준상", "월3화3수3", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101410-4", "데이터통신", 2, 3, 50, 50, "김상곤", "월8화8목8", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101410-5", "데이터통신", 2, 3, 50, 50, "김상곤", "월9화9목9", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101408-1", "어셈블리언어및실습", 2, 3, 50, 50, "표창우", "월1화1목1", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101408-2", "어셈블리언어및실습", 2, 3, 50, 50, "표창우", "월2화2목2", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101408-3", "어셈블리언어및실습", 2, 3, 50, 50, "표창우", "월3화3목3", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101408-4", "어셈블리언어및실습", 2, 3, 50, 50, "박재영", "수1목1금1", "T502", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101408-5", "어셈블리언어및실습", 2, 3, 50, 50, "박재영", "수2목2금2", "T502", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101511-1", "운영체제", 3, 3, 40, 40, "김선일", "월2목3목4", "T503", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101511-2", "운영체제", 3, 3, 40, 40, "김선일", "월1목1목2", "T503", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101511-3", "운영체제", 3, 3, 40, 40, "김선일", "월6월7목7", "T503", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101511-4", "운영체제", 3, 3, 40, 40, "이장호", "수1목1금1", "T502", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101511-5", "운영체제", 3, 3, 40, 40, "이장호", "월2월3수3", "T502", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101613-1", "기초데이터베이스", 3, 4, 50, 50, "김은삼", "월1월2수1수2", "T504", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101613-2", "기초데이터베이스", 3, 4, 50, 50, "김은삼", "월7월8목7목8", "T504", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101613-3", "기초데이터베이스", 3, 4, 50, 50, "윤영", "화1화2금1금2", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101613-4", "기초데이터베이스", 3, 4, 50, 50, "윤영", "화6화7목6목7", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101613-5", "기초데이터베이스", 3, 4, 50, 50, "윤영", "수3수4금3금4", "T501", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-1", "오토마타", 3, 4, 40, 40, "권건우", "수1수2금1", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-2", "오토마타", 3, 4, 40, 40, "권건우", "월6월7화1", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-3", "오토마타", 3, 4, 40, 40, "권건우", "월3월4화3", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-4", "오토마타", 3, 4, 40, 40, "김상곤", "수3목3금3", "T506", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-5", "오토마타", 3, 4, 40, 40, "김상곤", "수1목1금1", "T506", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101812-1", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "하란", "월1월2월3", "T301", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101812-2", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "김선일", "월1월2월3", "T302", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101812-3", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "배성일", "화1화2화3", "T303", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101812-4", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "박준철", "수1수2수3", "T304", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101812-5", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "이장호", "목1목2목3", "T305", "컴퓨터공학부"));
+
+		//분반(신소재공학부)
+		partClassService.createPartClass(new PartClassDto("124201-1", "재료물성개론", 1, 3, 50, 50, "이기영", "월45", "K611", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-2", "재료물성개론", 1, 3, 50, 50, "이기영", "화45", "K612", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-3", "재료물성개론", 1, 3, 50, 50, "이동욱", "수45", "K613", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-4", "재료물성개론", 1, 3, 50, 50, "이동욱", "목45", "K614", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-5", "재료물성개론", 1, 3, 50, 50, "이동욱", "금45", "K615", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125401-1", "재료열역학", 2, 3, 50, 50, "황진하", "월1화1수1", "K311", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125401-2", "재료열역학", 2, 3, 50, 50, "황진하", "월2화2수2", "K312", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125401-3", "재료열역학", 2, 3, 50, 50, "황진하", "월3화3수3", "K313", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125401-4", "재료열역학", 2, 3, 50, 50, "이원규", "화6목6금6", "K314", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125401-5", "재료열역학", 2, 3, 50, 50, "이원규", "화7목7금7", "K315", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125402-1", "재료탄소성학", 2, 3, 50, 50, "이원규", "화1목1금1", "K211", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125402-2", "재료탄소성학", 2, 3, 50, 50, "이원규", "화2목2금2", "K212", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125402-3", "재료탄소성학", 2, 3, 50, 50, "엄태식", "월1월2금7", "K213", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125402-4", "재료탄소성학", 2, 3, 50, 50, "엄태식", "화1화2금8", "K214", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125402-5", "재료탄소성학", 2, 3, 50, 50, "엄태식", "수1수2금1", "K215", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125614-1", "디스플레이재료", 3, 3, 50, 50, "양희선", "월1월2화7", "K411", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125614-2", "디스플레이재료", 3, 3, 50, 50, "양희선", "월3월4화3", "K411", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125614-3", "디스플레이재료", 3, 3, 50, 50, "양희선", "월6화6목6", "K411", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125611-1", "기능재료", 3, 3, 40, 40, "박병남", "월3화3목3", "K111", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125611-2", "기능재료", 3, 3, 40, 40, "박병남", "월8화8목8", "K111", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125621-1", "반도체재료및측정실험", 3, 2, 15, 15, "김우진", "월3월4", "K711", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125621-2", "반도체재료및측정실험", 3, 2, 15, 15, "이경남", "화3화4", "K711", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125621-3", "반도체재료및측정실험", 3, 2, 15, 15, "박병진", "화5화6", "K711", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125621-4", "반도체재료및측정실험", 3, 2, 15, 15, "양희선", "금3금4", "K711", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125621-5", "반도체재료및측정실험", 3, 2, 15, 15, "양희선", "금6금7", "K711", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125718-1", "창의적종합설계", 4, 3, 15, 15, "이재호", "월7월8월9", "K411", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125718-2", "창의적종합설계", 4, 3, 15, 15, "박병남", "화7화8화9", "K411", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125718-3", "창의적종합설계", 4, 3, 15, 15, "신소우", "수7수8수9", "K411", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("125718-4", "창의적종합설계", 4, 3, 15, 15, "김경남", "목7목8목9", "K411", "신소재공학부"));
+
+		//분반(경영학부)
+		partClassService.createPartClass(new PartClassDto("033102-1", "경제학원론", 1, 3, 45, 45, "이대창", "월1화1수1", "B301", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("033102-2", "경제학원론", 1, 3, 45, 45, "이대창", "월2화2수2", "B302", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("033102-3", "경제학원론", 1, 3, 45, 45, "이종건", "월6화6수6", "B303", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("033102-4", "경제학원론", 1, 3, 45, 45, "이종건", "화1수1목1", "B304", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("033102-5", "경제학원론", 1, 3, 45, 45, "이종건", "화7수7목7", "B305", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311204-1", "경영통계학", 1, 3, 55, 55, "박민재", "화1수1목1", "B401", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311204-2", "경영통계학", 1, 3, 55, 55, "박민재", "화5수5목5", "B402", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311204-3", "경영통계학", 1, 3, 55, 55, "이미림", "목7금7금8", "B403", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311204-4", "경영통계학", 1, 3, 55, 55, "이미림", "화1화2수3", "B404", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311204-5", "경영통계학", 1, 3, 55, 55, "이미림", "월5화5수5", "B405", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311406-1", "생산과경영", 2, 3, 55, 55, "류준호", "월5월6월7", "B101", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311406-2", "생산과경영", 2, 3, 55, 55, "이진표", "화5화6화7", "B101", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311406-3", "생산과경영", 2, 3, 55, 55, "이진표", "목5목6목7", "B101", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311406-4", "생산과경영", 2, 3, 55, 55, "박민호", "금1금2금3", "B101", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311406-5", "생산과경영", 2, 3, 55, 55, "박민호", "목1목2목3", "B101", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311407-1", "투자론", 3, 3, 50, 50, "강인선", "목1목2목3", "B201", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311407-2", "투자론", 3, 3, 50, 50, "박미선", "목7목8목9", "B202", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311407-3", "투자론", 3, 3, 50, 50, "박미선", "수1목1금1", "B203", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311407-4", "투자론", 3, 3, 50, 50, "이진미", "금1금2금3", "B204", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311610-1", "소비자행동", 3, 3, 50, 50, "이호배", "월1월2월3", "B701", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311610-2", "소비자행동", 3, 3, 50, 50, "이호배", "월5월6월7", "B702", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311610-3", "소비자행동", 3, 3, 50, 50, "김춘식", "화1화2화3", "B703", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311610-4", "소비자행동", 3, 3, 50, 50, "김춘식", "수1수2수3", "B704", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311610-5", "소비자행동", 3, 3, 50, 50, "김춘식", "수5수6수7", "B705", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311814-1", "기업리스크관리", 4, 3, 50, 50, "신병헌", "수5수6수7", "B801", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311814-2", "기업리스크관리", 4, 3, 50, 50, "신병헌", "월5월6월7", "B802", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311814-3", "기업리스크관리", 4, 3, 50, 50, "신병헌", "월5화5수5", "B803", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311814-4", "기업리스크관리", 4, 3, 50, 50, "전홍배", "월5화5목5", "B804", "경영학부"));
+		partClassService.createPartClass(new PartClassDto("311814-5", "기업리스크관리", 4, 3, 50, 50, "전홍배", "금5금6금7", "B805", "경영학부"));
+
+		//분반(영어영문학과)
+		partClassService.createPartClass(new PartClassDto("201207-1", "영어학입문", 1, 3, 30, 30, "임태연", "월5월6월7", "C401", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201207-2", "영어학입문", 1, 3, 30, 30, "임태연", "화5화6화7", "C402", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201207-3", "영어학입문", 1, 3, 30, 30, "박현주", "수5수6수7", "C403", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201207-4", "영어학입문", 1, 3, 30, 30, "박현주", "목5목6목7", "C404", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201207-5", "영어학입문", 1, 3, 30, 30, "박현주", "금5금6금7", "C405", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("023404-1", "미국문학사", 2, 3, 40, 40, "조충환", "월1화1수1", "C301", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("023404-2", "미국문학사", 2, 3, 40, 40, "조충환", "월2화2수2", "C302", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("023404-3", "미국문학사", 2, 3, 40, 40, "이정래", "월3수3금3", "C303", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("023404-4", "미국문학사", 2, 3, 40, 40, "이정래", "월6수6금6", "C304", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("023404-5", "미국문학사", 2, 3, 40, 40, "이정래", "월7수7금7", "C405", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201411-1", "영미시의이해", 2, 3, 30, 30, "김미순", "월7수7금7", "C405", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201411-2", "영미시의이해", 2, 3, 30, 30, "김미순", "월8수8금8", "C405", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201411-3", "영미시의이해", 2, 3, 30, 30, "김미순", "월9수9금9", "C405", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201415-1", "영어담화와정보", 3, 3, 30, 30, "염재일", "월1화1수1", "C501", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201415-2", "영어담화와정보", 3, 3, 30, 30, "염재일", "월1월2월3", "C502", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201415-3", "영어담화와정보", 3, 3, 30, 30, "염재일", "월5수5금5", "C503", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201415-4", "영어담화와정보", 3, 3, 30, 30, "김미선", "화2화3목7", "C504", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201415-5", "영어담화와정보", 3, 3, 30, 30, "김미선", "월7수7금1", "C505", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201703-1", "세익스피어", 3, 3, 50, 50, "박일형", "월1수1금1", "C605", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201703-2", "세익스피어", 3, 3, 50, 50, "박일형", "월2수2금2", "C605", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201703-3", "세익스피어", 3, 3, 50, 50, "박일형", "월7수7금7", "C605", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201813-1", "영어문장구조", 3, 3, 40, 40, "이종우", "월7수7금7", "C602", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201813-2", "영어문장구조", 3, 3, 40, 40, "이종우", "월8수8금8", "C602", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201813-3", "영어문장구조", 3, 3, 40, 40, "이정일", "화1화2화3", "C602", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201813-4", "영어문장구조", 3, 3, 40, 40, "이정일", "수1수2수3", "C602", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201811-1", "포스트모던영미드라마", 4, 3, 40, 40, "김다산", "목1목2목3", "C301", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201811-2", "포스트모던영미드라마", 4, 3, 40, 40, "김다산", "금1금2금3", "C302", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201811-3", "포스트모던영미드라마", 4, 3, 40, 40, "이승미", "월1목1금1", "C303", "영어영문학과"));
+		partClassService.createPartClass(new PartClassDto("201811-4", "포스트모던영미드라마", 4, 3, 40, 40, "이승미", "월6목6금6", "C304", "영어영문학과"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	}
