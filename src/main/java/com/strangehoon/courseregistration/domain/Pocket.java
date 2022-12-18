@@ -1,16 +1,18 @@
 package com.strangehoon.courseregistration.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.servlet.http.Part;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Pocket {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pocket_id")
     private Long id;
 
@@ -30,6 +32,7 @@ public class Pocket {
         this.student = student;
         student.getPockets().add(this);
     }
+
     public void putPartClass(PartClass partClass) {
         if (this.partClass != null) {
             this.partClass.getPockets().remove(this);
@@ -37,4 +40,13 @@ public class Pocket {
         this.partClass = partClass;
         partClass.getPockets().add(this);
     }
+
+    //==생성 메서드==//
+    public static Pocket createPocket(PartClass partClass, Student student) {
+        Pocket pocket = new Pocket();
+        pocket.putPartClass(partClass);
+        pocket.putStudent(student);
+        return pocket;
+    }
+
 }
