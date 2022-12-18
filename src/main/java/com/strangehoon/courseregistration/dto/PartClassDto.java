@@ -2,8 +2,12 @@ package com.strangehoon.courseregistration.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.strangehoon.courseregistration.controller.PartClassForm;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter @Setter
 public class PartClassDto {
@@ -19,6 +23,8 @@ public class PartClassDto {
     private String classroom;
 
     private String majorName;
+    private Boolean check;
+
 
     public PartClassDto(PartClassForm partClassForm) {
         this.classNum = partClassForm.getClassNum();

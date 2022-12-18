@@ -6,6 +6,7 @@ import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.PartClass;
 import com.strangehoon.courseregistration.dto.MajorDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
+import com.strangehoon.courseregistration.dto.PocketClassDto;
 import com.strangehoon.courseregistration.repository.MajorRepository;
 import com.strangehoon.courseregistration.repository.PartClassSearch;
 import com.strangehoon.courseregistration.service.MajorService;
@@ -119,7 +120,6 @@ public class PartClassController {
         Page<PartClassDto> partClassDtoAll = partClassService.partClassSearchList(partClassSearch, pageable);
         List<Major> majors = majorService.findAllMajor();
 
-
 //        //검색하지 않았을 때
 //        if((partClassSearch.getPartClassName() == null) && (partClassSearch.getMajorName() == null) && (partClassSearch.getSchoolYear() ==null)) {
 //            partClassDtoAll = partClassService.partClassList(pageable);
@@ -133,6 +133,8 @@ public class PartClassController {
         log.info("ClassName = {}", partClassSearch.getPartClassName());
         log.info("MajorName = {}", partClassSearch.getMajorName());
         log.info("SchoolYear = {}", partClassSearch.getSchoolYear());
+        PocketClassDto pocketClassDto = new PocketClassDto(1L);
+        model.addAttribute("pocketClassDto", pocketClassDto);       //뷰에 보내기 전에 학생 ID를 담아서 보내자.
         model.addAttribute("partClassSearch", partClassSearch);
         model.addAttribute("majorForm", majors);
         model.addAttribute("pageNumber", partClassDtoAll.getNumber());
