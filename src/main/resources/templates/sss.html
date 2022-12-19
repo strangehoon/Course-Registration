@@ -1,50 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Simple Sidebar - Start Bootstrap Template</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>수강신청 사이트</title>
+
+
+    <!-- Top Start -->
+    <link href="./include/win.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+<!--
+ body {margin-left: 0px;  margin-top: 0px;  margin-right: 0px;  margin-bottom: 0px;}
+-->
+</style>
 </head>
+<!--
+<SCRIPT language="javascript" src="./include/cnet.js"></SCRIPT>
+-->
+
 <body>
+
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
     <tr>
         <td valign=top>
             <table cellspacing="0" cellpadding="0" border="0" width=100%>
-                <tr><td height=53 style='padding-left:10px;'><a href="./cn1000.jsp?p_contm="><a style='font-size:25px;'><b>상훈대학교 수강신청</b></a></a></td></tr>
+                <tr><td height=53 style='padding-left:10px;'><a href="./cn1000.jsp?p_contm="><span style='font-size:17px;'><b>홍익대학교 수강신청</b></span></a></td></tr>
                 <tr height=25 bgcolor=73AFE5><td></td></tr>
                 <tr><td height="1" bgcolor="#ffffff"></td></tr>
                 <tr><td height="1" bgcolor="#cccccc"></td></tr>
             </table>
         </td>
     </tr>
-
+    <!-- Top End -->
     <tr>
         <td valign=top height=100%>
 
-            <table font-size="8px" width=1100 height=600 border="0" cellspacing="0" cellpadding="0">
+            <table width=1100 height=600 border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="250" valign="top" bgcolor="#f9f9f9">
-                        <table width="250" height="170px" border="0" cellpadding="0" cellspacing="0">
+                    <td width="180" valign="top" bgcolor="#f9f9f9">
+                        <table width="200" height="135" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td height="1" bgcolor="#cccccc"></td>
                             </tr>
-                            <tr>
+                            <tr height=150>
                                 <td valign=top bgcolor=f9f9f9 align=center width=40% style='padding-top:10px'>
-                                    <div class="py-3 text-center">
-                                        <h3>환영합니다</h3>
-                                        <h4 class="mb-4" th:text="관리자님">로그인 사용자 이름</h4>
-                                        <form th:action="@{/logout}" method="post">
-                                            <div width="220px" height="28px">
-                                                <button class="btn btn-dark btn-lg" type="submit" >로그아웃</button>
-                                            </div>
+                                    <table width="200" border="0" align="center" cellpadding="0" cellspacing="0">
+                                        <form id="form1" name="login" method="post" action="login_ok.jsp">
+                                            <tr>
+                                                <td align=center >학번</td>
+                                                <td><input name="p_userid" type="text" class='inputA' style='width:150px; height:15px' maxlength=7></td>
+                                            </tr>
+                                            <tr height = 5>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td align=center>암호 </td>
+                                                <td><input name="p_passwd" type="password" onkeydown="if(event.keyCode == 13) javascript:gologin();""  class='inputA' style='width:150px; height:15px' maxlength=20></td>
+                                            </tr>
+                                            <tr height=30>
+                                                <td colspan=2 align=center>
+                                                    <input type="button" onClick="javascript:gologin()" class="buttonA" value='로그인'>
+                                                    <!-- <br><br><font color = 'red'><b>신.편입생 로그인 불가</font></b> -->
+                                                </td>
+                                            </tr>
                                         </form>
-                                    </div>
+                                    </table>
                                 </td>
                             </tr>
                             <tr>
@@ -52,16 +72,89 @@
                             </tr>
                         </table>
 
-                        <div class="list-group list-group-flush">
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3" allign="center" style="background-color: white;" href="#/">공지사항 관리</a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3" allign="center" href="/managerPartClasses">개설강좌 관리</a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-3" allign="center" href="#/">수강신청 내역 관리</a>
 
-                        </div>
 
+                        <!-- Left Menu Start -->
+                        <table width="200" border="0" align="left" valign="top" cellpadding="0" cellspacing="0" border=0 bgcolor="#f9f9f9">
+                            <tr valign=top>
+                                <td>
+                                    <table width="180" border="0" align="center" cellpadding="0" cellspacing="0">
+
+                                        <tr align=left>
+                                            <td height=30>
+                                                <li><a style="margin-left:-8px;" href="cn1502.jsp?p_contm=">공지사항</a></li>
+                                            </td>
+                                        </tr>
+                                        <tr><td height=1 bgcolor=#E1E1E1></td></tr>
+                                        <tr><td height=1 bgcolor=#FFFFFF></td></tr>
+
+
+
+
+
+                                        <tr align=left>
+                                            <td height=30>
+                                                <li><b><font color=blue>계절학기 수강신청</font></b></li>
+                                            </td>
+                                        </tr>
+                                        <tr><td height=1 bgcolor=#E1E1E1></td></tr>
+                                        <tr><td height=1 bgcolor=#FFFFFF></td></tr>
+                                        <tr align=left>
+                                            <td height=30>
+                                                <a href="cn1331.jsp?p_contm=">&nbsp;&nbsp;- 과목별 수강신청</a>
+                                            </td>
+                                        </tr>
+
+                                        <!--
+                                        <tr><td height=1 bgcolor=#E1E1E1></td></tr>
+                                        <tr><td height=1 bgcolor=#FFFFFF></td></tr>
+                                        <tr align=left>
+                                            <td height=30>
+                                            <a href="cn1340.jsp?p_contm=">&nbsp;&nbsp;- 바이오헬스공유대학 수강신청</a>
+                                            </td>
+                                        </tr>
+                                        -->
+
+
+                                        <tr><td height=1 bgcolor=#E1E1E1></td></tr>
+                                        <tr><td height=1 bgcolor=#FFFFFF></td></tr>
+                                        <tr align=left>
+                                            <td height=30>
+                                                <a href="cn1334.jsp?p_contm=">&nbsp;&nbsp;- 수강신청 철회하기</a>
+                                            </td>
+                                        </tr>
+                                        <tr><td height=1 bgcolor=#E1E1E1></td></tr>
+                                        <tr><td height=1 bgcolor=#FFFFFF></td></tr>
+                                        <tr align=left>
+                                            <td height=30>
+                                                <a href="cn1339.jsp?p_contm=">&nbsp;&nbsp;- 폐강과목 수강정정</a>
+                                            </td>
+                                        </tr>
+                                        <tr><td height=1 bgcolor=#E1E1E1></td></tr>
+                                        <tr><td height=1 bgcolor=#FFFFFF></td></tr>
+                                        <tr align=left>
+                                            <td height=30>
+                                                <a href="cn1330.jsp?p_contm=">&nbsp;&nbsp;- 수강신청 전체 현황 보기</a>
+                                            </td>
+                                        </tr>
+                                        <tr><td height=1 bgcolor=#E1E1E1></td></tr>
+                                        <tr><td height=1 bgcolor=#FFFFFF></td></tr>
+
+
+
+
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
                         <!-- Left Menu End -->
+
                     </td>
                     <!-- Left End -->
+
                     <td width=1 bgcolor=#E1E1E1></td>
 
                     <td align=left valign="top" bgcolor="#ffffff">
@@ -99,7 +192,7 @@
                                 <TR>
                                     <TD align=center>
 
-                                        <TABLE align="center" width=660 border='0' cellpadding='0' cellspacing='0'>
+                                        <TABLE width=660 border='0' cellpadding='0' cellspacing='0'>
 
                                             <TR height=60 bgcolor='#eeeeee'>
                                                 <TH colspan=2><font color=blue>[2022학년도 동계계절학기] </th>
@@ -173,6 +266,30 @@
                                             <TR height=50 bgcolor='#eeeeee'>
                                                 <th colspan=2 align = center> <font color=blue> &nbsp;&nbsp;※ 바이오헬스 혁신공유대학 과목 수강신청,철회,환불 일정 등은 <br>별도 공지를 참조하시기 바랍니다.(문의 : 02-2098-2852). </font></th>
                                             </TR>
+                                            <!--
+                                            <TR height=50 bgcolor='#eeeeee'>
+                                                <TH colspan=2><br> <font color=blue>[바이오헬스 혁신공유대학 과목]  </th>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <Td colspan=2 align = center> 1차 수강신청 : 2021.12.13.(월) 9:00 ~17:00</td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <Td colspan=2 align = center> 1차 수강료 납부 : 2021.12.14.(화) 9:00~2021.12.16.(목) 16:00</td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <Td colspan=2 align = center> 2차 수강신청 : 2021.12.17.(금) 9:00~17:00</td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <Td colspan=2 align = center> 2차 수강료 납부 : 2021.12.20.(월) 9:00~2021.12.22.(수) 16:00</td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <Td colspan=2 align = center> 개강 : 2021.12.24.(금)</td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TH valign=top colspan = 2> &nbsp;&nbsp;※ 바이오헬스 혁신공유대학 과목은 동계계절학기 철회기간 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(12.23.(목) 15:00~12.24.(금) 17:00) 중에 철회가 불가합니다.&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;2차 수강신청일인 12.17.(금) 9:00~17:00까지 수강정정/철회하여 주시기 바랍니다.&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </TH>
+                                            </TR>
+                                             -->
                                         </TABLE>
 
                                     </TD>
@@ -200,9 +317,11 @@
         </td>
     </tr>
 </table>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+
+
 </body>
 </html>
+
+
+
+<!-- Bottom End -->

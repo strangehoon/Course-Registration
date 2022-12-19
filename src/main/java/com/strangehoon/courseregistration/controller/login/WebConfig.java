@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //로그인한 학생들만 접근 가능
         registry.addInterceptor(new LoginCheckInterceptor())
-                .addPathPatterns("/partClasses/**")
+                .addPathPatterns("/partClasses/**","/pocketList")
                 .excludePathPatterns(
                         "/", "/css/**", "/*.ico", "/error"
                 );

@@ -12,78 +12,195 @@
     <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign=top>
+            <table cellspacing="0" cellpadding="0" border="0" width=100%>
+                <tr><td height=53 style='padding-left:10px;'><a href="./cn1000.jsp?p_contm="><a style='font-size:25px;'><b>상훈대학교 수강신청</b></a></a></td></tr>
+                <tr height=25 bgcolor=73AFE5><td></td></tr>
+                <tr><td height="1" bgcolor="#ffffff"></td></tr>
+                <tr><td height="1" bgcolor="#cccccc"></td></tr>
+            </table>
+        </td>
+    </tr>
 
-<div class="d-flex" id="wrapper">
-    <!-- Sidebar-->
-    <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom bg-light">수강 신청</div>
-        <div class="py-5 text-center">
-            <h2>환영합니다</h2>
-            <h4 class="mb-3" th:text="|로그인: ${student.name}|">로그인 사용자 이름</h4>
-            <form th:action="@{/logout}" method="post">
-                <button class="w-100 btn btn-dark btn-lg" type="submit">
-                    로그아웃
-                </button>
-            </form>
-        </div>
+    <tr>
+        <td valign=top height=100%>
+
+            <table font-size="8px" width=1100 height=600 border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="250" valign="top" bgcolor="#f9f9f9">
+                        <table width="250" height="170px" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td height="1" bgcolor="#cccccc"></td>
+                            </tr>
+                            <tr>
+                                <td valign=top bgcolor=f9f9f9 align=center width=40% style='padding-top:10px'>
+                                    <div class="py-3 text-center">
+                                        <h3>환영합니다</h3>
+                                        <h4 class="mb-4" th:text="${student.name}+님">로그인 사용자 이름</h4>
+                                        <form th:action="@{/logout}" method="post">
+                                            <div width="220px" height="28px">
+                                                <button class="btn btn-dark btn-lg" type="submit" >로그아웃</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="1" bgcolor="#cccccc"></td>
+                            </tr>
+                        </table>
+
+                        <div class="list-group list-group-flush">
+                            <a class="list-group-item list-group-item-action list-group-item-light p-3" allign="center" style="background-color: white;" href="#/">공지사항 관리</a>
+                            <a class="list-group-item list-group-item-action list-group-item-light p-3" allign="center" href="/partClasses">개설강좌 검색</a>
+                            <a class="list-group-item list-group-item-action list-group-item-light p-3" allign="center" href="/pocketList">담아두기 내역</a>
+                            <a class="list-group-item list-group-item-action list-group-item-light p-3" allign="center" href="/partClasses/new">수강신청 내역</a>
+
+                        </div>
+
+                        <!-- Left Menu End -->
+                    </td>
+                    <!-- Left End -->
+                    <td width=1 bgcolor=#E1E1E1></td>
+
+                    <td align=left valign="top" bgcolor="#ffffff">
+                        <!-- Main Start -->
+                        <div class=s10></div>
+                        <div style="padding-left:15px;">
+
+                            <TABLE border='0' cellpadding='0' cellspacing='1' bgcolor='#999999'>
+                                <TR>
+                                    <TD align=center>
+                                        <TABLE width=660 border='0' cellpadding='0' cellspacing='0'>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD align=left style='padding-left:20'><font color=red>
+                                                    <span class=txto><b>※ 클래스넷을 통해 비밀번호를 변경하신 학생은 변경한 비밀번호를 입력하셔야 합니다. </b></span>
+                                                    <br>
+                                                    <span class=txto><b>※ 수강신청 일정은 개강 후 변동 학년을 기준으로 합니다.</b></span>
+                                                    <br><br>
+                                                    <span class=txto><b>※ 동일한 학번으로 중복로그인이 불가합니다.(중복 로그인 시 자동 로그아웃 됨) </b></span>
+                                                    <br><br>
+                                                    <span class=txto><b>※ 수강신청 관련하여 전공교과목은 학과/전공 사무실, 교양교과목은 교양교육원에 문의하여 주시기 바랍니다.</b></span>
+                                                    <br>
+                                                    <span class=txto>&nbsp;&nbsp;&nbsp;<a href="http://www.hongik.ac.kr/contents/www/cor/univseoul.html" target="_blank" style="color:blue; text-decoration:underline;">-서울캠퍼스 학과안내 바로가기</a></span>
+                                                    <br>
+                                                    <span class=txto>&nbsp;&nbsp;&nbsp;<a href="http://www.hongik.ac.kr/contents/www/cor/univsejong.html" target="_blank" style="color:blue; text-decoration:underline;">-세종캠퍼스 학과안내 바로가기</a></span>
+                                                </TD>
+                                            </TR>
+                                        </TABLE>
+                                    </TD>
+                                </TR>
+                            </TABLE>
+
+                            <BR>
+
+                            <TABLE border='0' cellpadding='0' cellspacing='1' bgcolor='#999999'>
+                                <TR>
+                                    <TD align=center>
+
+                                        <TABLE align="center" width=660 border='0' cellpadding='0' cellspacing='0'>
+
+                                            <TR height=60 bgcolor='#eeeeee'>
+                                                <TH colspan=2><font color=blue>[2022학년도 동계계절학기] </th>
+                                            </TR>
+                                            <TR height=20 bgcolor='#eeeeee'>
+                                                <TH colspan=2> 2022. 12. 26(월) ~ 2023. 1. 16(월)     </th>
+                                            </TR>
+                                            <TR height=50 bgcolor='#eeeeee'>
+                                                <TH colspan=2><font color=blue>[1차 수강신청]</font> </tH>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=right width=250>4,5학년 :</TD>
+                                                <TD valign=top align=left>&nbsp;&nbsp;2022. 12. 6(화) 09:00 ~ 17:00</TD>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=right >3학년 :</TD>
+                                                <TD valign=top align=left>&nbsp;&nbsp;2022. 12. 7(수) 09:00 ~ 17:00</TD>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=right >1,2학년 :</TD>
+                                                <TD valign=top align=left>&nbsp;&nbsp;2022. 12. 8(목) 09:00 ~ 17:00</TD>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=right >전체 :</TD>
+                                                <TD valign=top align=left>&nbsp;&nbsp;2022. 12. 9(금) 09:00 ~ 17:00</TD>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=right>1차 수강료 납부 :</TD>
+                                                <TD valign=top align=left>&nbsp;&nbsp;2022. 12. 12(월) 09:00 ~ 12. 14(수) 16:00
+
+                                                </TD>
+                                            </TR>
+                                            <TR height=15 bgcolor='#eeeeee'>
+                                                <TH colspan=2>※ 1차 수강료를 납부하지 않으면 1차 수강신청내역은 일괄 삭제됩니다.</tH>
+                                            </TR>
+                                            <TR height=50 bgcolor='#eeeeee'>
+                                                <TH colspan=2><br> <font color=blue>[2차 수강신청]</font>  </th>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=center colspan=2> 2022. 12. 15(목) 09:00 ~ 17:00 </td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=center colspan=2>2차 수강료 납부 : 2022. 12. 16(금) 09:00 ~ 12. 20(화) 16:00</td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TH valign=top colspan = 2> &nbsp;&nbsp;※ 2차 수강료를 납부하지 않으면 2차 수강신청 내역은 일괄 삭제됩니다.<br>
+                                                    &nbsp;&nbsp;계절학기에는 '수강신청 정정 허가원'이 없으므로 유의하시기 바랍니다.
+                                                </TH>
+                                            </TR>
+                                            <TR height=50 bgcolor='#eeeeee'>
+                                                <TH colspan=2><br> <font color=blue>[수강철회]</font>  </th>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TD valign=top align=center colspan=2> 2022. 12. 21(수) 15:00 ~ 12. 22(목) 17:00 </td>
+
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <TH valign=top colspan = 2> &nbsp;&nbsp;※ 추가 수강신청이나 정정은 되지 않고 철회만 가능합니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                                    &nbsp;&nbsp;철회한 내역에 대해 기납부한 수강료는 전액 환불처리 됩니다.&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </TH>
+                                            </TR>
+                                            <TR height=50 bgcolor='#eeeeee'>
+                                                <TH colspan=2><br> <font color=blue>[폐강 과목 수강생의 수강정정기간] </font> </th>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <Td colspan=2 align = center> 기간 : 2022. 12. 21(수) 15:00 ~ 12. 22(목) 17:00까지</td>
+                                            </TR>
+                                            <TR height=30 bgcolor='#eeeeee'>
+                                                <Td colspan=2 align = center> 온라인 정정 : 수강신청페이지 > 폐강과목 수강정정</td>
+                                            </TR>
+                                            <TR height=50 bgcolor='#eeeeee'>
+                                                <th colspan=2 align = center> <font color=blue> &nbsp;&nbsp;※ 바이오헬스 혁신공유대학 과목 수강신청,철회,환불 일정 등은 <br>별도 공지를 참조하시기 바랍니다.(문의 : 02-2098-2852). </font></th>
+                                            </TR>
+                                        </TABLE>
+
+                                    </TD>
+                                </TR>
+                            </TABLE>
 
 
-        <div class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#/">공지사항</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partClasses">개설강좌 조회</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/pocketList">담아두기 내역</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/partClasses/new">수강신청 내역</a>
-            <!--                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>-->
-            <!--                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>-->
-            <!--                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>-->
-        </div>
-    </div>
-    <!-- Page content wrapper-->
-    <div id="page-content-wrapper">
-        <!-- Top navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container-fluid">
-                <button class="btn btn-primary" id="sidebarToggle">Menu</button>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#!">Action</a>
-                                <a class="dropdown-item" href="#!">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#!">Something else here</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page content-->
-        <div class="container-fluid">
-            <h1 class="mt-4">2022학년도 2학기</h1>
-            <p>2022년 09월 2일 ~ 2022년 12월 14일</p>
-            <p>
-            <div>
-                [담아두기 기간]
-                2022년 08월 4일 ~ 2022년 08월 10일
-            </div>
-            <div>
-                [수간신청]
-                2022년 08월 13일
-            </div>
-            <div>
-                [수강료 납부]
-                2022년 08월 20일
-            </div>
-            </p>
+                        </div>
+                        <div class=s10></div>
+                        <!-- Main End -->
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 
-        </div>
-    </div>
-</div>
+    <!-- Bottom Start -->
+    <tr>
+        <td valign=top height=100%>
+            <table cellspacing="0" cellpadding="0" border="0" width=100%>
+                <tr><td height="1" bgcolor="#ffffff"></td></tr>
+                <tr><td height="1" bgcolor="#cccccc"></td></tr>
+                <tr><td height=33>&nbsp;&nbsp;Copyrightⓒ2007 Hongik University, All rights reserved</td></tr>
+            </table>
+        </td>
+    </tr>
+</table>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

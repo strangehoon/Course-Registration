@@ -50,7 +50,7 @@ public class LoginController {
             return "redirect:/home";
         }
         else {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호 오류.");
             return "index";
         }
 
