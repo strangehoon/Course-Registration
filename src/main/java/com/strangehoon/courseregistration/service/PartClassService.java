@@ -5,6 +5,7 @@ import com.strangehoon.courseregistration.controller.PartClassForm;
 
 import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.PartClass;
+import com.strangehoon.courseregistration.domain.Pocket;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.repository.MajorRepository;
 import com.strangehoon.courseregistration.repository.PartClassRepository;
@@ -74,6 +75,12 @@ public class PartClassService {
 
         Page<PartClassDto> page = partClassRepository.findPartClassDtoAll(partClassSearch, pageable);
         return page;
+    }
+
+    // 장바구니 리스트 조회
+    public List<PartClassDto> pocketClassList(Long studentId) {
+        List<PartClassDto> list = partClassRepository.findPocketAll(studentId);
+        return list;
     }
 
     //분반 전체 조회(without 검색 조건)

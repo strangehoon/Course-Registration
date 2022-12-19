@@ -18,8 +18,8 @@ public interface PartClassRepository extends JpaRepository<PartClass, Long>, Par
     @Query("select new com.strangehoon.courseregistration.dto.PartClassDto(p.id, p.classNum, p.name, p.grade, p.credit, p.capacity, p.remainNum, p.professorName, p.dayTime, p.classroom, m.name) " + "from PartClass p join p.major m " + "where p.id = :partClassId")
     PartClassDto findPartClassOne(@Param("partClassId") Long partClassId);
 
-
-
+//    @Query("select new com.strangehoon.courseregistration.dto.PartClassDto(p.id, p.classNum, p.name, p.grade, p.credit, p.capacity, p.remainNum, p.professorName, p.dayTime, p.classroom, m.name) " + "from PartClass p join p.major m and Pocket k join k.partClass p and k join k.student s " + "where s.id = :studentId")
+//    Page<PartClassDto> findPocketAll(@Param("studentId") Long studentId, Pageable pageable);
 
 
     }

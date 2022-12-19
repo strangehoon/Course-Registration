@@ -55,4 +55,14 @@ public class PocketService {
         Pocket savedPocket = pocketRepository.save(pocket);
         System.out.println("savedPocket = " + savedPocket.getId());
     }
+
+    public List<Pocket> findPocket(Long studentId) {
+        Student student = studentRepository.findById(studentId).get();
+        List<Pocket> pocket = pocketRepository.findByStudent(student);
+
+        return pocket;
+
+    }
+
+
 }

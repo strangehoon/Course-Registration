@@ -1,6 +1,7 @@
 package com.strangehoon.courseregistration.controller;
 
 import com.strangehoon.courseregistration.controller.login.SessionConst;
+import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.Pocket;
 import com.strangehoon.courseregistration.domain.Student;
 import com.strangehoon.courseregistration.dto.PartClassDto;
@@ -10,9 +11,13 @@ import com.strangehoon.courseregistration.repository.PartClassSearch;
 import com.strangehoon.courseregistration.repository.PocketRepository;
 
 import com.strangehoon.courseregistration.repository.StudentRepository;
+import com.strangehoon.courseregistration.service.PartClassService;
 import com.strangehoon.courseregistration.service.PocketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +34,10 @@ public class PocketController {
 
     private final PocketService pocketService;
     private final StudentRepository studentRepository;
+    private final PartClassService partClassService;
 
     //장바구니 등록
-    @PostMapping(value = "/pocketPartClasses/new") @ResponseBody
+    @PostMapping(value = "/pocketList/new") @ResponseBody
     public boolean create(@ModelAttribute PocketClassDto pocketClassDto, Model model) {
         System.out.println("pocketClassDto.partClassId = " + pocketClassDto.getPartClassId());
         System.out.println("pocketClassDto.studentId = " + pocketClassDto.getStudentId());
@@ -46,6 +52,18 @@ public class PocketController {
 //            model.addAttribute("searchUrl", "/partClasses");
             return false;
         }
+    }
+
+    //장바구니 조회
+    @GetMapping(value = "/pocketList")
+    public String ListByUsedStudent(Model model) {
+
+
+        List<Pocket> foundPocket = pocketService.findPocket(1L);
+        List<PartClassDto> pocketList = partClassService.pocketClassList(1L);
+
+        model.addAttribute("partClassForm", pocketList);
+        return "pocket/pocketList";
     }
 
 //    @GetMapping(value = "/pocketPartClass")
