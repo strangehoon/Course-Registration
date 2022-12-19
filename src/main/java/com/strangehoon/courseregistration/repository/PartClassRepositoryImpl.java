@@ -16,8 +16,11 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+import static com.querydsl.core.QueryModifiers.offset;
 import static com.strangehoon.courseregistration.domain.QMajor.major;
 import static com.strangehoon.courseregistration.domain.QPartClass.partClass;
+import static com.strangehoon.courseregistration.domain.QPocket.pocket;
+import static com.strangehoon.courseregistration.domain.QStudent.student;
 
 public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
 
@@ -25,6 +28,39 @@ public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
 
     public PartClassRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
+    }
+
+
+
+    public List<PartClassDto> findPocketAll(Long studentId) {
+        List<PartClassDto> content = queryFactory
+                .select(new QPartClassDto(
+                        partClass.id,
+                        partClass.classNum,
+                        partClass.name,
+                        partClass.grade,
+                        partClass.credit,
+                        partClass.capacity,
+                        partClass.remainNum,
+                        partClass.professorName,
+                        partClass.dayTime,
+                        partClass.classroom,
+                        major.name))
+                .from(partClass, pocket)
+                .leftJoin(partClass.major, major)
+                .leftJoin(pocket.partClass, partClass)
+                .leftJoin(pocket.student, student)
+                .where(
+                        student.id.eq(studentId),
+                        pocket.partClass.id.eq(partClass.id),
+                        pocket.student.id.eq(studentId),
+                        partClass.major.id.eq(major.id)
+                )
+                .distinct()
+                .fetch();
+
+
+        return content;
     }
 
     @Override
