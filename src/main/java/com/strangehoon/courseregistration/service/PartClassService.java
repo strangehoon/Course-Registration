@@ -58,14 +58,6 @@ public class PartClassService {
     public void deletePartClass(Long partClassId) {
         PartClass foundPartClass = partClassRepository.findById(partClassId).get();
         partClassRepository.delete(foundPartClass);
-
-//        List<PartClass> partClassList = partClassRepository.findAll();
-//        for(PartClass partClass : partClassList) {
-//
-//            if (partClass.getId() > partClassId) {
-//                partClass.updateId();
-//            }
-//        }
     }
 
     // 분반 전체 조회(with 검색 조건)

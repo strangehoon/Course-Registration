@@ -52,6 +52,10 @@
                 <td th:text="${partClass.professorName}"></td>
                 <td th:text="${partClass.dayTime}"></td>
                 <td th:text="${partClass.classroom}"></td>
+                <td>
+                    <a href="#" th:href="@{/pocketList/{partClassId}/delete (partClassId=${partClass.id})}"
+                       class="btn btn-primary" role="button">삭제</a>
+                </td>
 
 
             </tr>

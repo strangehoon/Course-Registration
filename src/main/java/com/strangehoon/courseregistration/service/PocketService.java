@@ -27,6 +27,7 @@ public class PocketService {
     private final PartClassRepository partClassRepository;
     private final StudentRepository studentRepository;
 
+    // 장바구니에 기존 강좌 있는지 체크
     public Boolean checkPocket(PocketClassDto pocketClassDto) {
         PartClass partClass = partClassRepository.findById(pocketClassDto.getPartClassId()).get();
         Student student = studentRepository.findById(pocketClassDto.getStudentId()).get();
@@ -45,6 +46,7 @@ public class PocketService {
         }
     }
 
+    // 장바구니에 강좌 등록
     @Transactional
     public void savePocket(PocketClassDto pocketClassDto) {
         Student student = studentRepository.findById(pocketClassDto.getStudentId()).get();
@@ -56,12 +58,19 @@ public class PocketService {
         System.out.println("savedPocket = " + savedPocket.getId());
     }
 
+    // 장바구니 내역 조회
     public List<Pocket> findPocket(Long studentId) {
         Student student = studentRepository.findById(studentId).get();
         List<Pocket> pocket = pocketRepository.findByStudent(student);
-
         return pocket;
+    }
 
+    //장바구니 내역 삭제
+    @Transactional
+    public void deletePocketClass(Long partClassId) {
+        PartClass foundPartClass = partClassRepository.findById(partClassId).get();
+        Pocket foundPocketClass = pocketRepository.findByPartClass(foundPartClass).get();
+        pocketRepository.delete(foundPocketClass);
     }
 
 

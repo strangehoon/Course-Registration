@@ -66,6 +66,16 @@ public class PocketController {
         return "pocket/pocketList";
     }
 
+    //분반 삭제
+    @GetMapping(value = "/pocketList/{partClassId}/delete")
+    public String deletePartClass(@PathVariable("partClassId") Long partClassId, Model model) {
+        pocketService.deletePocketClass(partClassId);
+
+        model.addAttribute("message", "담아두기 내역을 삭제했습니다.");
+        model.addAttribute("searchUrl", "/pocketList");
+        return "message";
+    }
+
 //    @GetMapping(value = "/pocketPartClass")
 //    public String pocketClass(HttpServletRequest request, @ModelAttribute("partClassForm") PartClassDto partClassDto, Model model) {
 //        //세션이 없으면 home

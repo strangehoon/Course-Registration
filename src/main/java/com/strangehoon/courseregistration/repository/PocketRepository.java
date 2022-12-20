@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.servlet.http.Part;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,5 +17,7 @@ public interface PocketRepository extends JpaRepository<Pocket, Long> {
     Optional<Pocket> findByPartClassAndStudent(PartClass partClass, Student student);
 
     List<Pocket> findByStudent(Student student);
+
+    Optional<Pocket> findByPartClass(PartClass partClass);
 
 }
