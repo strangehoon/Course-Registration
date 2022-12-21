@@ -2,6 +2,8 @@ package com.strangehoon.courseregistration.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.strangehoon.courseregistration.controller.PartClassForm;
+import com.strangehoon.courseregistration.controller.validation.PartClassSaveForm;
+import com.strangehoon.courseregistration.controller.validation.PartClassUpdateForm;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,6 @@ public class PartClassDto {
     private String classroom;
 
     private String majorName;
-    private Boolean check;
 
 
     public PartClassDto(PartClassForm partClassForm) {
@@ -79,6 +80,35 @@ public class PartClassDto {
         this.dayTime = dayTime;
         this.classroom = classroom;
         this.majorName = majorName;
+    }
+
+    // 분반 등록용 폼을 DTO로 변환
+    public PartClassDto(PartClassSaveForm form) {
+        this.classNum = form.getClassNum();
+        this.capacity = form.getCapacity();
+        this.remainNum = form.getRemainNum();
+        this.professorName = form.getProfessorName();
+        this.name = form.getName();
+        this.grade = form.getGrade();
+        this.credit = form.getCredit();
+        this.dayTime = form.getDayTime();
+        this.classroom = form.getClassroom();
+        this.majorName = form.getMajorName();
+    }
+
+    //분반 수정용 폼을 DTO로 변환
+    public PartClassDto(PartClassUpdateForm form) {
+        this.id = form.getId();
+        this.classNum = form.getClassNum();
+        this.capacity = form.getCapacity();
+        this.remainNum = form.getRemainNum();
+        this.professorName = form.getProfessorName();
+        this.name = form.getName();
+        this.grade = form.getGrade();
+        this.credit = form.getCredit();
+        this.dayTime = form.getDayTime();
+        this.classroom = form.getClassroom();
+        this.majorName = form.getMajorName();
     }
 
 }

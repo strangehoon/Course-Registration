@@ -89,7 +89,7 @@ public class PartClass {
     }
 
     //==비즈니스 로직==//
-    public void updatePartClass(String majorName, String classNum, String name, int grade, int credit, int capacity, int remainNum, String professorName, String dayTime,String classroom) {
+    public void updatePartClass(Major major, String classNum, String name, int grade, int credit, int capacity, int remainNum, String professorName, String dayTime,String classroom) {
         this.classNum = classNum;
         this.name = name;
         this.credit = credit;
@@ -99,7 +99,7 @@ public class PartClass {
         this.professorName = professorName;
         this.dayTime = dayTime;
         this.classroom = classroom;
-        this.major.updateMajorName(majorName);
+        this.major = major;
     }
 
     public void updateId() {

@@ -2,6 +2,8 @@ package com.strangehoon.courseregistration.controller;
 
 
 
+import com.strangehoon.courseregistration.controller.validation.PartClassSaveForm;
+import com.strangehoon.courseregistration.controller.validation.PartClassUpdateForm;
 import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.PartClass;
 import com.strangehoon.courseregistration.dto.MajorDto;
@@ -19,6 +21,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -40,14 +44,21 @@ public class PartClassController {
     public String createForm(Model model) {
         List<Major> majors = majorService.findAllMajor();
         model.addAttribute("majorForm", majors);
-        model.addAttribute("partClassForm", new PartClassForm());
+        model.addAttribute("partClassSaveForm", new PartClassSaveForm());
         return "partClass/createPartClassForm";
     }
 
     //분반 등록
     @PostMapping(value = "/managerPartClasses/new")
-    public String create(PartClassForm partClassForm, Model model) {
-        partClassService.createPartClass(new PartClassDto(partClassForm));
+    public String create(@Validated @ModelAttribute("partClassSaveForm") PartClassSaveForm form, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            List<Major> majors = majorService.findAllMajor();
+            model.addAttribute("majorForm", majors);
+            return "partClass/createPartClassForm";
+            //return "redirect:/managerPartClasses/new";   redirectAttributes 공부해보자/
+        }
+        partClassService.createPartClass(new PartClassDto(form));
 
         model.addAttribute("message", "신규 분반이 등록되었습니다.");
         model.addAttribute("searchUrl", "/managerPartClasses");
@@ -85,23 +96,36 @@ public class PartClassController {
     @GetMapping(value = "/managerPartClasses/{partClassId}/edit")
     public String updatePartClassForm(@PathVariable("partClassId") Long partClassId, Model model) {
         PartClassDto partClassDto = partClassService.findPartClassOne(partClassId);
-        log.info("info log ={}", partClassId);
-        PartClassForm partClassForm = new PartClassForm(partClassDto);
+        System.out.println("PartClassDtoId" + partClassDto.getId());
+        PartClassUpdateForm partClassUpdateForm = new PartClassUpdateForm(partClassDto);
+        List<Major> majors = majorService.findAllMajor();
 
-        model.addAttribute("partClassForm", partClassForm);
+        System.out.println("PartClassUpdateFormId" + partClassUpdateForm.getId());
+
+        model.addAttribute("majorForm", majors);
+        model.addAttribute("partClassUpdateForm", partClassUpdateForm);
         return "partClass/updatePartClassForm";
     }
 
+
     //분반 수정
     @PostMapping(value = "/managerPartClasses/{partClassId}/edit")
-    public String updatePartClass(@ModelAttribute("form") PartClassForm partClassForm, Model model) {
-        PartClassDto partClassDtoWithId = new PartClassDto(partClassForm, partClassForm.getId());
+    public String updatePartClass(@Validated @ModelAttribute("partClassUpdateForm") PartClassUpdateForm form, BindingResult bindingResult, Model model) {
+        System.out.println("PartClassController.updatePartClass");
+        PartClassDto partClassDtoWithId = new PartClassDto(form);
+
+        if(bindingResult.hasErrors()) {
+            List<Major> majors = majorService.findAllMajor();
+            model.addAttribute("majorForm", majors);
+            return "partClass/updatePartClassForm";
+        }
 
         partClassService.updatePartClass(partClassDtoWithId);
         model.addAttribute("message", "분반 정보를 수정했습니다.");
         model.addAttribute("searchUrl", "/managerPartClasses");
         return "message";
     }
+
 
     //분반 삭제
     @GetMapping(value = "/managerPartClasses/{partClassId}/delete")
