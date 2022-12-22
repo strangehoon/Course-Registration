@@ -12,11 +12,13 @@ import com.strangehoon.courseregistration.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @RequiredArgsConstructor
+@EnableJpaAuditing
 public class CourseRegistrationApplication {
 
 	public static void main(String[] args) {
