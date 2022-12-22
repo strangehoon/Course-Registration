@@ -26,8 +26,9 @@
 <!--                <span th:text="${post.id}"></span>-->
 <!--            </th>-->
             <th scope="row">
-                <span th:text="${iterState.count}"></span>
+                <span th:text="${iterState.count + (pageNumber)*10}"></span>
             </th>
+
             <td>
                 <a th:href="@{'/managerBoard/' + ${post.id}}">
                     <span th:text="${post.title}"></span>
@@ -45,6 +46,44 @@
         </tr>
         </tbody>
     </table>
+
+    <div>
+        <nav style="text-align: center;" aria-label="Page navigation example">
+            <ul class="pagination"
+                th:with="start=${T(java.lang.Math).floor(boardList.number/10)*10 + 1},
+                            last=(${start + 9 < boardList.totalPages ? start + 9 : boardList.totalPages})">
+                <li class="page-item">
+                    <a th:href="@{/managerBoard/list(page=1)}" class="page-link" href="#" aria-label="First">
+                        <span aria-hidden="true">First</span>
+                    </a>
+                </li>
+                <li class="page-item" th:class="${boardList.first} ? 'disabled'">
+                    <a th:href="${boardList.first} ? '#' :@{/managerBoard/list(page=${boardList.number})}" class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+                <!--        <li class="page-item active" aria-current="page">-->
+                <!--            <a class="page-link" href="#">2</a>-->
+                <!--        </li>-->
+                <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == boardList.number + 1} ? 'page-item active'">
+                    <a class="page-link"  th:text="${page}" th:href="@{/managerBoard/list(page=${page})}"></a>
+                </li>
+                <a class="page-link" href="#" th:href="${boardList.last} ? '#' : @{/managerBoard/list(page=${boardList.number + 2})}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+                </li>
+
+
+                <li class="page-item">
+                    <a class="page-link" href="#" th:href="@{/managerBoard/list(page=${boardList.totalPages})}" aria-label="Last">
+                        <span aria-hidden="true">Last</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
     <div class="row">
         <div class="col-auto mr-auto"></div>
         <div class="col-auto">

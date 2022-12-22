@@ -48,4 +48,13 @@ public class BoardDto {
         this.createdDate=board.getCreatedDate();
         this.modifiedDate=board.getModifiedDate();
     }
+
+    public BoardDto(Long id, String author, String title, String content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+        this.id = id;
+        this.author = author;
+        this.title = title;
+        this.content = content;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
+    }
 }

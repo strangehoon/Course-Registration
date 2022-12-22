@@ -7,6 +7,9 @@ import com.strangehoon.courseregistration.dto.BoardDto;
 import com.strangehoon.courseregistration.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,23 +26,22 @@ public class BoardController {
 
     //___________________________________________________관리자 영역_________________________________________________________
     @GetMapping("/managerBoard/list")
-    public String listByManager(Model model) {
-        List<BoardDto> boardList = boardService.findList();
+    public String listByManager(Model model, @PageableDefault Pageable pageable) {
+        Page<BoardDto> boardList = boardService.findList(pageable);
         model.addAttribute("boardList", boardList);
+        model.addAttribute("pageNumber", boardList.getNumber());
         return "board/manager/list";
     }
 
     @GetMapping("/managerBoard/new")
     public String create(Model model) {
 
-        System.out.println("BoardController.qwee");
         return "board/manager/post";
     }
 
     @PostMapping("/managerBoard/new")
     public String save(@ModelAttribute BoardSaveForm boardSaveForm, Model model) {
 
-        System.out.println("BoardController.save" + boardSaveForm.getAuthor());
         BoardDto boardDto = new BoardDto(boardSaveForm);
 
 
@@ -60,13 +62,8 @@ public class BoardController {
 
     @PostMapping("/managerBoard/{id}")
     public String update(@PathVariable Long id, @ModelAttribute BoardUpdateForm boardUpdateform, Model model) {
-        System.out.println("BoardController.xxx" + id);
-        System.out.println("BoardController.xxx" + boardUpdateform);
 
         BoardDto boardDto = new BoardDto(id, boardUpdateform);
-        System.out.println("BoardController.update" + id);
-        System.out.println("BoardController.update" + boardUpdateform.getContent());
-        System.out.println("BoardController.update" + boardDto.getContent());
 
         boardService.update(boardDto);
 
@@ -86,11 +83,13 @@ public class BoardController {
 
     //___________________________________________________학생 영역_________________________________________________________
     @GetMapping("/board/list")
-    public String list(Model model) {
-        List<BoardDto> boardList = boardService.findList();
+    public String list(Model model, @PageableDefault Pageable pageable) {
+        Page<BoardDto> boardList = boardService.findList(pageable);
         model.addAttribute("boardList", boardList);
+        model.addAttribute("pageNumber", boardList.getNumber());
         return "board/list";
     }
+
 
     @GetMapping("/board/{id}")
     public String content(@PathVariable Long id, Model model) {
@@ -100,4 +99,6 @@ public class BoardController {
         model.addAttribute("boardUpdateForm", boardUpdateForm);
         return "board/content";
     }
+
+
 }

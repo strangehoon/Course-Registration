@@ -3,8 +3,13 @@ package com.strangehoon.courseregistration.service;
 import com.strangehoon.courseregistration.controller.validation.BoardUpdateForm;
 import com.strangehoon.courseregistration.domain.Board;
 import com.strangehoon.courseregistration.dto.BoardDto;
+import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,16 +29,12 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public List<BoardDto> findList() {
-        List<Board> boardList = boardRepository.findAll();
-        List<BoardDto> boardDtoList = new ArrayList<>();
+    public Page<BoardDto> findList(Pageable pageable) {
+        int initpage = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); //스프링 데이터 jpa에서는 페이지가 0부터 시작 따라서 이행을 넣음
+        pageable = PageRequest.of(initpage, 10, Sort.by(Sort.Direction.ASC,"id")); // <- Sort 추가
+        Page<BoardDto> page = boardRepository.findBoardList(pageable);
 
-        for(Board board : boardList) {
-            BoardDto boardDto = new BoardDto(board);
-            boardDtoList.add(boardDto);
-        }
-        return boardDtoList;
-
+        return page;
     }
 
     public BoardDto findPost(Long id) {
