@@ -17,7 +17,7 @@
             </div>
             <div class="form-group row mt-5 w-75">
                 <label class="text-start">제목</label>
-                <input type="text" class="form-control" th:field="*{title}"   placeholder="제목을 입력하세요">
+                <input type="text" class="form-control" th:field="*{title}"   placeholder="제목을 입력하세요" readonly>
             </div>
             <div class="form-group row mt-5 w-75">
                 <label class="text-start">작성자</label>
@@ -25,12 +25,10 @@
             </div>
             <div class="form-group row mt-5 w-75">
                 <label class="text-start">내용</label>
-                <textarea class="form-control" th:field="*{content}" placeholder="내용을 입력하세요"></textarea>
+                <textarea class="form-control" th:field="*{content}" placeholder="내용을 입력하세요" readonly></textarea>
             </div>
 
-            <a href="/managerBoard/list" role="button" class="btn btn-secondary my-3">취소</a>
-            <input class="btn btn-primary" type="submit" role="button" value="수정" />
-            <a th:href="@{'/managerBoard/' + ${id} + '/delete'}" role="button" class="btn btn-danger my-3">삭제</a>
+            <a href="/board/list" role="button" class="btn btn-secondary my-3">취소</a>
 
         </form>
     </div>

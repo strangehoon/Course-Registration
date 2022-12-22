@@ -10,7 +10,7 @@
 <div class="container" align="center">
     <h1 class="my-5">게시판</h1>
     <div class="col-md-5 my-3">
-        <form method="post" th:object="${boardSaveForm}" th:action="@{/board/new}">
+        <form method="post" th:object="${boardSaveForm}" th:action="@{/managerBoard/new}">
             <div class="form-group row mt-5 w-75">
                 <label class="text-start" for="title">제목</label>
                 <input type="text" class="form-control" name="title"

@@ -20,22 +20,23 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping("board/list")
-    public String list(Model model) {
+
+    //___________________________________________________관리자 영역_________________________________________________________
+    @GetMapping("/managerBoard/list")
+    public String listByManager(Model model) {
         List<BoardDto> boardList = boardService.findList();
         model.addAttribute("boardList", boardList);
-        return "board/list";
+        return "board/manager/list";
     }
 
-    @GetMapping("board/new")
+    @GetMapping("/managerBoard/new")
     public String create(Model model) {
 
-//        model.addAttribute("boardSaveForm", new BoardSaveForm());
         System.out.println("BoardController.qwee");
-        return "board/post";
+        return "board/manager/post";
     }
 
-    @PostMapping("board/new")
+    @PostMapping("/managerBoard/new")
     public String save(@ModelAttribute BoardSaveForm boardSaveForm, Model model) {
 
         System.out.println("BoardController.save" + boardSaveForm.getAuthor());
@@ -44,20 +45,20 @@ public class BoardController {
 
         boardService.savePost(boardDto);
         model.addAttribute("message", "공지사항이 등록되었습니다.");
-        model.addAttribute("searchUrl", "/board/list");
+        model.addAttribute("searchUrl", "/managerBoard/list");
         return "message";
     }
 
-    @GetMapping("board/{id}")
+    @GetMapping("/managerBoard/{id}")
     public String update(@PathVariable Long id, Model model) {
         BoardDto boardDto = boardService.findPost(id);
         BoardUpdateForm boardUpdateForm = new BoardUpdateForm(boardDto);
         model.addAttribute("id", id);
         model.addAttribute("boardUpdateForm", boardUpdateForm);
-        return "board/update";
+        return "board/manager/update";
     }
 
-    @PostMapping("board/{id}")
+    @PostMapping("/managerBoard/{id}")
     public String update(@PathVariable Long id, @ModelAttribute BoardUpdateForm boardUpdateform, Model model) {
         System.out.println("BoardController.xxx" + id);
         System.out.println("BoardController.xxx" + boardUpdateform);
@@ -70,16 +71,33 @@ public class BoardController {
         boardService.update(boardDto);
 
         model.addAttribute("message", "공지사항이 수정되었습니다.");
-        model.addAttribute("searchUrl", "/board/list");
+        model.addAttribute("searchUrl", "/managerBoard/list");
         return "message";
     }
 
-    @GetMapping("board/{id}/delete")
+    @GetMapping("/managerBoard/{id}/delete")
     public String delete(@PathVariable Long id, Model model) {
         boardService.delete(id);
         model.addAttribute("message", "공지사항이 삭제되었습니다.");
-        model.addAttribute("searchUrl", "/board/list");
+        model.addAttribute("searchUrl", "/managerBoard/list");
         return "message";
 
+    }
+
+    //___________________________________________________학생 영역_________________________________________________________
+    @GetMapping("/board/list")
+    public String list(Model model) {
+        List<BoardDto> boardList = boardService.findList();
+        model.addAttribute("boardList", boardList);
+        return "board/list";
+    }
+
+    @GetMapping("/board/{id}")
+    public String content(@PathVariable Long id, Model model) {
+        BoardDto boardDto = boardService.findPost(id);
+        BoardUpdateForm boardUpdateForm = new BoardUpdateForm(boardDto);
+        model.addAttribute("id", id);
+        model.addAttribute("boardUpdateForm", boardUpdateForm);
+        return "board/content";
     }
 }
