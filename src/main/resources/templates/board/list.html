@@ -21,9 +21,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center" th:each="post : ${boardList}">
+        <tr class="text-center" th:each="post, iterState: ${boardList}">
+<!--            <th scope="row">-->
+<!--                <span th:text="${post.id}"></span>-->
+<!--            </th>-->
             <th scope="row">
-                <span th:text="${post.id}"></span>
+                <span th:text="${iterState.count}"></span>
             </th>
             <td>
                 <a th:href="@{'/board/' + ${post.id}}">
