@@ -1,14 +1,12 @@
 package com.strangehoon.courseregistration;
 
 import com.strangehoon.courseregistration.domain.Student;
+import com.strangehoon.courseregistration.dto.BoardDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.dto.StudentDto;
 import com.strangehoon.courseregistration.repository.MajorRepository;
 import com.strangehoon.courseregistration.repository.StudentRepository;
-import com.strangehoon.courseregistration.service.MajorService;
-import com.strangehoon.courseregistration.service.ManagerService;
-import com.strangehoon.courseregistration.service.PartClassService;
-import com.strangehoon.courseregistration.service.StudentService;
+import com.strangehoon.courseregistration.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +27,7 @@ public class CourseRegistrationApplication {
 	private final MajorService majorService;
 	private final StudentService studentService;
 	private final ManagerService managerService;
+	private final BoardService boardService;
 
 
 	/*테스트용 데이터*/
@@ -215,11 +214,29 @@ public class CourseRegistrationApplication {
 		partClassService.createPartClass(new PartClassDto("201811-4", "포스트모던영미드라마", 4, 3, 40, 40, "이승미", "월6목6금6", "C304", "영어영문학과"));
 
 
+		//게시물
+		boardService.savePost(new BoardDto("관리자1", "[필독]계절학기 수강료 납부 관련 공지","오늘부터 12월 20일(화) 16:00까지 계절학기 수강료 납부 기간입니다. 계절학기를 신청한 모든 학생들은 반드시 기한 내 수업료를 납부하시기 바랍니다."));
+		boardService.savePost(new BoardDto("관리자2", "[계절학기]폐강 수업 관련 공지","2022학년도 동계 계절학기 폐강과목을 안내하오니, 폐강된 과목을 수강신청한 학생은 12.21(수) 15:00 ~ 12.22(목) 17:00까지 온라인으로 수강정정하시기 바랍니다."));
+		boardService.savePost(new BoardDto("관리자1", "[계절학기]2022학년도 동계 계절학기 폐강 및 환불 공지","폐강과목 공고 및 폐강과목에 대한 수강정정 서울캠퍼스의 2022학년도 동계 계절학기 폐강과목을 [붙임1]과 같이 안내하오니, 폐강된 과목을 수강신청한 학생은 12.21(수) 15:00 ~ 12.22(목) 17:00까지 온라인으로 수강정정하시기 바랍니다. "));
+		boardService.savePost(new BoardDto("관리자2", "[사이버강좌] 2022학년도 계절학기 출석 및 수강방법 안내\n",
+				"사이버강좌 출석 및 수강방법 안내를 다음과 같이 안내하오니 수강에 차질 없도록 참고 바랍니다."));
 
-
-
-
-
+		boardService.savePost(new BoardDto("관리자2", "[일반] 2022학년도 동계 방학 사회봉사 신청 안내\n",
+				"23-1학기부터 서울캠퍼스 사회봉사 교과목 수강신청 방법이 변경되었습니다. 반드시 신청 방법을 확인하여 주시기 바랍니다. 2022학년도 동계 학기 [사회봉사] 교과목을 다음과 같이 개설하오니 희망자는 신청하시기 바랍니다."));
+		boardService.savePost(new BoardDto("관리자2", "[일반]2023학년도 1학기 재입학 추가 신청 안내"  ,"재입학 추가 신청은 세종캠퍼스에 한하여 진행됩니다.\n" +
+				"1. 재입학 추가 신청기간 : 2022. 12 5(월) - 2022. 12. 16(금) 16:00까지(공휴일 및 주말 제외, 기한 엄수)."));
+		boardService.savePost(new BoardDto("관리자3", "[일반]2023년 2월 조기졸업 신청서 제출 안내\n",
+				"조기졸업 대상자 중 조기졸업을 희망하는 학생은 아래의 조기졸업 신청서(첨부서류 포함)를 작성하여 해당 주전공 학과로 제출하여 주시기 바랍니다. 제출 기간 및 방법에 대한 상세 내용은 첨부파일 참고하시기 바랍니다.  끝."));
+		boardService.savePost(new BoardDto("관리자1", "[계절학기]일반선택 대학수학(2)강좌 수강제한인원 변경 안내\n",
+				"12월 24일 금일 17시 이후 012202-503~505 대학수학(2) 강좌의 수강제한인원이 0/0/0/30/35에서 0/0/0/30/31로 변경 될 예정입니다. 남은 수강신청에 참고 부탁드립니다. 감사합니다."));
+		boardService.savePost(new BoardDto("관리자3", "[일반]2023년 2월 졸업예정자 전공명 선택 안내\n",
+				"학과 명칭변경, 전공폐지 등의 학과 개편이 이루어지기 전에 해당 학과에 재적 중이던 학생은 졸업 시 희망에 따라 전공명을 선택할 수 있습니다. 전공명 변경을 희망하는 금 학기 졸업예정자는 다음의 절차를 유의하시어 기한 내 신청하시기 바랍니다."));
+		boardService.savePost(new BoardDto("관리자1", "[일반]2022학년도 동계 계절학기 수업 및 평가 운영방침 안내\n",
+				"2022학년도 동계 계절학기 수업 및 평가 운영방침을 아래와 같이 안내합니다."));
+		boardService.savePost(new BoardDto("관리자1", "[일반]2022학년도 2학기 강의평가 실시 안내\n",
+				"2022학년도 2학기 강의평가를 아래와 같이 시행하오니, 강의의 질을 높이고 학생들의 강의만족도를 제고할 수 있도록 학생 여러분들의 적극적이고 정확한 참여 부탁드립니다."));
+		boardService.savePost(new BoardDto("관리자2", "[일반]학생 클래스넷 내 수료 확인서, 수강신청확인서 출력 가능 안내\n",
+				"학생 클래스넷에서 수료(예정)확인서서, 수강신청확인서가 출력 가능하니 참고하시어 필요 시 활용하시기 바랍니다."));
 
 
 
