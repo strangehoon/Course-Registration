@@ -47,7 +47,7 @@ public class BoardController {
 
         boardService.savePost(boardDto);
         model.addAttribute("message", "공지사항이 등록되었습니다.");
-        model.addAttribute("searchUrl", "/managerBoard/list");
+        model.addAttribute("searchUrl", "/managerBoard/list?page=\"+ (id/11 +1))");
         return "message";
     }
 
@@ -68,7 +68,7 @@ public class BoardController {
         boardService.update(boardDto);
 
         model.addAttribute("message", "공지사항이 수정되었습니다.");
-        model.addAttribute("searchUrl", "/managerBoard/list");
+        model.addAttribute("searchUrl", "/managerBoard/list?page="+ (id/11 +1));    //11번 게시물에서 수정하면 2번째 페이지로 가야함
         return "message";
     }
 
@@ -76,7 +76,7 @@ public class BoardController {
     public String delete(@PathVariable Long id, Model model) {
         boardService.delete(id);
         model.addAttribute("message", "공지사항이 삭제되었습니다.");
-        model.addAttribute("searchUrl", "/managerBoard/list");
+        model.addAttribute("searchUrl", "/managerBoard/list?page="+(id/11 +1));     //11번째 게시물에서 삭제하면 2번째 페이지로 가야함
         return "message";
 
     }

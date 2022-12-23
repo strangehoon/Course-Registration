@@ -31,7 +31,7 @@
 
       <td>
         <a th:href="@{'/board/' + ${post.id}}">
-          <span th:text="${post.title}"></span>
+          <p style="text-align:left;" th:text="${post.title}">왼쪽 정렬</p>
         </a>
       </td>
       <td>
@@ -88,7 +88,6 @@
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
       <a href="/home" role="button" class="btn btn-secondary my-3">취소</a>
-      <a class="btn btn-primary" th:href="@{/board/new}" role="button">등록</a>
     </div>
   </div>
 </div>
