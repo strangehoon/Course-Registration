@@ -11,6 +11,7 @@ import com.strangehoon.courseregistration.repository.PocketRepository;
 import com.strangehoon.courseregistration.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,12 +59,12 @@ public class PocketService {
         System.out.println("savedPocket = " + savedPocket.getId());
     }
 
-    // 장바구니 내역 조회
-    public List<Pocket> findPocket(Long studentId) {
-        Student student = studentRepository.findById(studentId).get();
-        List<Pocket> pocket = pocketRepository.findByStudent(student);
-        return pocket;
-    }
+//    // 장바구니 내역 조회
+//    public List<Pocket> findPocket(@PageableDefault  Long studentId) {
+//        Student student = studentRepository.findById(studentId).get();
+//        List<Pocket> pocket = pocketRepository.findByStudent(student);
+//        return pocket;
+//    }
 
     //장바구니 내역 삭제
     @Transactional

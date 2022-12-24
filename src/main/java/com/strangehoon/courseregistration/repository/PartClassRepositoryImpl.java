@@ -31,8 +31,9 @@ public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
     }
 
 
+    @Override
+    public Page<PartClassDto> findPocketAll(Long studentId, Pageable pageable) {
 
-    public List<PartClassDto> findPocketAll(Long studentId) {
         List<PartClassDto> content = queryFactory
                 .select(new QPartClassDto(
                         partClass.id,
@@ -56,11 +57,25 @@ public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
                         pocket.student.id.eq(studentId),
                         partClass.major.id.eq(major.id)
                 )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .distinct()
                 .fetch();
 
+        JPAQuery<Long> countQuery = queryFactory
+                .select(partClass.count())
+                .from(partClass, pocket)
+                .leftJoin(partClass.major, major)
+                .leftJoin(pocket.partClass, partClass)
+                .leftJoin(pocket.student, student)
+                .where(
+                        student.id.eq(studentId),
+                        pocket.partClass.id.eq(partClass.id),
+                        pocket.student.id.eq(studentId),
+                        partClass.major.id.eq(major.id)
+                );
 
-        return content;
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
     @Override

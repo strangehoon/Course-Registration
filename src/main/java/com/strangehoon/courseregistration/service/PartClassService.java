@@ -71,9 +71,12 @@ public class PartClassService {
     }
 
     // 장바구니 리스트 조회
-    public List<PartClassDto> pocketClassList(Long studentId) {
-        List<PartClassDto> list = partClassRepository.findPocketAll(studentId);
-        return list;
+    public Page<PartClassDto> pocketClassList(Long studentId, Pageable pageable) {
+        int initpage = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); //스프링 데이터 jpa에서는 페이지가 0부터 시작 따라서 이행을 넣음
+        pageable = PageRequest.of(initpage, 10, Sort.by(Sort.Direction.ASC,"id")); // <- Sort 추가
+
+        Page<PartClassDto> page = partClassRepository.findPocketAll(studentId, pageable);
+        return page;
     }
 
     //분반 전체 조회(without 검색 조건)

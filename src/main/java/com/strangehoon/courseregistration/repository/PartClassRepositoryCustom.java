@@ -10,5 +10,5 @@ public interface PartClassRepositoryCustom {
 
     Page<PartClassDto> findPartClassDtoAll(PartClassSearch partClassSearch, Pageable pageable);
 
-    List<PartClassDto> findPocketAll(Long studentId);
+    Page<PartClassDto> findPocketAll(Long studentId, Pageable pageable);
 }

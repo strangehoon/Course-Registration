@@ -144,6 +144,7 @@
             <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
               <a class="page-link"  th:text="${page}" th:href="@{/partClasses(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
             </li>
+
             <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/partClasses(page=${partClassForm.number + 2}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Next">
               <span aria-hidden="true">&gt;</span>
             </a>

@@ -56,17 +56,18 @@ public class PocketController {
 
     //장바구니 조회
     @GetMapping(value = "/pocketList")
-    public String ListByUsedStudent(Model model) {
+    public String ListByUsedStudent(@PageableDefault Pageable pageable, Model model) {
 
 
-        List<Pocket> foundPocket = pocketService.findPocket(1L);
-        List<PartClassDto> pocketList = partClassService.pocketClassList(1L);
+//        List<Pocket> foundPocket = pocketService.findPocket(1L);
+        Page<PartClassDto> pocketList = partClassService.pocketClassList(1L, pageable);
 
-        model.addAttribute("partClassForm", pocketList);
+        model.addAttribute("pocketList", pocketList);
+        model.addAttribute("pageNumber", pocketList.getNumber());
         return "pocket/pocketList";
     }
 
-    //분반 삭제
+    //장바구니 내역 삭제
     @GetMapping(value = "/pocketList/{partClassId}/delete")
     public String deletePartClass(@PathVariable("partClassId") Long partClassId, Model model) {
         pocketService.deletePocketClass(partClassId);

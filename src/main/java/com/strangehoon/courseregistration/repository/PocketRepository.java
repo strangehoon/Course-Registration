@@ -16,7 +16,7 @@ public interface PocketRepository extends JpaRepository<Pocket, Long> {
 
     Optional<Pocket> findByPartClassAndStudent(PartClass partClass, Student student);
 
-    List<Pocket> findByStudent(Student student);
+//    List<Pocket> findByStudent(Student student);
 
     Optional<Pocket> findByPartClass(PartClass partClass);
 
