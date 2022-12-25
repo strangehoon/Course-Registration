@@ -2,6 +2,7 @@ package com.strangehoon.courseregistration.controller;
 
 import com.strangehoon.courseregistration.controller.login.SessionConst;
 import com.strangehoon.courseregistration.domain.Major;
+import com.strangehoon.courseregistration.domain.Manager;
 import com.strangehoon.courseregistration.domain.Pocket;
 import com.strangehoon.courseregistration.domain.Student;
 import com.strangehoon.courseregistration.dto.PartClassDto;
@@ -55,11 +56,13 @@ public class PocketController {
 
     //장바구니 조회
     @GetMapping(value = "/pocketList")
-    public String ListByUsedStudent(@PageableDefault Pageable pageable, Model model) {
+    public String ListByUsedStudent(@PageableDefault Pageable pageable, Model model, HttpServletRequest request) {
 
+        HttpSession session = request.getSession();
+        Object login = session.getAttribute(SessionConst.LOGIN_STUDENT);
+        Student student = (Student)login;
 
-//        List<Pocket> foundPocket = pocketService.findPocket(1L);
-        Page<PartClassDto> pocketList = partClassService.pocketClassList(1L, pageable);
+        Page<PartClassDto> pocketList = pocketService.pocketClassList(student.getId(), pageable);
 
         model.addAttribute("pocketList", pocketList);
         model.addAttribute("pageNumber", pocketList.getNumber());
@@ -76,28 +79,4 @@ public class PocketController {
         return "message";
     }
 
-//    @GetMapping(value = "/pocketPartClass")
-//    public String pocketClass(HttpServletRequest request, @ModelAttribute("partClassForm") PartClassDto partClassDto, Model model) {
-//        //세션이 없으면 home
-//        HttpSession session = request.getSession(false);
-//        if (session == null) {
-//            return "index";
-//        }
-//
-//        Student loginStudent = (Student) session.getAttribute(SessionConst.LOGIN_STUDENT);
-//
-//        //세션에 회원 데이터가 없으면 home
-//        if (loginStudent == null) {
-//            return "index";
-//        }
-//
-//        //로그인한 사용자 정보
-//        Student student = studentRepository.findById(loginStudent.getId()).get();
-//
-//        pocketService.savePocketClass(student, partClassDto);
-//
-//        List<Pocket> pocketList= pocketService.findAllPocket();
-//        model.addAttribute("pocketList", pocketList);
-//        return "pocket/pocketList";
-//    }
 }

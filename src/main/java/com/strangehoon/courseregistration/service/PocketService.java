@@ -11,6 +11,10 @@ import com.strangehoon.courseregistration.repository.PocketRepository;
 import com.strangehoon.courseregistration.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,12 +84,6 @@ public class PocketService {
         System.out.println("savedPocket = " + savedPocket.getId());
     }
 
-//    // 장바구니 내역 조회
-//    public List<Pocket> findPocket(@PageableDefault  Long studentId) {
-//        Student student = studentRepository.findById(studentId).get();
-//        List<Pocket> pocket = pocketRepository.findByStudent(student);
-//        return pocket;
-//    }
 
     //장바구니 내역 삭제
     @Transactional
@@ -93,6 +91,15 @@ public class PocketService {
         PartClass foundPartClass = partClassRepository.findById(partClassId).get();
         Pocket foundPocketClass = pocketRepository.findByPartClass(foundPartClass).get();
         pocketRepository.delete(foundPocketClass);
+    }
+
+    // 장바구니 내역 조회
+    public Page<PartClassDto> pocketClassList(Long studentId, Pageable pageable) {
+        int initpage = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); //스프링 데이터 jpa에서는 페이지가 0부터 시작 따라서 이행을 넣음
+        pageable = PageRequest.of(initpage, 10, Sort.by(Sort.Direction.ASC,"id")); // <- Sort 추가
+
+        Page<PartClassDto> page = partClassRepository.findPocketAll(studentId, pageable);
+        return page;
     }
 
 

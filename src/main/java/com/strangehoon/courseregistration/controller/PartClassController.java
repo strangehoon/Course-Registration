@@ -2,10 +2,12 @@ package com.strangehoon.courseregistration.controller;
 
 
 
+import com.strangehoon.courseregistration.controller.login.SessionConst;
 import com.strangehoon.courseregistration.controller.validation.PartClassSaveForm;
 import com.strangehoon.courseregistration.controller.validation.PartClassUpdateForm;
 import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.PartClass;
+import com.strangehoon.courseregistration.domain.Student;
 import com.strangehoon.courseregistration.dto.MajorDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.dto.PocketClassDto;
@@ -26,6 +28,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.util.ArrayList;
 import java.util.List;
@@ -140,9 +144,13 @@ public class PartClassController {
     //------------------------------------------------학생 영역-----------------------------------------------
     //분반 조회
     @GetMapping(value = "/partClasses")
-    public String ListByUsedStudent(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, Model model) {
+    public String ListByUsedStudent(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, HttpServletRequest request, Model model) {
         Page<PartClassDto> partClassDtoAll = partClassService.partClassSearchList(partClassSearch, pageable);
         List<Major> majors = majorService.findAllMajor();
+
+        HttpSession session = request.getSession();
+        Object login = session.getAttribute(SessionConst.LOGIN_STUDENT);
+        Student student = (Student)login;
 
 //        //검색하지 않았을 때
 //        if((partClassSearch.getPartClassName() == null) && (partClassSearch.getMajorName() == null) && (partClassSearch.getSchoolYear() ==null)) {
@@ -157,7 +165,7 @@ public class PartClassController {
         log.info("ClassName = {}", partClassSearch.getPartClassName());
         log.info("MajorName = {}", partClassSearch.getMajorName());
         log.info("SchoolYear = {}", partClassSearch.getSchoolYear());
-        PocketClassDto pocketClassDto = new PocketClassDto(1L);
+        PocketClassDto pocketClassDto = new PocketClassDto(student.getId());
         model.addAttribute("pocketClassDto", pocketClassDto);       //뷰에 보내기 전에 학생 ID를 담아서 보내자.
         model.addAttribute("partClassSearch", partClassSearch);
         model.addAttribute("majorForm", majors);
