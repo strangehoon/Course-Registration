@@ -25,9 +25,7 @@ public class Register {
     private PartClass partClass ;
 
     private LocalDateTime registerDateTime;
-
-    @Enumerated(EnumType.STRING)
-    private RetakeStatus retakeStatus;
+    
 
     //==연관관계 메서드==//
     public void putStudent(Student student) {
