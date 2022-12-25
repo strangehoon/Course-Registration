@@ -39,8 +39,7 @@ public class PocketController {
     //장바구니 등록
     @PostMapping(value = "/pocketList/new") @ResponseBody
     public boolean create(@ModelAttribute PocketClassDto pocketClassDto, Model model) {
-        System.out.println("pocketClassDto.partClassId = " + pocketClassDto.getPartClassId());
-        System.out.println("pocketClassDto.studentId = " + pocketClassDto.getStudentId());
+
         if(pocketService.checkPocket(pocketClassDto)) {
             pocketService.savePocket(pocketClassDto);
 //            model.addAttribute("message", "선택하신 과목들을 담았습니다.");

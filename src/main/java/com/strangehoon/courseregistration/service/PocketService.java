@@ -15,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,22 +31,42 @@ public class PocketService {
 
     // 장바구니에 기존 강좌 있는지 체크
     public Boolean checkPocket(PocketClassDto pocketClassDto) {
-        PartClass partClass = partClassRepository.findById(pocketClassDto.getPartClassId()).get();
+        PartClass foundPartClass = partClassRepository.findById(pocketClassDto.getPartClassId()).get();
         Student student = studentRepository.findById(pocketClassDto.getStudentId()).get();
 
-        Optional<Pocket> pocket = pocketRepository.findByPartClassAndStudent(partClass,student);
-        if(pocket.isPresent()){
-            System.out.println("Pocket = " + pocket.get().getPartClass());
-            System.out.println("Pocket = " + pocket.get().getStudent());
+        String foundDayTime = foundPartClass.getDayTime();
+
+        ArrayList<String> pieces = new ArrayList<>();
+
+        for(int i = 0; i < foundDayTime.length()/2; i++) {
+            String piece = foundDayTime.substring(i*2,i*2+2);
+            pieces.add(piece);
         }
-        if(pocket.isEmpty()) {
-            System.out.println("PocketService.checkPocket");
+
+        int size = pieces.size();
+
+        Long studentId = student.getId();
+        List<PartClass> partClassByStudent = pocketRepository.findByPocket(studentId);
+        if(partClassByStudent == null) {
             return true;
         }
-        else {
-            return false;
+
+
+        for(PartClass partClass : partClassByStudent) {
+            String dayTime = partClass.getDayTime();
+            for(int i = 0; i < size ; i++) {
+                String a = pieces.get(i);
+                int index = dayTime.indexOf(a);
+                if (index != -1){
+                    return false;
+                }
+            }
         }
+        return true;
+
     }
+    
+    
 
     // 장바구니에 강좌 등록
     @Transactional

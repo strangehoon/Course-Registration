@@ -20,4 +20,7 @@ public interface PocketRepository extends JpaRepository<Pocket, Long> {
 
     Optional<Pocket> findByPartClass(PartClass partClass);
 
+    @Query("select c " + "from Pocket k join k.partClass c join k.student s " + "where s.id = :studentId")
+    List<PartClass> findByPocket(@Param("studentId") Long studentId);
+
 }
