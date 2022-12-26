@@ -64,6 +64,7 @@ public class PocketController {
 
         Page<PartClassDto> pocketList = pocketService.pocketClassList(student.getId(), pageable);
 
+        model.addAttribute("studentId", student.getId());
         model.addAttribute("pocketList", pocketList);
         model.addAttribute("pageNumber", pocketList.getNumber());
         return "pocket/pocketList";

@@ -18,91 +18,95 @@
 <div class="container">
     <div>
         <h1 class="my-5">담아두기 내역</h1>
+        <form th:action="@{/register/new}" th:object="${studentId}" method="post">
+
+            <!--    <form th:action="@{/pocketPartClasses/new}" th:object="${pocketClassDto}" th:method="post">-->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">주관학과</th>
+                    <th scope="col">대상학년</th>
+                    <th scope="col">학수번호</th>
+                    <th scope="col">과목명</th>
+                    <th scope="col">학점</th>
+                    <th scope="col">정원</th>
+                    <th scope="col">잔여인원</th>
+                    <th scope="col">교수명</th>
+                    <th scope="col">수업시간</th>
+                    <th scope="col">강의실</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--          <th:block th:object="${pageNumber}"></th:block>-->
+                <tr th:each="pocket, iterState : ${pocketList}">
+                    <input type="hidden"  th:id="${pocket.id}"  th:value="${pocket.id}" />
+                    <input type="hidden"  th:id="${studentId}" th:name="studentId" th:value="${studentId}" />
+                    <td th:text="${iterState.count}"></td>
+                    <td th:text="${pocket.majorName}"></td>
+                    <td th:text="${pocket.grade}"></td>
+                    <td th:text="${pocket.classNum}"></td>
+                    <td th:text="${pocket.name}"></td>
+                    <td th:text="${pocket.credit}"></td>
+                    <td th:text="${pocket.capacity}"></td>
+                    <td th:text="${pocket.remainNum}"></td>
+                    <td th:text="${pocket.professorName}"></td>
+                    <td th:text="${pocket.dayTime}"></td>
+                    <td th:text="${pocket.classroom}"></td>
+                    <td>
+                        <a href="#" th:href="@{/pocketList/{partClassId}/delete (partClassId=${pocket.id})}"
+                           class="btn btn-primary" role="button">삭제</a>
+                    </td>
 
 
-        <!--    <form th:action="@{/pocketPartClasses/new}" th:object="${pocketClassDto}" th:method="post">-->
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">주관학과</th>
-                <th scope="col">대상학년</th>
-                <th scope="col">학수번호</th>
-                <th scope="col">과목명</th>
-                <th scope="col">학점</th>
-                <th scope="col">정원</th>
-                <th scope="col">잔여인원</th>
-                <th scope="col">교수명</th>
-                <th scope="col">수업시간</th>
-                <th scope="col">강의실</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!--          <th:block th:object="${pageNumber}"></th:block>-->
-            <tr th:each="pocket, iterState : ${pocketList}">
-                <input type="hidden"  th:id="${pocket.id}"  th:value="${pocket.id}" />
-                <td th:text="${iterState.count}"></td>
-                <td th:text="${pocket.majorName}"></td>
-                <td th:text="${pocket.grade}"></td>
-                <td th:text="${pocket.classNum}"></td>
-                <td th:text="${pocket.name}"></td>
-                <td th:text="${pocket.credit}"></td>
-                <td th:text="${pocket.capacity}"></td>
-                <td th:text="${pocket.remainNum}"></td>
-                <td th:text="${pocket.professorName}"></td>
-                <td th:text="${pocket.dayTime}"></td>
-                <td th:text="${pocket.classroom}"></td>
-                <td>
-                    <a href="#" th:href="@{/pocketList/{partClassId}/delete (partClassId=${pocket.id})}"
-                       class="btn btn-primary" role="button">삭제</a>
-                </td>
+                </tr>
+                </tbody>
+            </table>
 
+            <div>
+                <nav style="text-align: center;" aria-label="Page navigation example">
+                    <ul class="pagination"
+                        th:with="start=${T(java.lang.Math).floor(pocketList.number/10)*10 + 1},
+                                last=(${start + 9 < pocketList.totalPages ? start + 9 : pocketList.totalPages})">
+                        <li class="page-item">
+                            <a th:href="@{/pocketList(page=1)}" class="page-link" href="#" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:class="${pocketList.first} ? 'disabled'">
+                            <a th:href="${pocketList.first} ? '#' :@{/pocketList(page=${pocketList.number})}" class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <!--        <li class="page-item active" aria-current="page">-->
+                        <!--            <a class="page-link" href="#">2</a>-->
+                        <!--        </li>-->
+                        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pocketList.number + 1} ? 'page-item active'">
+                            <a class="page-link"  th:text="${page}" th:href="@{/pocketList(page=${page})}"></a>
+                        </li>
 
-            </tr>
-            </tbody>
-        </table>
-
-        <div>
-            <nav style="text-align: center;" aria-label="Page navigation example">
-                <ul class="pagination"
-                    th:with="start=${T(java.lang.Math).floor(pocketList.number/10)*10 + 1},
-                            last=(${start + 9 < pocketList.totalPages ? start + 9 : pocketList.totalPages})">
-                    <li class="page-item">
-                        <a th:href="@{/pocketList(page=1)}" class="page-link" href="#" aria-label="First">
-                            <span aria-hidden="true">First</span>
+                        <a class="page-link" href="#" th:href="${pocketList.last} ? '#' : @{/pocketList(page=${pocketList.number + 2})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
                         </a>
-                    </li>
-                    <li class="page-item" th:class="${pocketList.first} ? 'disabled'">
-                        <a th:href="${pocketList.first} ? '#' :@{/pocketList(page=${pocketList.number})}" class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&lt;</span>
-                        </a>
-                    </li>
-                    <!--        <li class="page-item active" aria-current="page">-->
-                    <!--            <a class="page-link" href="#">2</a>-->
-                    <!--        </li>-->
-                    <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pocketList.number + 1} ? 'page-item active'">
-                        <a class="page-link"  th:text="${page}" th:href="@{/pocketList(page=${page})}"></a>
-                    </li>
-
-                    <a class="page-link" href="#" th:href="${pocketList.last} ? '#' : @{/pocketList(page=${pocketList.number + 2})}" aria-label="Next">
-                        <span aria-hidden="true">&gt;</span>
-                    </a>
-                    </li>
+                        </li>
 
 
-                    <li class="page-item">
-                        <a class="page-link" href="#" th:href="@{/pocketList(page=${pocketList.totalPages})}" aria-label="Last">
-                            <span aria-hidden="true">Last</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <!--    </form>-->
+                        <li class="page-item">
+                            <a class="page-link" href="#" th:href="@{/pocketList(page=${pocketList.totalPages})}" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!--    </form>-->
 
-
-        <a href="#" th:href="@{/home}"
-           class="btn btn-primary" role="button">뒤로</a>
+            <div class="w-50 mt-3 text-start" >
+                <a href="#" th:href="@{/home}"
+                   class="btn btn-primary" role="button">뒤로</a>
+                <button type="submit" class="btn btn-primary">담은 과목 수강신청하기</button>
+            </div>
+        </form>
 
     </div>
 </div>

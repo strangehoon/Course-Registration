@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Register {
+public class Register extends BaseEntityByRegister{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "register_id")
@@ -24,8 +24,6 @@ public class Register {
     @JoinColumn(name = "part_class_id")
     private PartClass partClass ;
 
-    private LocalDateTime registerDateTime;
-    
 
     //==연관관계 메서드==//
     public void putStudent(Student student) {
@@ -43,4 +41,11 @@ public class Register {
         partClass.getRegisters().add(this);
     }
 
+    //==생성메서드==//
+    public static Register createRegister(PartClass partClass, Student student) {
+        Register register = new Register();
+        register.putPartClass(partClass);
+        register.putStudent(student);
+        return register;
+    }
 }

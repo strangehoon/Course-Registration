@@ -23,4 +23,8 @@ public interface PocketRepository extends JpaRepository<Pocket, Long> {
     @Query("select c " + "from Pocket k join k.partClass c join k.student s " + "where s.id = :studentId")
     List<PartClass> findByPocket(@Param("studentId") Long studentId);
 
+    @Query("select c " + "from Pocket k join k.partClass c ")
+    List<PartClass> findPartClasses();
+
+
 }
