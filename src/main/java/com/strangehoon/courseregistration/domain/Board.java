@@ -2,7 +2,6 @@ package com.strangehoon.courseregistration.domain;
 
 import com.strangehoon.courseregistration.dto.BoardDto;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,11 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Board extends BaseEntity{
+public class Board extends BaseEntityByBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
