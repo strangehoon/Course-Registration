@@ -24,7 +24,7 @@ public class StudentService {
     public Long createStudent(StudentDto studentDto) {
         Major foundMajor = majorRepository.findByName(studentDto.getMajorName());
         Student student = Student.createStudent(foundMajor, studentDto.getLoginId(), studentDto.getPassword(), studentDto.getSchoolYear(), studentDto.getName(),
-                                               studentDto.getPhoneNumber(), studentDto.getGrade());
+                                               studentDto.getPhoneNumber());
         Student savedStudent = studentRepository.save(student);
 
         return savedStudent.getId();

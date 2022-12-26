@@ -20,15 +20,13 @@ public class StudentDto {
 
     private String phoneNumber;
 
-    private double grade;
 
-    public StudentDto(String loginId, String password, String majorName, int schoolYear, String name, String phoneNumber, double grade) {
+    public StudentDto(String loginId, String password, String majorName, int schoolYear, String name, String phoneNumber) {
         this.loginId = loginId;
         this.password = password;
         this.majorName = majorName;
         this.schoolYear = schoolYear;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.grade = grade;
     }
 }

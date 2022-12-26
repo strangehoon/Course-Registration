@@ -41,7 +41,7 @@ public class CourseRegistrationApplication {
 		majorService.createMajor("영어영문학과");
 
 		//회원(학생)
-		studentService.createStudent(new StudentDto("student1", "1234", "전자전기공학부", 4,"이상훈","010-1234-5678", 4.1 ));
+		studentService.createStudent(new StudentDto("student1", "1234", "전자전기공학부", 4,"이상훈","010-1234-5678"));
 
 		//회원(관리자)
 		managerService.createManager("manager", "0000");
