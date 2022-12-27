@@ -82,7 +82,7 @@
                         <!--            <a class="page-link" href="#">2</a>-->
                         <!--        </li>-->
                         <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pocketList.number + 1} ? 'page-item active'">
-                            <a class="page-link"  th:text="${page}" th:href="@{/pocketList(page=${page})}"></a>
+                            <a class="page-link" th:if="${page != 0}" th:text="${page}" th:href="@{/pocketList(page=${page})}"></a>
                         </li>
 
                         <a class="page-link" href="#" th:href="${pocketList.last} ? '#' : @{/pocketList(page=${pocketList.number + 2})}" aria-label="Next">
