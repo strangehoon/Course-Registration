@@ -12,6 +12,22 @@
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
     <title>담아두기</title>
+    <style>
+        #box1 {
+            position: absolute;
+
+            top: 750px;
+        }
+
+        #box2 {
+            position: absolute;
+
+            top: 800px;
+        }
+
+    </style>
+
+
 </head>
 
 <body>
@@ -63,7 +79,7 @@
                 </tbody>
             </table>
 
-            <div>
+            <div id="box1">
                 <nav style="text-align: center;" aria-label="Page navigation example">
                     <ul class="pagination"
                         th:with="start=${T(java.lang.Math).floor(pocketList.number/10)*10 + 1},
@@ -101,9 +117,9 @@
             </div>
             <!--    </form>-->
 
-            <div class="w-50 mt-3 text-start" >
+            <div class="w-50 text-start" id="box2">
                 <a href="#" th:href="@{/home}"
-                   class="btn btn-primary" role="button">뒤로</a>
+                   class="btn btn-primary" id ="button" role="button">뒤로</a>
                 <button type="submit" class="btn btn-primary">담은 과목 수강신청하기</button>
             </div>
         </form>
