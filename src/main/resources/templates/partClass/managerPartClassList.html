@@ -121,7 +121,7 @@
                 <!--            <a class="page-link" href="#">2</a>-->
                 <!--        </li>-->
                 <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
-                    <a class="page-link"  th:text="${page}" th:href="@{/managerPartClasses(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
+                    <a class="page-link"  th:if="${page != 0}" th:text="${page}" th:href="@{/managerPartClasses(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
                 </li>
                 <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/managerPartClasses(page=${partClassForm.number + 2}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Next">
                     <span aria-hidden="true">&gt;</span>
