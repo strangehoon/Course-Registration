@@ -25,6 +25,33 @@
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script th:inline="javascript">
+
+<!--    function savePocket(id,studentId) {-->
+<!--        console.log(id + studentId);-->
+<!--        $.ajax({-->
+<!--            type: 'post',-->
+<!--            url: '/pocketList/new',-->
+<!--            data: {-->
+<!--                'partClassId': id,-->
+<!--                'studentId': studentId-->
+<!--            },-->
+<!--            dataType: 'json',-->
+<!--            success: function (data) {-->
+<!--                if (data.flag == 1L) {-->
+<!--                    alert('장바구니에 저장되었습니다.')-->
+<!--                    location.reload();-->
+<!--                } else if(data.flag == 2L) {-->
+<!--                    alert('장바구니에 담을 수 없습니다. \n시간이 중복되는 강의가 있습니다.')-->
+<!--                }-->
+<!--                else (data.flag == 3L) {-->
+<!--                    alert('이수 가능한 최대 학점 19학점을 초과했습니다')-->
+<!--                }-->
+<!--            },-->
+<!--            error: function () {-->
+<!--                alert('ajax 실패');-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
     function savePocket(id,studentId) {
         console.log(id + studentId);
         $.ajax({
@@ -35,11 +62,18 @@
                 'studentId': studentId
             },
             dataType: 'json',
-            success: function (data) {
-                if (data) {
+            success: function (flag) {
+                if (flag == 1) {
                     alert('장바구니에 저장되었습니다.')
                     location.reload();
-                } else {
+                }
+                else if (flag == 2) {
+                    alert('이수 가능한 최대 학점인 19를 초과했습니다.')
+                }
+                else if (flag == 3) {
+                    alert('장바구니에 동일한 이름의 강좌가 존재합니다.')
+                }
+                else {
                     alert('장바구니에 담을 수 없습니다. \n시간이 중복되는 강의가 있습니다.')
                 }
             },
@@ -156,7 +190,7 @@
             <!--            <a class="page-link" href="#">2</a>-->
             <!--        </li>-->
             <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
-              <a class="page-link"  th:text="${page}" th:href="@{/partClasses(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
+              <a class="page-link"  th:if="${page != 0}" th:text="${page}" th:href="@{/partClasses(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
             </li>
 
             <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/partClasses(page=${partClassForm.number + 2}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Next">

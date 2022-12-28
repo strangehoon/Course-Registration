@@ -33,55 +33,20 @@ public class PocketService {
     private final PartClassRepository partClassRepository;
     private final StudentRepository studentRepository;
 
-    // 장바구니에 기존 강좌 있는지 체크
-    public Boolean checkPocket(PocketClassDto pocketClassDto) {
-        PartClass foundPartClass = partClassRepository.findById(pocketClassDto.getPartClassId()).get();
-        Student student = studentRepository.findById(pocketClassDto.getStudentId()).get();
-
-        String foundDayTime = foundPartClass.getDayTime();
-
-        ArrayList<String> pieces = new ArrayList<>();
-
-        for(int i = 0; i < foundDayTime.length()/2; i++) {
-            String piece = foundDayTime.substring(i*2,i*2+2);
-            pieces.add(piece);
-        }
-
-        int size = pieces.size();
-
-        Long studentId = student.getId();
-        List<PartClass> partClassByStudent = pocketRepository.findByPocket(studentId);
-        if(partClassByStudent == null) {
-            return true;
-        }
-
-
-        for(PartClass partClass : partClassByStudent) {
-            String dayTime = partClass.getDayTime();
-            for(int i = 0; i < size ; i++) {
-                String a = pieces.get(i);
-                int index = dayTime.indexOf(a);
-                if (index != -1){
-                    return false;
-                }
-            }
-        }
-        return true;
-
+    // 장바구니에 담을 수 있는지 체크.
+    // 1 -> 저장 가능, 2-> 19학점 초과, 3-> 동일한 이름의 강좌 존재, 4-> 시간 중복
+    public Long checkPocket(PocketClassDto pocketClassDto) {
+        return check(pocketClassDto);
     }
-    
-    
 
     // 장바구니에 강좌 등록
     @Transactional
     public void savePocket(PocketClassDto pocketClassDto) {
         Student student = studentRepository.findById(pocketClassDto.getStudentId()).get();
-        log.info("student id = {}", student.getId());
         PartClass partClass = partClassRepository.findById(pocketClassDto.getPartClassId()).get();
-        log.info("partClass id = {}", partClass.getId());
+
         Pocket pocket = Pocket.createPocket(partClass, student);
         Pocket savedPocket = pocketRepository.save(pocket);
-        System.out.println("savedPocket = " + savedPocket.getId());
     }
 
 
@@ -100,6 +65,64 @@ public class PocketService {
 
         Page<PartClassDto> page = partClassRepository.findPocketAll(studentId, pageable);
         return page;
+    }
+
+
+
+    private long check(PocketClassDto pocketClassDto) {
+        PartClass foundPartClass = partClassRepository.findById(pocketClassDto.getPartClassId()).get();
+        Student student = studentRepository.findById(pocketClassDto.getStudentId()).get();
+        List<Integer> creditList = pocketRepository.findTotalCreditByStudent(student.getId());
+
+        String foundDayTime = foundPartClass.getDayTime();
+        String partClassName = foundPartClass.getName();
+
+        ArrayList<String> pieces = new ArrayList<>();
+
+        for(int i = 0; i < foundDayTime.length()/2; i++) {
+            String piece = foundDayTime.substring(i*2,i*2+2);
+            pieces.add(piece);
+        }
+
+        int size = pieces.size();
+
+        Long studentId = student.getId();
+        List<PartClass> partClassByStudent = pocketRepository.findByPocket(studentId);
+
+        // 장바구니가 비어있으면 담기 가능이므로 1반환
+        if(partClassByStudent == null) {
+            return 1L;
+        }
+
+        // 장바구니에 19학점을 초과하면 2반환
+        int totalCredit = 0;
+        for(int i = 0; i < creditList.size(); i++) {
+            totalCredit += creditList.get(i);
+        }
+        if (totalCredit + foundPartClass.getCredit() > 19) {
+            return 2L;
+        }
+
+        // 장바구니에 기존의 동일한 강좌가 존재하면 3반환
+        for(PartClass partClass : partClassByStudent) {
+            if(partClassName.equals(partClass.getName())) {
+                return 3L;
+            }
+        }
+        // 장바구니에 시간이 중복되는 강좌가 존재하면 4반환
+        for(PartClass partClass : partClassByStudent) {
+            String dayTime = partClass.getDayTime();
+            for(int i = 0; i < size ; i++) {
+                String a = pieces.get(i);
+                int index = dayTime.indexOf(a);
+                if (index != -1){
+                    return 4L;
+                }
+            }
+        }
+
+        // 그 밖의 경우에는 담기 가능이라 1반환
+        return 1L;
     }
 
 

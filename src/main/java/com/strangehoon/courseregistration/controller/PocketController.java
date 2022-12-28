@@ -39,18 +39,14 @@ public class PocketController {
 
     //장바구니 등록
     @PostMapping(value = "/pocketList/new") @ResponseBody
-    public boolean create(@ModelAttribute PocketClassDto pocketClassDto, Model model) {
-
-        if(pocketService.checkPocket(pocketClassDto)) {
+    public Long create(@ModelAttribute PocketClassDto pocketClassDto, Model model) {
+        Long flag = pocketService.checkPocket(pocketClassDto);
+        if (flag == 1) {
             pocketService.savePocket(pocketClassDto);
-//            model.addAttribute("message", "선택하신 과목들을 담았습니다.");
-//            model.addAttribute("searchUrl", "/partClasses");
-            return true;
+            return flag;
         }
         else {
-//            model.addAttribute("message", "이미 장바구니에 있습니다.");
-//            model.addAttribute("searchUrl", "/partClasses");
-            return false;
+            return flag;
         }
     }
 

@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class PocketClassDto {
 
-
     private Long partClassId;
 
     private Long studentId;
