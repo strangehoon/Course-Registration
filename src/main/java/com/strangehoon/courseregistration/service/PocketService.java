@@ -68,7 +68,7 @@ public class PocketService {
     }
 
 
-
+    // 메서드
     private long check(PocketClassDto pocketClassDto) {
         PartClass foundPartClass = partClassRepository.findById(pocketClassDto.getPartClassId()).get();
         Student student = studentRepository.findById(pocketClassDto.getStudentId()).get();

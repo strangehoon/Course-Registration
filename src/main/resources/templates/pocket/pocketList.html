@@ -57,7 +57,7 @@
                 <!--          <th:block th:object="${pageNumber}"></th:block>-->
                 <tr th:each="pocket, iterState : ${pocketList}">
                     <input type="hidden"  th:id="${pocket.id}"  th:value="${pocket.id}" />
-                    <input type="hidden"  th:id="${studentId}" th:name="studentId" th:value="${studentId}" />
+<!--                    <input type="hidden"  th:id="${studentId}" th:name="studentId" th:value="${studentId}" />-->
                     <td th:text="${iterState.count}"></td>
                     <td th:text="${pocket.majorName}"></td>
                     <td th:text="${pocket.grade}"></td>
@@ -120,7 +120,9 @@
             <div class="w-50 text-start" id="box2">
                 <a href="#" th:href="@{/home}"
                    class="btn btn-primary" id ="button" role="button">뒤로</a>
-                <button type="submit" class="btn btn-primary">담은 과목 수강신청하기</button>
+                <button type="submit" class="btn btn-primary">담은 과목 수강신청하기
+                    <input type="hidden"  th:id="${studentId}" th:name="studentId" th:value="${studentId}" />
+                </button>
             </div>
         </form>
 
