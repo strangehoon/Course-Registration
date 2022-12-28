@@ -20,7 +20,7 @@
     + 1 공지사항 열람
     + 2 개설 강좌 검색
     + 3 담아두기 내역 조회
-    + 4 수강신청 내역 조회(구현중)
+    + 4 수강신청 내역 조회
 - ✍️ 트러블 슈팅
 - 🎁 배포
 
@@ -117,24 +117,34 @@
 </br>
 
 #### 2. 개설 강좌 검색
-전공, 학년, 과목명에 따라 검색이 가능합니다. '담아두기' 버튼을 누르면 장바구니에 담을 수 있습니다. 강좌 시간을 중복해서 택할 수 없습니다. </br>
+전공, 학년, 과목명에 따라 검색이 가능합니다. '담아두기' 버튼을 누르면 장바구니에 담을 수 있습니다. 
 
-예를 들어 월5화5수5인 수업과 월5목5금5인 수업은 동시에 담을 수 없습니다. 
+담아두기에는 다음과 같은 제약사항이 있습니다.
+1. 동일한 강좌는 담을 수 없습니다.
+2. 19학점을 초과해서 담을 수 없습니다.
+3. 강좌 시간을 중복해서 택할 수 없습니다.
+
+</br>
 
 <img src = "https://user-images.githubusercontent.com/117654450/208515388-e096d0cf-cd52-4e04-a122-681563cda8d2.png" height = "450px" width = "750px" allign = "left">
 
 </br>
 
 #### 3. 담아두기 내역 조회
+'담은 과목 수강신청하기' 버튼을 누르면 수강신청이 됩니다.
 
-<img src = "https://user-images.githubusercontent.com/117654450/208828345-ceb54486-e397-49c1-bf3b-8eacfda952bd.png" height = "200px" width = "550px" allign = "left">
+<img src = "https://user-images.githubusercontent.com/117654450/209866782-cef456d3-d6a5-4bff-b7bd-8944ce55d18e.png" height = "450px" width = "750px" allign = "left">
 
+</br>
+
+#### 4. 수강신청 내역 조회
+이번 학기 본인이 시간표를 열람할 수 있습니다.
 
 </br>
 
-#### 4. 수강신청 내역 조회(구현중)
+<img src = "https://user-images.githubusercontent.com/117654450/209866915-bf1afe57-9463-4101-8615-6405a83edb08.png" height = "600px" width = "550px" allign = "left">
 
-</br>
+
 </br>
 
 ## ✍️ 트러블 슈팅
