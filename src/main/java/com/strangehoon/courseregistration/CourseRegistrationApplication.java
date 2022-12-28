@@ -121,11 +121,11 @@ public class CourseRegistrationApplication {
 		partClassService.createPartClass(new PartClassDto("101812-5", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "이장호", "목1목2목3", "T305", "컴퓨터공학부"));
 
 		//분반(신소재공학부)
-		partClassService.createPartClass(new PartClassDto("124201-1", "재료물성개론", 1, 3, 50, 50, "이기영", "월45", "K611", "신소재공학부"));
-		partClassService.createPartClass(new PartClassDto("124201-2", "재료물성개론", 1, 3, 50, 50, "이기영", "화45", "K612", "신소재공학부"));
-		partClassService.createPartClass(new PartClassDto("124201-3", "재료물성개론", 1, 3, 50, 50, "이동욱", "수45", "K613", "신소재공학부"));
-		partClassService.createPartClass(new PartClassDto("124201-4", "재료물성개론", 1, 3, 50, 50, "이동욱", "목45", "K614", "신소재공학부"));
-		partClassService.createPartClass(new PartClassDto("124201-5", "재료물성개론", 1, 3, 50, 50, "이동욱", "금45", "K615", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-1", "재료물성개론", 1, 3, 50, 50, "이기영", "월4월5", "K611", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-2", "재료물성개론", 1, 3, 50, 50, "이기영", "화4화5", "K612", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-3", "재료물성개론", 1, 3, 50, 50, "이동욱", "수4수5", "K613", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-4", "재료물성개론", 1, 3, 50, 50, "이동욱", "목4목5", "K614", "신소재공학부"));
+		partClassService.createPartClass(new PartClassDto("124201-5", "재료물성개론", 1, 3, 50, 50, "이동욱", "금4금5", "K615", "신소재공학부"));
 		partClassService.createPartClass(new PartClassDto("125401-1", "재료열역학", 2, 3, 50, 50, "황진하", "월1화1수1", "K311", "신소재공학부"));
 		partClassService.createPartClass(new PartClassDto("125401-2", "재료열역학", 2, 3, 50, 50, "황진하", "월2화2수2", "K312", "신소재공학부"));
 		partClassService.createPartClass(new PartClassDto("125401-3", "재료열역학", 2, 3, 50, 50, "황진하", "월3화3수3", "K313", "신소재공학부"));
