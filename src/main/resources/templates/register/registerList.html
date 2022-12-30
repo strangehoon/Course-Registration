@@ -11,322 +11,118 @@
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-    <title>강의 현황</title>
+    <title>담아두기</title>
+    <style>
+        #box1 {
+            position: absolute;
+
+            top: 750px;
+        }
+
+        #box2 {
+            position: absolute;
+
+            top: 800px;
+        }
+
+    </style>
+
+
 </head>
-<!--
-<SCRIPT language="javascript" src="./include/cnet.js"></SCRIPT>
--->
 
 <body>
 <div class="container">
     <div>
-    <h1 class="mt-5">수업 시간표</h1>
+        <h1 class="my-5">수강신청 내역</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">주관학과</th>
+                    <th scope="col">대상학년</th>
+                    <th scope="col">학수번호</th>
+                    <th scope="col">과목명</th>
+                    <th scope="col">학점</th>
+                    <th scope="col">정원</th>
+                    <th scope="col">잔여인원</th>
+                    <th scope="col">교수명</th>
+                    <th scope="col">수업시간</th>
+                    <th scope="col">강의실</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="register, iterState : ${registerList}">
+                    <input type="hidden"  th:id="${register.id}"  th:value="${register.id}" />
+                    <td th:text="${iterState.count}"></td>
+                    <td th:text="${register.majorName}"></td>
+                    <td th:text="${register.grade}"></td>
+                    <td th:text="${register.classNum}"></td>
+                    <td th:text="${register.name}"></td>
+                    <td th:text="${register.credit}"></td>
+                    <td th:text="${register.capacity}"></td>
+                    <td th:text="${register.remainNum}"></td>
+                    <td th:text="${register.professorName}"></td>
+                    <td th:text="${register.dayTime}"></td>
+                    <td th:text="${register.classroom}"></td>
+                    <td>
+                        <a href="#" th:href="@{/registerList/{partClassId}/delete (partClassId=${register.id})}"
+                           class="btn btn-primary" role="button">철회</a>
+                    </td>
+
+
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="box1">
+                <nav style="text-align: center;" aria-label="Page navigation example">
+                    <ul class="pagination"
+                        th:with="start=${T(java.lang.Math).floor(registerList.number/10)*10 + 1},
+                                last=(${start + 9 < registerList.totalPages ? start + 9 : registerList.totalPages})">
+                        <li class="page-item">
+                            <a th:href="@{/registerList(page=1)}" class="page-link" href="#" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:class="${registerList.first} ? 'disabled'">
+                            <a th:href="${registerList.first} ? '#' :@{/registerList(page=${registerList.number})}" class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <!--        <li class="page-item active" aria-current="page">-->
+                        <!--            <a class="page-link" href="#">2</a>-->
+                        <!--        </li>-->
+                        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == registerList.number + 1} ? 'page-item active'">
+                            <a class="page-link" th:if="${page != 0}" th:text="${page}" th:href="@{/registerList(page=${page})}"></a>
+                        </li>
+
+                        <a class="page-link" href="#" th:href="${registerList.last} ? '#' : @{/registerList(page=${registerList.number + 2})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                        </li>
+
+
+                        <li class="page-item">
+                            <a class="page-link" href="#" th:href="@{/registerList(page=${registerList.totalPages})}" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!--    </form>-->
+
+            <div class="w-50 text-start" id="box2">
+                <a href="#" th:href="@{/home}"
+                   class="btn btn-primary" id ="button" role="button">뒤로</a>
+            </div>
+        </form>
 
-    <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-
-        <!-- Top End //-->
-
-        <tr>
-            <td valign=top height=100%>
-
-                <table class="position-absolute top-200"width=1300 height=750 border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-
-
-                        <td align=left valign="top" bgcolor="#ffffff">
-                            <!-- Main Start //-->
-
-                            <div class=s10></div>
-
-
-                                <TABLE width=1000 height=750 CELLSPACING=0 CELLPADDING=0 BORDER=0>
-                                    <TR><TD >
-                                        <BR>
-                                        <TABLE width=1000 height=750 CELLSPACING=0 CELLPADDING=0 BORDER=0>
-                                            <TR><TD align=top>
-                                                <TABLE width=80% height= 85% border='0' cellpadding='0' cellspacing='1' bgcolor='#999999'>
-                                                    <tr align=center bgcolor="#DCEBF8" height=25>
-                                                        <td colspan=7 nowrap><b>2022년 2학기 수업시간표</b></td>
-                                                    </tr>
-
-                                                    <tr align=center bgcolor="#DCEBF8" height=25>
-                                                        <td nowrap width=60>시간</td>
-                                                        <td nowrap width=110>월요일</td>
-                                                        <td nowrap width=110>화요일</td>
-                                                        <td nowrap width=110>수요일</td>
-                                                        <td nowrap width=110>목요일</td>
-                                                        <td nowrap width=110>금요일</td>
-                                                    </tr>
-
-
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>1교시</td>
-
-                                                        <TD>&nbsp;
-                                                            <span th:if="${timeTable['월1'] != null}" th:text="${timeTable['월1']}"></span>
-                                                        </td>
-
-                                                        <TD>&nbsp;
-                                                            <span th:if="${timeTable['화1'] != null}" th:text="${timeTable['화1']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수1'] != null}" th:text="${timeTable['수1']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목1'] != null}" th:text="${timeTable['목1']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금1'] != null}" th:text="${timeTable['금1']}"></span>
-                                                        </td>
-
-
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>2교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월2'] != null}" th:text="${timeTable['월2']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화2'] != null}" th:text="${timeTable['화2']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수2'] != null}" th:text="${timeTable['수2']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목2'] != null}" th:text="${timeTable['목2']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금2'] != null}" th:text="${timeTable['금2']}"></span>
-                                                        </td>
-
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>3교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월3'] != null}" th:text="${timeTable['월3']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화3'] != null}" th:text="${timeTable['화3']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수3'] != null}" th:text="${timeTable['수3']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목3'] != null}" th:text="${timeTable['목3']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금3'] != null}" th:text="${timeTable['금3']}"></span>
-                                                        </td>
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>4교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월4'] != null}" th:text="${timeTable['월4']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화4'] != null}" th:text="${timeTable['화4']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수4'] != null}" th:text="${timeTable['수4']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금4'] != null}" th:text="${timeTable['금4']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금5'] != null}" th:text="${timeTable['금5']}"></span>&nbsp;
-                                                        </td>
-
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>5교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월5'] != null}" th:text="${timeTable['월5']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화5'] != null}" th:text="${timeTable['화5']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수5'] != null}" th:text="${timeTable['수5']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목5'] != null}" th:text="${timeTable['목5']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금5'] != null}" th:text="${timeTable['금5']}"></span>&nbsp;
-                                                        </td>
-
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>6교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월6'] != null}" th:text="${timeTable['월6']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화6'] != null}" th:text="${timeTable['화6']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수6'] != null}" th:text="${timeTable['수6']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목6'] != null}" th:text="${timeTable['목6']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금6'] != null}" th:text="${timeTable['금6']}"></span>&nbsp;
-                                                        </td>
-
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>7교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월7'] != null}" th:text="${timeTable['월7']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화7'] != null}" th:text="${timeTable['화7']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수7'] != null}" th:text="${timeTable['수7']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목7'] != null}" th:text="${timeTable['목7']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금7'] != null}" th:text="${timeTable['금7']}"></span>
-                                                        </td>
-
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>8교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월8'] != null}" th:text="${timeTable['월8']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화8'] != null}" th:text="${timeTable['화8']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수8'] != null}" th:text="${timeTable['수8']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목8'] != null}" th:text="${timeTable['목8']}"></span>
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금8'] != null}" th:text="${timeTable['금8']}"></span>
-                                                        </td>
-
-                                                    </TR>
-
-                                                    <TR onMouseOver="this.style.backgroundColor='#E8F8F8';" onMouseOut="this.style.backgroundColor='#FFFFFF';return true;"  bgcolor='#FFFFFF' align=center height='30'>
-                                                        <td height=35>9교시</td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['월9'] != null}" th:text="${timeTable['월9']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['화9'] != null}" th:text="${timeTable['화9']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['수9'] != null}" th:text="${timeTable['수9']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['목9'] != null}" th:text="${timeTable['목9']}"></span>&nbsp;
-                                                        </td>
-
-                                                        <TD>
-                                                            <span th:if="${timeTable['금9'] != null}" th:text="${timeTable['금9']}"></span>&nbsp;
-                                                        </td>
-
-                                                    </TR>
-
-
-                                                    <tr bgcolor="#DCEBF8">
-                                                        <td colspan=7 align=left style=padding-left:5px height=25>전체신청학점 : <span th:text="${timeTable['전체 신청 학점']}" class=txto>0</span> &nbsp;&nbsp;전체신청과목 : <span th:text="${timeTable['신청 과목 수']}" class=txto>0</span> </td>
-                                                    </tr>
-
-                                                </table>
-
-                                                <a href="#" th:href="@{/home}"
-                                                   class="mt-3 btn btn-primary" role="button">뒤로</a>
-                                            </td></tr>
-
-                                        </table>
-
-
-                                    </td></tr>
-                                </table>
-
-                            <div class=s10></div>
-                            <!-- Main End //-->
-                        </td>
-                    </tr>
-                </table>
-
-        </tr>
-
-
-    </table>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>
 </html>
-
-
-
-<!-- Bottom End //-->

@@ -1,12 +1,15 @@
 package com.strangehoon.courseregistration.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class RegisterDto {
+
+    private Long partClassId;
+
+    private Long studentId;
 
     private String dayTime;
 
@@ -18,5 +21,17 @@ public class RegisterDto {
         this.dayTime = dayTime;
         this.name = name;
         this.credit = credit;
+    }
+
+    public RegisterDto() {
+    }
+
+    public RegisterDto(Long partClassId, Long studentId) {
+        this.partClassId = partClassId;
+        this.studentId = studentId;
+    }
+
+    public RegisterDto(Long studentId) {
+        this.studentId = studentId;
     }
 }

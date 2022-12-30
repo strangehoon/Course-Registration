@@ -1,0 +1,193 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style>
+        #box1 {
+            position: absolute;
+
+            top: 800px;
+        }
+
+        #box2 {
+            position: absolute;
+
+            top: 850px;
+        }
+
+  </style>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script th:inline="javascript">
+
+    function registerPartClass(id,studentId) {
+        console.log(id + studentId);
+        $.ajax({
+            type: 'post',
+            url: '/register/search/add',
+            data: {
+                'partClassId': id,
+                'studentId': studentId
+            },
+            dataType: 'json',
+            success: function (flag) {
+                if (flag == 1) {
+                    alert('해당 강좌를 성공적으로 신청했습니다.')
+                    location.reload();
+                }
+                else if (flag == 2) {
+                    alert('이수 가능한 최대 학점인 19를 초과했습니다.')
+                }
+                else if (flag == 3) {
+                    alert('이미 동일한 이름의 강좌를 신청했습니다.')
+                }
+                else {
+                    alert('헤당 강좌를 신청할 수 없습니다. \n시간이 중복되는 강좌가 있습니다.')
+                }
+            },
+            error: function () {
+                alert('ajax 실패');
+            }
+        });
+    }
+</script>
+
+    <title>강의 현황</title>
+</head>
+
+<body>
+<div class="container">
+    <div>
+        <h1 class="my-5">강의 현황</h1>
+        <form th:object="${partClassSearch}" class="form-inline">
+            <div class = "row">
+                <div class="col-md-3">
+                    <select th:field="*{majorName}" class="form-select">
+                        <option value="">학과</option>
+                        <option th:each="major : ${majorForm}"
+                                th:value="${major.name}"
+                                th:text="${major.name}"/>
+                        </option>
+                    </select>
+                </div>
+                <div class ="col-md-1">
+                    <select th:field="*{schoolYear}" class="form-select" >
+                        <option value="">학년</option>
+                        <option th:value=1 th:text = 1></option>
+                        <option th:value=2 th:text = 2></option>
+                        <option th:value=3 th:text = 3></option>
+                        <option th:value=4 th:text = 4></option>
+                    </select>
+                </div>
+                <div class = "col-md-2">
+                    <input type="text" th:field="*{partClassName}" class="form-control" id="exampleFormControlInput4" placeholder="ex) 과목명" >
+                </div>
+                <div class = "col">
+                    <button type="submit" class="btn btn-primary mb-2">검색</button>
+                </div>
+            </div>
+        </form>
+
+        <!--    <form th:action="@{/pocketPartClasses/new}" th:object="${pocketClassDto}" th:method="post">-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">주관학과</th>
+                <th scope="col">대상학년</th>
+                <th scope="col">학수번호</th>
+                <th scope="col">과목명</th>
+                <th scope="col">학점</th>
+                <th scope="col">정원</th>
+                <th scope="col">잔여인원</th>
+                <th scope="col">교수명</th>
+                <th scope="col">수업시간</th>
+                <th scope="col">강의실</th>
+                <th scope="col">선택</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--          <th:block th:object="${pageNumber}"></th:block>-->
+            <tr th:each="partClass, iterState : ${partClassForm}">
+                <input type="hidden" th:name="${registerDto.partClassId}" th:id="${partClass.id}"  th:value="${partClass.id}" />
+                <td th:text="${iterState.count + (pageNumber)*10}"></td>
+                <td th:text="${partClass.majorName}"></td>
+                <td th:text="${partClass.grade}"></td>
+                <td th:text="${partClass.classNum}"></td>
+                <td th:text="${partClass.name}"></td>
+                <td th:text="${partClass.credit}"></td>
+                <td th:text="${partClass.capacity}"></td>
+                <td th:text="${partClass.remainNum}"></td>
+                <td th:text="${partClass.professorName}"></td>
+                <td th:text="${partClass.dayTime}"></td>
+                <td th:text="${partClass.classroom}"></td>
+                <td>
+                    <button type="button" class="btn btn-dark"
+                            th:onclick="registerPartClass([[${partClass.id}]],[[${registerDto.studentId}]])">신청하기
+                    </button>
+                    <!--              <button type="submit"th:id="${partClass.id}" class="btn btn-dark">담아두기</button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--    </form>-->
+
+        <div id = "box1">
+            <nav style="text-align: center;" aria-label="Page navigation example">
+                <ul class="pagination"
+                    th:with="start=${T(java.lang.Math).floor(partClassForm.number/10)*10 + 1},
+                            last=(${start + 9 < partClassForm.totalPages ? start + 9 : partClassForm.totalPages})">
+                    <li class="page-item">
+                        <a th:href="@{/register/search(page=1, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="First">
+                            <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:class="${partClassForm.first} ? 'disabled'">
+                        <a th:href="${partClassForm.first} ? '#' :@{/register/search(page=${partClassForm.number}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
+                        <a class="page-link"  th:if="${page != 0}" th:text="${page}" th:href="@{/register/search(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
+                    </li>
+
+                    <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/register/search(page=${partClassForm.number + 2}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                    </li>
+
+
+                    <li class="page-item">
+                        <a class="page-link" href="#" th:href="@{/register/search(page=${partClassForm.totalPages}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Last">
+                            <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <a href="#" th:href="@{/home}" id ="box2"
+           class="btn btn-primary" role="button">뒤로</a>
+
+    </div>
+</div>
+
+
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
+</body>
+</html>

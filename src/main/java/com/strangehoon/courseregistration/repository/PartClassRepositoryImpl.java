@@ -20,6 +20,7 @@ import static com.querydsl.core.QueryModifiers.offset;
 import static com.strangehoon.courseregistration.domain.QMajor.major;
 import static com.strangehoon.courseregistration.domain.QPartClass.partClass;
 import static com.strangehoon.courseregistration.domain.QPocket.pocket;
+import static com.strangehoon.courseregistration.domain.QRegister.register;
 import static com.strangehoon.courseregistration.domain.QStudent.student;
 
 public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
@@ -72,6 +73,53 @@ public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
                         student.id.eq(studentId),
                         pocket.partClass.id.eq(partClass.id),
                         pocket.student.id.eq(studentId),
+                        partClass.major.id.eq(major.id)
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Page<PartClassDto> findRegisterAll(Long studentId, Pageable pageable) {
+
+        List<PartClassDto> content = queryFactory
+                .select(new QPartClassDto(
+                        partClass.id,
+                        partClass.classNum,
+                        partClass.name,
+                        partClass.grade,
+                        partClass.credit,
+                        partClass.capacity,
+                        partClass.remainNum,
+                        partClass.professorName,
+                        partClass.dayTime,
+                        partClass.classroom,
+                        major.name))
+                .from(partClass, register)
+                .leftJoin(partClass.major, major)
+                .leftJoin(register.partClass, partClass)
+                .leftJoin(register.student, student)
+                .where(
+                        student.id.eq(studentId),
+                        register.partClass.id.eq(partClass.id),
+                        register.student.id.eq(studentId),
+                        partClass.major.id.eq(major.id)
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .distinct()
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(partClass.count())
+                .from(partClass, register)
+                .leftJoin(partClass.major, major)
+                .leftJoin(register.partClass, partClass)
+                .leftJoin(register.student, student)
+                .where(
+                        student.id.eq(studentId),
+                        register.partClass.id.eq(partClass.id),
+                        register.student.id.eq(studentId),
                         partClass.major.id.eq(major.id)
                 );
 
