@@ -109,11 +109,11 @@ public class CourseRegistrationApplication {
 		partClassService.createPartClass(new PartClassDto("101613-3", "기초데이터베이스", 3, 4, 50, 50, "윤영", "화1화2금1금2", "T501", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101613-4", "기초데이터베이스", 3, 4, 50, 50, "윤영", "화6화7목6목7", "T501", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101613-5", "기초데이터베이스", 3, 4, 50, 50, "윤영", "수3수4금3금4", "T501", "컴퓨터공학부"));
-		partClassService.createPartClass(new PartClassDto("101606-1", "오토마타", 3, 4, 40, 40, "권건우", "수1수2금1", "T505", "컴퓨터공학부"));
-		partClassService.createPartClass(new PartClassDto("101606-2", "오토마타", 3, 4, 40, 40, "권건우", "월6월7화1", "T505", "컴퓨터공학부"));
-		partClassService.createPartClass(new PartClassDto("101606-3", "오토마타", 3, 4, 40, 40, "권건우", "월3월4화3", "T505", "컴퓨터공학부"));
-		partClassService.createPartClass(new PartClassDto("101606-4", "오토마타", 3, 4, 40, 40, "김상곤", "수3목3금3", "T506", "컴퓨터공학부"));
-		partClassService.createPartClass(new PartClassDto("101606-5", "오토마타", 3, 4, 40, 40, "김상곤", "수1목1금1", "T506", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-1", "오토마타", 3, 3, 40, 40, "권건우", "수1수2금1", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-2", "오토마타", 3, 3, 40, 40, "권건우", "월6월7화1", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-3", "오토마타", 3, 3, 40, 40, "권건우", "월3월4화3", "T505", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-4", "오토마타", 3, 3, 40, 40, "김상곤", "수3목3금3", "T506", "컴퓨터공학부"));
+		partClassService.createPartClass(new PartClassDto("101606-5", "오토마타", 3, 3, 40, 40, "김상곤", "수1목1금1", "T506", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101812-1", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "하란", "월1월2월3", "T301", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101812-2", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "김선일", "월1월2월3", "T302", "컴퓨터공학부"));
 		partClassService.createPartClass(new PartClassDto("101812-3", "창직종합설계프로젝트(2)", 4, 3, 12, 12, "배성일", "화1화2화3", "T303", "컴퓨터공학부"));
