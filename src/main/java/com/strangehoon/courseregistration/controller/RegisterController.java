@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
@@ -28,22 +29,15 @@ public class RegisterController {
     private final RegisterService registerService;
 
     //수강신청 등록
-    @PostMapping(value = "/register/new")
-    public String register(@RequestParam Long studentId, Model model) {
-
+    @PostMapping(value = "/register/new") @ResponseBody
+    public Boolean register(@RequestParam Long studentId, Model model) {
 
         // 수강신청 시 기존에 신청했던 내영은 먼저 삭제를 해야함, 안그러면 중복 이슈 발생
         registerService.deleteAll(studentId);
+        
+        Boolean flag = registerService.registerPocket(studentId);
 
-        if(registerService.registerPocket(studentId)) {
-            model.addAttribute("message", "수강신청을 완료했습니다.");
-        }
-
-        else
-            model.addAttribute("message", "담아둔 과목이 없습니다.");
-
-        model.addAttribute("searchUrl", "/pocketList");
-        return "message";
+        return flag;
     }
 
     // 수강신청 시간표 조회

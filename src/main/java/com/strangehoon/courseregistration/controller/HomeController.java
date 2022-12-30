@@ -30,11 +30,12 @@ public class HomeController {
 
         //세션에 회원 데이터가 없으면 home
         if (loginStudent == null) {
-            return "real";
+            return "/";
         }
 
         //세션이 유지되면 로그인으로 이동
         model.addAttribute("student", loginStudent);
+
         return "home";
     }
 
