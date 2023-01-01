@@ -13,14 +13,14 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //로그인한 학생들만 접근 가능
         registry.addInterceptor(new LoginCheckInterceptor())
-                .addPathPatterns("/partClasses/**","/pocketList")
+                .addPathPatterns("/home", "/partClasses/**","/pocketList", "/board/list", "/register/**")
                 .excludePathPatterns(
                         "/", "/css/**", "/*.ico", "/error"
                 );
 
         //로그인한 관리자만 접근 가능
         registry.addInterceptor(new LoginManagerCheckInterceptor())
-                .addPathPatterns("/managerPartClasses/**")
+                .addPathPatterns("managerBoard/**", "/managerPartClasses/**")
                 .excludePathPatterns(
                         "/", "/css/**", "/*.ico", "/error"
                 );
