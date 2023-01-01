@@ -1,5 +1,6 @@
 package com.strangehoon.courseregistration.domain;
 
+import com.strangehoon.courseregistration.exception.NotEnoughStockException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -104,5 +105,17 @@ public class PartClass {
 
     public void updateId() {
         this.id -=1;
+    }
+
+    //==비즈니스 로직==//
+    public void addRemainNum() {
+        this.remainNum += 1;
+    }
+
+    public void decreaseRemainNum() {
+        this.remainNum -= 1;
+        if (remainNum < 0) {
+            throw new NotEnoughStockException("해당강좌의 수강신청이 마감되었습니다.");
+        }
     }
 }

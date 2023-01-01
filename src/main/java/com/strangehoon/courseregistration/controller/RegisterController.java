@@ -38,7 +38,7 @@ public class RegisterController {
     @PostMapping(value = "/register/new") @ResponseBody
     public Boolean register(@RequestParam Long studentId, Model model) {
 
-        // 수강신청 시 기존에 신청했던 내영은 먼저 삭제를 해야함, 안그러면 중복 이슈 발생
+        // 수강신청 시 기존에 신청했던 내용은 먼저 삭제를 해야함, 안그러면 중복 이슈 발생
         registerService.deleteAll(studentId);
 
         Boolean flag = registerService.registerPocket(studentId);

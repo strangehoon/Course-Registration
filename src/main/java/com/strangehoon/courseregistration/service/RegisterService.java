@@ -49,7 +49,12 @@ public class RegisterService {
         // 담아두기에 강좌가 한개라도 있으면 true 반환
         for(int i = 0; i < count; i ++){
             Register register = Register.createRegister(partClassList.get(i), student);
+            System.out.println("RegisterService.registerPocket" + partClassList.size());
             registerRepository.save(register);
+        }
+
+        for(PartClass partClass : partClassList) {
+            partClass.decreaseRemainNum();
         }
         return true;
     }
@@ -59,6 +64,15 @@ public class RegisterService {
 
         Student student = studentRepository.findById(studentId).get();
         List<Register> registerList = registerRepository.findByStudent(student);
+        System.out.println("RegisterService.deleteAll" + registerList.size());
+        List<PartClass> partClassDtoList = registerRepository.findByRegister(studentId);
+        System.out.println("RegisterService.deleteAll" + partClassDtoList.size());
+        if (partClassDtoList.size() != 0) {
+            for(PartClass partClass: partClassDtoList) {
+                partClass.addRemainNum();
+            }
+        }
+
         registerRepository.deleteAll(registerList);
     }
 
@@ -66,6 +80,7 @@ public class RegisterService {
     @Transactional
     public void deleteRegister(Long partClassId) {
         PartClass foundPartClass = partClassRepository.findById(partClassId).get();
+        foundPartClass.addRemainNum();
         Register foundRegister = registerRepository.findByPartClass(foundPartClass).get();
         registerRepository.delete(foundRegister);
     }
@@ -99,6 +114,7 @@ public class RegisterService {
 
         Register register = Register.createRegister(partClass, student);
         Register savedRegister = registerRepository.save(register);
+        partClass.decreaseRemainNum();
     }
 
     public Map<String, String> makeTimeTable(List<RegisterDto> registerDtos) {
