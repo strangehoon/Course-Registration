@@ -4,7 +4,9 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.strangehoon.courseregistration.dto.ManagerRegisterDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
+import com.strangehoon.courseregistration.dto.QManagerRegisterDto;
 import com.strangehoon.courseregistration.dto.QPartClassDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -158,6 +160,52 @@ public class PartClassRepositoryImpl implements PartClassRepositoryCustom {
                 .where(partClassNameEq(partClassSearch.getPartClassName()),
                         partClassGradeEq(partClassSearch.getSchoolYear()),
                         majorNameEq(partClassSearch.getMajorName())
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+    //------------------------------------------------관리자 영역-----------------------------------------------
+    @Override
+    public Page<ManagerRegisterDto> findManagerRegisterAll(Pageable pageable) {
+
+        List<ManagerRegisterDto> content = queryFactory
+                .select(new QManagerRegisterDto(
+                        partClass.id,
+                        partClass.classNum,
+                        partClass.name,
+                        partClass.grade,
+                        partClass.credit,
+                        partClass.capacity,
+                        partClass.professorName,
+                        partClass.dayTime,
+                        partClass.classroom,
+                        student.loginId,
+                        register.registerDate,
+                        major.name))
+                .from(partClass, register)
+                .leftJoin(partClass.major, major)
+                .leftJoin(register.partClass, partClass)
+                .leftJoin(register.student, student)
+                .where(
+                        register.partClass.id.eq(partClass.id),
+                        register.student.id.eq(student.id),
+                        partClass.major.id.eq(major.id)
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .distinct()
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(partClass.count())
+                .from(partClass, register)
+                .leftJoin(partClass.major, major)
+                .leftJoin(register.partClass, partClass)
+                .leftJoin(register.student, student)
+                .where(
+                        register.partClass.id.eq(partClass.id),
+                        register.student.id.eq(student.id),
+                        partClass.major.id.eq(major.id)
                 );
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);

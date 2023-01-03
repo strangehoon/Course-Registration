@@ -1,5 +1,6 @@
 package com.strangehoon.courseregistration.repository;
 
+import com.strangehoon.courseregistration.dto.ManagerRegisterDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,4 +14,6 @@ public interface PartClassRepositoryCustom {
     Page<PartClassDto> findPocketAll(Long studentId, Pageable pageable);
 
     Page<PartClassDto> findRegisterAll(Long studentId, Pageable pageable);
+
+    Page<ManagerRegisterDto> findManagerRegisterAll(Pageable pageable);
 }

@@ -5,6 +5,7 @@ import com.strangehoon.courseregistration.domain.PartClass;
 import com.strangehoon.courseregistration.domain.Pocket;
 import com.strangehoon.courseregistration.domain.Register;
 import com.strangehoon.courseregistration.domain.Student;
+import com.strangehoon.courseregistration.dto.ManagerRegisterDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.dto.PocketClassDto;
 import com.strangehoon.courseregistration.dto.RegisterDto;
@@ -148,7 +149,17 @@ public class RegisterService {
         return timeTable;
     }
 
-    // 메서드
+    //------------------------------------------------관리자 영역-----------------------------------------------
+
+    public Page<ManagerRegisterDto> registerListByManager(Pageable pageable) {
+        int initpage = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); //스프링 데이터 jpa에서는 페이지가 0부터 시작 따라서 이행을 넣음
+        pageable = PageRequest.of(initpage, 10, Sort.by(Sort.Direction.ASC,"id")); // <- Sort 추가
+
+        Page<ManagerRegisterDto> page = partClassRepository.findManagerRegisterAll(pageable);
+        return page;
+    }
+
+    //------------------------------------------------메서드-----------------------------------------------
     private long check(RegisterDto registerDto) {
         PartClass foundPartClass = partClassRepository.findById(registerDto.getPartClassId()).get();
         Student student = studentRepository.findById(registerDto.getStudentId()).get();

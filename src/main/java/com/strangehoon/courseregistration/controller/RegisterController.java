@@ -4,6 +4,7 @@ package com.strangehoon.courseregistration.controller;
 import com.strangehoon.courseregistration.controller.login.SessionConst;
 import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.Student;
+import com.strangehoon.courseregistration.dto.ManagerRegisterDto;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.dto.PocketClassDto;
 import com.strangehoon.courseregistration.dto.RegisterDto;
@@ -121,4 +122,17 @@ public class RegisterController {
         }
     }
 
+    //------------------------------------------------관리자 영역-----------------------------------------------
+
+    //수강신청 내역 조회
+    @GetMapping(value = "/managerPartClasses/register/list")
+    public String ListByUsedByManager(@PageableDefault Pageable pageable, Model model, HttpServletRequest request) {
+
+        Page<ManagerRegisterDto> registerList = registerService.registerListByManager(pageable);
+        System.out.println("RegisterController.ListByUsedByManager" + registerList.getTotalElements());
+
+        model.addAttribute("registerList", registerList);
+        model.addAttribute("pageNumber", registerList.getNumber());
+        return "register/manager/registerList";
+    }
 }
