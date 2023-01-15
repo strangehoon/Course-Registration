@@ -20,7 +20,7 @@
 <body>
 <div class="container mt-3 text-start" align="center">
     <h1>강좌 등록</h1>
-    <form th:action="@{/managerPartClasses/new}" th:object="${partClassSaveForm}" method="post">
+    <form th:action="@{/managerPartClass/new}" th:object="${partClassSaveForm}" method="post">
         <div class="w-50 mt-2 text-start" >
             <label th:for="exampleFormControlInput1" class="form-label">주관학과</label>
             <select name="majorName" id="major" required th:errorclass="field-error" class = "form-select form-select">
@@ -87,7 +87,7 @@
         </div>
 
         <div class="w-50 mt-3 text-start" >
-            <a href="#" th:href="@{/managerPartClasses}"
+            <a href="#" th:href="@{/managerPartClass/list}"
                class="btn btn-primary" role="button">뒤로</a>
             <button type="submit" class="btn btn-primary">등록</button>
         </div>

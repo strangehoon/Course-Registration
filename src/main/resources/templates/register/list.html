@@ -65,7 +65,7 @@
                     <td th:text="${register.dayTime}"></td>
                     <td th:text="${register.classroom}"></td>
                     <td>
-                        <a href="#" th:href="@{/registerList/{partClassId}/delete (partClassId=${register.id})}"
+                        <a href="#" th:href="@{/register/list/{partClassId}/delete (partClassId=${register.id})}"
                            class="btn btn-primary" role="button">철회</a>
                     </td>
 
@@ -80,12 +80,12 @@
                         th:with="start=${T(java.lang.Math).floor(registerList.number/10)*10 + 1},
                                 last=(${start + 9 < registerList.totalPages ? start + 9 : registerList.totalPages})">
                         <li class="page-item">
-                            <a th:href="@{/registerList(page=1)}" class="page-link" href="#" aria-label="First">
+                            <a th:href="@{/register/list(page=1)}" class="page-link" href="#" aria-label="First">
                                 <span aria-hidden="true">First</span>
                             </a>
                         </li>
                         <li class="page-item" th:class="${registerList.first} ? 'disabled'">
-                            <a th:href="${registerList.first} ? '#' :@{/registerList(page=${registerList.number})}" class="page-link" href="#" aria-label="Previous">
+                            <a th:href="${registerList.first} ? '#' :@{/register/list(page=${registerList.number})}" class="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
@@ -93,17 +93,17 @@
                         <!--            <a class="page-link" href="#">2</a>-->
                         <!--        </li>-->
                         <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == registerList.number + 1} ? 'page-item active'">
-                            <a class="page-link" th:if="${page != 0}" th:text="${page}" th:href="@{/registerList(page=${page})}"></a>
+                            <a class="page-link" th:if="${page != 0}" th:text="${page}" th:href="@{/register/list(page=${page})}"></a>
                         </li>
 
-                        <a class="page-link" href="#" th:href="${registerList.last} ? '#' : @{/registerList(page=${registerList.number + 2})}" aria-label="Next">
+                        <a class="page-link" href="#" th:href="${registerList.last} ? '#' : @{/register/list(page=${registerList.number + 2})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                         </li>
 
 
                         <li class="page-item">
-                            <a class="page-link" href="#" th:href="@{/registerList(page=${registerList.totalPages})}" aria-label="Last">
+                            <a class="page-link" href="#" th:href="@{/register/list(page=${registerList.totalPages})}" aria-label="Last">
                                 <span aria-hidden="true">Last</span>
                             </a>
                         </li>

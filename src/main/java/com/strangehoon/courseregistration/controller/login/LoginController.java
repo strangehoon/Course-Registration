@@ -36,17 +36,13 @@ public class LoginController {
 
         Object object = loginService.login(form.getLoginId(), form.getPassword());
         if(object instanceof Manager) {
-            log.info("bbbbbbbbbbbb");
             HttpSession session = request.getSession();
             session.setAttribute(SessionConst.LOGIN_MANAGER, object);
-
             return "redirect:/managerHome";
         }
         else if (object instanceof  Student) {
-            log.info("yyyyyyyyyyyyyyyyyyyyy");
             HttpSession session = request.getSession();
             session.setAttribute(SessionConst.LOGIN_STUDENT, object);
-
             return "redirect:/home";
         }
         else {
@@ -58,6 +54,7 @@ public class LoginController {
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
+
         //세션 삭제
         HttpSession session = request.getSession(false);
         if(session != null) {
@@ -71,5 +68,4 @@ public class LoginController {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
-
 }

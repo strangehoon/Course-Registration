@@ -21,7 +21,6 @@ public class Board extends BaseEntityByBoard {
 
     private String content;
 
-    //BoardDto를 Board로 변환
     public Board(BoardDto boardDto){
         this.id = boardDto.getId();
         this.author=boardDto.getAuthor();

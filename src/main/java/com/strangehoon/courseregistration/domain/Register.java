@@ -33,6 +33,7 @@ public class Register extends BaseEntityByRegister{
         this.student = student;
         student.getRegisters().add(this);
     }
+
     public void putPartClass(PartClass partClass) {
         if(this.partClass != null) {
             this.partClass.getRegisters().remove(this);

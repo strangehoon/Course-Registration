@@ -30,7 +30,6 @@ public class Major {
         Major major = Major.builder()
                 .name(name)
                 .build();
-
         return major;
     }
 

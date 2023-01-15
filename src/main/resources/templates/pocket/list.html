@@ -57,7 +57,6 @@
                 <!--          <th:block th:object="${pageNumber}"></th:block>-->
                 <tr th:each="pocket, iterState : ${pocketList}">
                     <input type="hidden"  th:id="${pocket.id}"  th:value="${pocket.id}" />
-<!--                    <input type="hidden"  th:id="${studentId}" th:name="studentId" th:value="${studentId}" />-->
                     <td th:text="${iterState.count}"></td>
                     <td th:text="${pocket.majorName}"></td>
                     <td th:text="${pocket.grade}"></td>
@@ -70,7 +69,7 @@
                     <td th:text="${pocket.dayTime}"></td>
                     <td th:text="${pocket.classroom}"></td>
                     <td>
-                        <a href="#" th:href="@{/pocketList/{partClassId}/delete (partClassId=${pocket.id})}"
+                        <a href="#" th:href="@{/pocket/list/{partClassId}/delete (partClassId=${pocket.id})}"
                            class="btn btn-primary" role="button">삭제</a>
                     </td>
 
@@ -85,30 +84,27 @@
                         th:with="start=${T(java.lang.Math).floor(pocketList.number/10)*10 + 1},
                                 last=(${start + 9 < pocketList.totalPages ? start + 9 : pocketList.totalPages})">
                         <li class="page-item">
-                            <a th:href="@{/pocketList(page=1)}" class="page-link" href="#" aria-label="First">
+                            <a th:href="@{/pocket/list(page=1)}" class="page-link" href="#" aria-label="First">
                                 <span aria-hidden="true">First</span>
                             </a>
                         </li>
                         <li class="page-item" th:class="${pocketList.first} ? 'disabled'">
-                            <a th:href="${pocketList.first} ? '#' :@{/pocketList(page=${pocketList.number})}" class="page-link" href="#" aria-label="Previous">
+                            <a th:href="${pocketList.first} ? '#' :@{/pocket/list(page=${pocketList.number})}" class="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
-                        <!--        <li class="page-item active" aria-current="page">-->
-                        <!--            <a class="page-link" href="#">2</a>-->
-                        <!--        </li>-->
                         <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pocketList.number + 1} ? 'page-item active'">
-                            <a class="page-link" th:if="${page != 0}" th:text="${page}" th:href="@{/pocketList(page=${page})}"></a>
+                            <a class="page-link" th:if="${page != 0}" th:text="${page}" th:href="@{/pocket/list(page=${page})}"></a>
                         </li>
 
-                        <a class="page-link" href="#" th:href="${pocketList.last} ? '#' : @{/pocketList(page=${pocketList.number + 2})}" aria-label="Next">
+                        <a class="page-link" href="#" th:href="${pocketList.last} ? '#' : @{/pocket/list(page=${pocketList.number + 2})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                         </li>
 
 
                         <li class="page-item">
-                            <a class="page-link" href="#" th:href="@{/pocketList(page=${pocketList.totalPages})}" aria-label="Last">
+                            <a class="page-link" href="#" th:href="@{/pocket/list(page=${pocketList.totalPages})}" aria-label="Last">
                                 <span aria-hidden="true">Last</span>
                             </a>
                         </li>

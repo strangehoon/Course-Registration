@@ -1,15 +1,14 @@
-package com.strangehoon.courseregistration.controller;
+package com.strangehoon.courseregistration.controller.Form;
 
 
 import com.strangehoon.courseregistration.dto.PartClassDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Getter @Setter
 public class PartClassForm {
+
     private Long id;
     private String name;
     private String classNum;
@@ -20,13 +19,13 @@ public class PartClassForm {
     private int grade;
     private String dayTime;
     private String classroom;
-
     private String majorName;
 
     public PartClassForm() {
     }
 
     public PartClassForm(String classNum, String name, int grade, int credit, int capacity, int remainNum, String professorName, String dayTime, String classroom, String majorName) {
+
         this.classNum = classNum;
         this.capacity = capacity;
         this.remainNum = remainNum;
@@ -40,6 +39,7 @@ public class PartClassForm {
     }
 
     public PartClassForm(PartClassDto partClassDto) {
+
         this.classNum = partClassDto.getClassNum();
         this.capacity = partClassDto.getCapacity();
         this.remainNum = partClassDto.getRemainNum();

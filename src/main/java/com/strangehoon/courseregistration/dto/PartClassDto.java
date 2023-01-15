@@ -1,15 +1,11 @@
 package com.strangehoon.courseregistration.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.strangehoon.courseregistration.controller.PartClassForm;
-import com.strangehoon.courseregistration.controller.validation.PartClassSaveForm;
-import com.strangehoon.courseregistration.controller.validation.PartClassUpdateForm;
-import lombok.AccessLevel;
+import com.strangehoon.courseregistration.controller.Form.PartClassForm;
+import com.strangehoon.courseregistration.controller.Form.PartClassSaveForm;
+import com.strangehoon.courseregistration.controller.Form.PartClassUpdateForm;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter @Setter
 public class PartClassDto {

@@ -1,6 +1,8 @@
 package com.strangehoon.courseregistration.controller;
 
 
+import com.strangehoon.courseregistration.controller.Form.MajorForm;
+import com.strangehoon.courseregistration.controller.Form.RegisterForm;
 import com.strangehoon.courseregistration.controller.login.SessionConst;
 import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.Student;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,54 +38,71 @@ public class RegisterController {
     private final PartClassService partClassService;
     private final MajorService majorService;
 
+    //------------------------------------------------관리자 영역-----------------------------------------------
+
+    //수강신청 내역 조회
+    @GetMapping("/managerPartClass/register/list")
+    public String ListByManager(@PageableDefault Pageable pageable, Model model) {
+
+        // 단순 조회 + 페이징 처리라 편의상 Dto를 뷰에 전달
+        Page<ManagerRegisterDto> registerList = registerService.registerListByManager(pageable);
+
+        model.addAttribute("registerList", registerList);
+        model.addAttribute("pageNumber", registerList.getNumber());
+        return "register/manager/list";
+    }
+
+    //------------------------------------------------학생 영역-----------------------------------------------
+
     //수강신청 등록
-    @PostMapping(value = "/register/new") @ResponseBody
-    public Boolean register(@RequestParam Long studentId, Model model) {
+    @PostMapping("/register/new") @ResponseBody
+    public Boolean post(@RequestParam Long studentId, Model model) {
 
         // 수강신청 시 기존에 신청했던 내용은 먼저 삭제를 해야함, 안그러면 중복 이슈 발생
         registerService.deleteAll(studentId);
 
         Boolean flag = registerService.registerPocket(studentId);
+        System.out.println("flag" + flag);
 
         return flag;
     }
 
     // 수강신청 시간표 조회
-    @GetMapping(value = "/register/table")
-    public String list(HttpServletRequest request, Model model) {
+    @GetMapping("/register/table")
+    public String timeTable(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession();
         Object login = session.getAttribute(SessionConst.LOGIN_STUDENT);
         Student student = (Student)login;
 
         List<RegisterDto> registerDto = registerService.findRegisterDto(student.getId());
-
         Map<String, String> timeTable =   registerService.makeTimeTable(registerDto);
-
 
         model.addAttribute("timeTable", timeTable);
         return "register/timeTable";
     }
 
     //수강신청 내역 조회
-    @GetMapping(value = "/register/list")
-    public String ListByUsedStudent(@PageableDefault Pageable pageable, Model model, HttpServletRequest request) {
+    @GetMapping("/register/list")
+    public String ListByStudent(@PageableDefault Pageable pageable, Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         Object login = session.getAttribute(SessionConst.LOGIN_STUDENT);
         Student student = (Student)login;
 
+        // 단순 조회 + 페이징 처리라 편의상 Dto를 뷰에 전달
         Page<PartClassDto> registerList = registerService.registerList(student.getId(), pageable);
 
         model.addAttribute("studentId", student.getId());
         model.addAttribute("registerList", registerList);
         model.addAttribute("pageNumber", registerList.getNumber());
-        return "register/registerList";
+        return "register/list";
     }
 
     //수강신청 내역 철회
-    @GetMapping(value = "/registerList/{partClassId}/delete")
-    public String cancelRegister(@PathVariable("partClassId") Long partClassId, Model model) {
+    @GetMapping("/register/list/{partClassId}/delete")
+    public String cancel(@PathVariable("partClassId") Long partClassId, Model model) {
+
         registerService.deleteRegister(partClassId);
 
         model.addAttribute("message", "수강신청 내역을 삭제했습니다.");
@@ -91,27 +111,37 @@ public class RegisterController {
     }
 
     //분반 조회
-    @GetMapping(value = "/register/search")
-    public String ListByUsedStudent(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, HttpServletRequest request, Model model) {
+    @GetMapping("/register/search")
+    public String ListByStudent(@ModelAttribute("partClassSearch") PartClassSearch partClassSearch, @PageableDefault Pageable pageable, HttpServletRequest request, Model model) {
+
+        // 단순 조회 + 페이징 처리라 편의상 Dto를 뷰에 전달
         Page<PartClassDto> partClassDtoAll = partClassService.partClassSearchList(partClassSearch, pageable);
         List<Major> majors = majorService.findAllMajor();
+
+        //엔티티를 Form으로 변환
+        List<MajorForm> majorForms = new ArrayList<>();
+        for(Major major: majors) {
+            majorForms.add(new MajorForm(major.getId(), major.getName()));
+        }
 
         HttpSession session = request.getSession();
         Object login = session.getAttribute(SessionConst.LOGIN_STUDENT);
         Student student = (Student)login;
 
-        RegisterDto registerDto = new RegisterDto(student.getId());
-        model.addAttribute("registerDto", registerDto);       //뷰에 보내기 전에 학생 ID를 담아서 보내자.
+        RegisterForm registerForm = new RegisterForm(student.getId());
+
+        model.addAttribute("registerForm", registerForm);       //뷰에 보내기 전에 학생 ID를 담아서 보내자.
         model.addAttribute("partClassSearch", partClassSearch);
-        model.addAttribute("majorForm", majors);
+        model.addAttribute("majorForm", majorForms);
         model.addAttribute("pageNumber", partClassDtoAll.getNumber());
         model.addAttribute("partClassForm", partClassDtoAll);
-        return "register/addRegister";
+        return "register/search";
     }
 
     // 강좌별 수강신청 등록
-    @PostMapping(value = "/register/search/add") @ResponseBody
+    @PostMapping("/register/search/new") @ResponseBody
     public Long register(@ModelAttribute RegisterDto registerDto, Model model) {
+
         Long flag = registerService.checkRegisterList(registerDto);
         if (flag == 1) {
             registerService.registerNew(registerDto);
@@ -120,19 +150,5 @@ public class RegisterController {
         else {
             return flag;
         }
-    }
-
-    //------------------------------------------------관리자 영역-----------------------------------------------
-
-    //수강신청 내역 조회
-    @GetMapping(value = "/managerPartClasses/register/list")
-    public String ListByUsedByManager(@PageableDefault Pageable pageable, Model model, HttpServletRequest request) {
-
-        Page<ManagerRegisterDto> registerList = registerService.registerListByManager(pageable);
-        System.out.println("RegisterController.ListByUsedByManager" + registerList.getTotalElements());
-
-        model.addAttribute("registerList", registerList);
-        model.addAttribute("pageNumber", registerList.getNumber());
-        return "register/manager/registerList";
     }
 }

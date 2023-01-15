@@ -1,9 +1,7 @@
 package com.strangehoon.courseregistration.service;
 
-import com.strangehoon.courseregistration.controller.validation.BoardUpdateForm;
 import com.strangehoon.courseregistration.domain.Board;
 import com.strangehoon.courseregistration.dto.BoardDto;
-import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,9 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)

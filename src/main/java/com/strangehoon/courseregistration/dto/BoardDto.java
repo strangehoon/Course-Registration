@@ -1,7 +1,6 @@
 package com.strangehoon.courseregistration.dto;
 
-import com.strangehoon.courseregistration.controller.validation.BoardSaveForm;
-import com.strangehoon.courseregistration.controller.validation.BoardUpdateForm;
+import com.strangehoon.courseregistration.controller.Form.BoardForm;
 import com.strangehoon.courseregistration.domain.Board;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,23 +19,13 @@ public class BoardDto {
     private LocalDateTime modifiedDate;
 
 
-    // saveForm을 Dto로 변환
-    public BoardDto (BoardSaveForm form) {
+    // Form을 Dto로 변환
+    public BoardDto (BoardForm form) {
         this.author= form.getAuthor();
         this.title=form.getTitle();
         this.content=form.getContent();
         this.createdDate=form.getCreatedDate();
         this.modifiedDate=form.getModifiedDate();
-    }
-
-    // updateForm을 Dto로 변환
-    public BoardDto (Long id, BoardUpdateForm form) {
-        this.id = id;
-        this.author = form.getAuthor();
-        this.title = form.getTitle();
-        this.content = form.getContent();
-        this.createdDate = form.getCreatedDate();
-        this.modifiedDate = form.getModifiedDate();
     }
 
     // Board를 BoardDto로 변환

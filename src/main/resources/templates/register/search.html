@@ -30,7 +30,7 @@
         console.log(id + studentId);
         $.ajax({
             type: 'post',
-            url: '/register/search/add',
+            url: '/register/search/new',
             data: {
                 'partClassId': id,
                 'studentId': studentId
@@ -94,7 +94,6 @@
             </div>
         </form>
 
-        <!--    <form th:action="@{/pocketPartClasses/new}" th:object="${pocketClassDto}" th:method="post">-->
         <table class="table">
             <thead>
             <tr>
@@ -113,9 +112,8 @@
             </tr>
             </thead>
             <tbody>
-            <!--          <th:block th:object="${pageNumber}"></th:block>-->
             <tr th:each="partClass, iterState : ${partClassForm}">
-                <input type="hidden" th:name="${registerDto.partClassId}" th:id="${partClass.id}"  th:value="${partClass.id}" />
+                <input type="hidden" th:name="${registerForm.partClassId}" th:id="${partClass.id}"  th:value="${partClass.id}" />
                 <td th:text="${iterState.count + (pageNumber)*10}"></td>
                 <td th:text="${partClass.majorName}"></td>
                 <td th:text="${partClass.grade}"></td>
@@ -129,14 +127,12 @@
                 <td th:text="${partClass.classroom}"></td>
                 <td>
                     <button type="button" class="btn btn-dark"
-                            th:onclick="registerPartClass([[${partClass.id}]],[[${registerDto.studentId}]])">신청하기
+                            th:onclick="registerPartClass([[${partClass.id}]],[[${registerForm.studentId}]])">신청하기
                     </button>
-                    <!--              <button type="submit"th:id="${partClass.id}" class="btn btn-dark">담아두기</button>-->
                 </td>
             </tr>
             </tbody>
         </table>
-        <!--    </form>-->
 
         <div id = "box1">
             <nav style="text-align: center;" aria-label="Page navigation example">

@@ -34,12 +34,13 @@ import java.util.List;
 public class PocketController {
 
     private final PocketService pocketService;
-    private final StudentRepository studentRepository;
-    private final PartClassService partClassService;
+
+    //------------------------------------------------학생 영역-----------------------------------------------
 
     //장바구니 등록
-    @PostMapping(value = "/pocketList/new") @ResponseBody
-    public Long create(@ModelAttribute PocketClassDto pocketClassDto, Model model) {
+    @PostMapping(value = "/pocket/new") @ResponseBody
+    public Long post(@ModelAttribute PocketClassDto pocketClassDto, Model model) {
+
         Long flag = pocketService.checkPocket(pocketClassDto);
         if (flag == 1) {
             pocketService.savePocket(pocketClassDto);
@@ -51,29 +52,30 @@ public class PocketController {
     }
 
     //장바구니 조회
-    @GetMapping(value = "/pocketList")
-    public String ListByUsedStudent(@PageableDefault Pageable pageable, Model model, HttpServletRequest request) {
+    @GetMapping(value = "/pocket/list")
+    public String ListByStudent(@PageableDefault Pageable pageable, Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         Object login = session.getAttribute(SessionConst.LOGIN_STUDENT);
         Student student = (Student)login;
 
+        // 단순 조회 + 페이징 처리라 편의상 Dto를 뷰에 전달
         Page<PartClassDto> pocketList = pocketService.pocketClassList(student.getId(), pageable);
 
         model.addAttribute("studentId", student.getId());
         model.addAttribute("pocketList", pocketList);
         model.addAttribute("pageNumber", pocketList.getNumber());
-        return "pocket/pocketList";
+        return "pocket/list";
     }
 
     //장바구니 내역 삭제
-    @GetMapping(value = "/pocketList/{partClassId}/delete")
-    public String deletePartClass(@PathVariable("partClassId") Long partClassId, Model model) {
+    @GetMapping(value = "/pocket/list/{partClassId}/delete")
+    public String delete(@PathVariable("partClassId") Long partClassId, Model model) {
+
         pocketService.deletePocketClass(partClassId);
 
         model.addAttribute("message", "담아두기 내역을 삭제했습니다.");
-        model.addAttribute("searchUrl", "/pocketList");
+        model.addAttribute("searchUrl", "/pocket/list");
         return "message";
     }
-
 }

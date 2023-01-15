@@ -24,21 +24,13 @@ public class PartClass {
     private Major major;
 
     private String classNum;
-
     private String name;
-
     private int grade;
-
     private int credit;
-
     private int capacity;
-
     private int remainNum;
-
     private String professorName;
-
     private String dayTime;
-
     private String classroom;
 
     @OneToMany(mappedBy = "partClass")
@@ -46,9 +38,6 @@ public class PartClass {
 
     @OneToMany(mappedBy = "partClass")
     private List<Pocket> pockets = new ArrayList<>();
-
-
-
 
     //==연관관계 메서드==//
     public void putMajor(Major major) {
@@ -107,7 +96,6 @@ public class PartClass {
         this.id -=1;
     }
 
-    //==비즈니스 로직==//
     public void addRemainNum() {
         this.remainNum += 1;
     }

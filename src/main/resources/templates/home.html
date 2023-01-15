@@ -25,17 +25,16 @@
               },
               dataType: 'json',
               success: function (flag) {
-                  if (flag) {
-                      alert('수강신청을 완료했습니다.')
-                      location.reload();
+                      if (flag) {
+                          alert('수강신청을 완료했습니다.')
+                      }
+                      else {
+                          alert('담아둔 과목이 없습니다.')
+                      }
+                  },
+                  error: function () {
+                      alert('ajax 실패');
                   }
-                  else {
-                      alert('담아둔 과목이 없습니다.')
-                  }
-              },
-              error: function () {
-                  alert('ajax 실패');
-              }
           });
       }
     </script>
@@ -85,8 +84,8 @@
                             <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" style="background-color: white;"><strong>&#9726; 공지사항</strong></a>
                             <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" style="background-color: white;" href="/board/list">&ensp;  - 공지사항</a>
                             <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" style="background-color: white;" ><strong>&#9726; 담아두기</strong></a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" href="/partClasses">&ensp;  - 개설강좌 검색</a>
-                            <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" href="/pocketList">&ensp;  - 담아두기 내역</a>
+                            <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" href="/partClass/list">&ensp;  - 개설강좌 검색</a>
+                            <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" href="/pocket/list">&ensp;  - 담아두기 내역</a>
                             <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" href="home" style="color:blue;" th:onclick="register([[${student.id}]])"><strong>&#9726; 담은과목 수강신청하기</strong></a>
                             <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" ><strong>&#9726; 수강신청</strong> </a>
                             <a class="list-group-item list-group-item-action list-group-item-light p-2" allign="center" href="/register/list">&ensp;  - 수강신청 현황</a>

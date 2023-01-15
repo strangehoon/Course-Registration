@@ -1,4 +1,4 @@
-package com.strangehoon.courseregistration.controller.validation;
+package com.strangehoon.courseregistration.controller.Form;
 
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import lombok.Data;

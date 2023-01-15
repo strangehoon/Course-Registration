@@ -90,9 +90,9 @@
                 <td th:text="${partClassForm.dayTime}"></td>
                 <td th:text="${partClassForm.classroom}"></td>
                 <td>
-                    <a href="#" th:href="@{/managerPartClasses/{id}/edit (id=${partClassForm.id})}"
+                    <a href="#" th:href="@{/managerPartClass/{id}/edit (id=${partClassForm.id})}"
                        class="btn btn-primary" role="button">수정</a>
-                    <a href="#" th:href="@{/managerPartClasses/{id}/delete (id=${partClassForm.id})}"
+                    <a href="#" th:href="@{/managerPartClass/{id}/delete (id=${partClassForm.id})}"
                        class="btn btn-primary" role="button">삭제</a>
                 </td>
             </tr>
@@ -108,29 +108,26 @@
                 th:with="start=${T(java.lang.Math).floor(partClassForm.number/10)*10 + 1},
                         last=(${start + 9 < partClassForm.totalPages ? start + 9 : partClassForm.totalPages})">
                 <li class="page-item">
-                    <a th:href="@{/managerPartClasses(page=1, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="First">
+                    <a th:href="@{/managerPartClass/list(page=1, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="First">
                         <span aria-hidden="true">First</span>
                     </a>
                 </li>
                 <li class="page-item" th:class="${partClassForm.first} ? 'disabled'">
-                    <a th:href="${partClassForm.first} ? '#' :@{/managerPartClasses(page=${partClassForm.number}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="Previous">
+                    <a th:href="${partClassForm.first} ? '#' :@{/managerPartClass/list(page=${partClassForm.number}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
-                <!--        <li class="page-item active" aria-current="page">-->
-                <!--            <a class="page-link" href="#">2</a>-->
-                <!--        </li>-->
                 <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == partClassForm.number + 1} ? 'page-item active'">
-                    <a class="page-link"  th:if="${page != 0}" th:text="${page}" th:href="@{/managerPartClasses(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
+                    <a class="page-link"  th:if="${page != 0}" th:text="${page}" th:href="@{/managerPartClass/list(page=${page}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}"></a>
                 </li>
-                <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/managerPartClasses(page=${partClassForm.number + 2}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Next">
+                <a class="page-link" href="#" th:href="${partClassForm.last} ? '#' : @{/managerPartClass/list(page=${partClassForm.number + 2}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Next">
                     <span aria-hidden="true">&gt;</span>
                 </a>
                 </li>
 
 
                 <li class="page-item">
-                    <a class="page-link" href="#" th:href="@{/managerPartClasses(page=${partClassForm.totalPages}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Last">
+                    <a class="page-link" href="#" th:href="@{/managerPartClass/list(page=${partClassForm.totalPages}, majorName=${param.majorName}, schoolYear=${param.schoolYear}, partClassName=${param.partClassName})}" aria-label="Last">
                         <span aria-hidden="true">Last</span>
                     </a>
                 </li>
@@ -141,7 +138,7 @@
         <div id="box2">
             <a href="#" th:href="@{/managerHome}"
                class="btn btn-primary" role="button">뒤로</a>
-            <a href="#" th:href="@{/managerPartClasses/new}"
+            <a href="#" th:href="@{/managerPartClass/new}"
                class="btn btn-primary" role="button">등록</a>
         </div>
 

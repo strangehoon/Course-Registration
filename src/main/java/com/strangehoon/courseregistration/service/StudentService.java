@@ -22,9 +22,9 @@ public class StudentService {
     //학생 등록
     @Transactional
     public Long createStudent(StudentDto studentDto) {
+
         Major foundMajor = majorRepository.findByName(studentDto.getMajorName());
-        Student student = Student.createStudent(foundMajor, studentDto.getLoginId(), studentDto.getPassword(), studentDto.getSchoolYear(), studentDto.getName(),
-                                               studentDto.getPhoneNumber());
+        Student student = Student.createStudent(foundMajor, studentDto.getLoginId(), studentDto.getPassword(), studentDto.getSchoolYear(), studentDto.getName());
         Student savedStudent = studentRepository.save(student);
 
         return savedStudent.getId();

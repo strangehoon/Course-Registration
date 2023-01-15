@@ -10,11 +10,7 @@
 <div class="container" align="center">
     <h1 class="my-5">게시판</h1>
     <div class="col-md-5 my-3">
-        <form method="post" th:object="${boardUpdateForm}">
-<!--            <div class="form-group row mt-5 w-75">-->
-<!--                <label class="text-start" >글 번호</label>-->
-<!--                <input type="text" class="form-control" th:field="${id}" readonly>-->
-<!--            </div>-->
+        <form method="post" th:object="${boardForm}">
             <div class="form-group row mt-5 w-75">
                 <label class="text-start">제목</label>
                 <input type="text" class="form-control" th:field="*{title}" size="20"  placeholder="제목을 입력하세요" readonly>
@@ -27,7 +23,7 @@
                 <label class="text-start">내용</label>
                 <textarea class="form-control" th:field="*{content}" placeholder="내용을 입력하세요" rows="10" cols="50" size="500"readonly></textarea>
             </div>
-            <a th:href="@{/board/list(page=${id/11 +1})}" role="button" class="btn btn-secondary my-3">취소</a>
+            <a th:href="@{/board/list(page=${count/11 +1})}" role="button" class="btn btn-secondary my-3">취소</a>
 
         </form>
     </div>

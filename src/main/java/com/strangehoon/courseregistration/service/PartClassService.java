@@ -1,11 +1,8 @@
 package com.strangehoon.courseregistration.service;
 
 
-import com.strangehoon.courseregistration.controller.PartClassForm;
-
 import com.strangehoon.courseregistration.domain.Major;
 import com.strangehoon.courseregistration.domain.PartClass;
-import com.strangehoon.courseregistration.domain.Pocket;
 import com.strangehoon.courseregistration.dto.PartClassDto;
 import com.strangehoon.courseregistration.repository.MajorRepository;
 import com.strangehoon.courseregistration.repository.PartClassRepository;
@@ -18,9 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.Part;
-import java.util.List;
 
 
 @Slf4j

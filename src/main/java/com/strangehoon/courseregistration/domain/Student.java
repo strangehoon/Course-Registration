@@ -35,9 +35,6 @@ public class Student {
 
     private String name;
 
-    private String phoneNumber;
-
-
     //==연관관계 메서드==//
     public void putMajor(Major major) {
         if(this.major != null) {
@@ -48,24 +45,22 @@ public class Student {
     }
 
     //==생성 메서드==//
-    public static Student createStudent(Major major, String loginId, String password, int schoolYear, String name, String phoneNumber) {
+    public static Student createStudent(Major major, String loginId, String password, int schoolYear, String name) {
         Student student = Student.builder()
                 .loginId(loginId)
                 .password(password)
                 .schoolYear(schoolYear)
                 .name(name)
-                .phoneNumber(phoneNumber)
                 .build();
         student.putMajor(major);
         return student;
     }
 
     @Builder
-    private Student(String loginId, String password, int schoolYear, String name, String phoneNumber) {
+    private Student(String loginId, String password, int schoolYear, String name) {
         this.loginId = loginId;
         this.password = password;
         this.schoolYear = schoolYear;
         this.name = name;
-        this.phoneNumber = phoneNumber;
     }
 }
